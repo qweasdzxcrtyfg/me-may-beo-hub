@@ -18,13 +18,13 @@ elseif placeId == 2809202155 then
     print("\n game not support")
 end
 if getgenv().Setting then else
-		getgenv().Setting = {
-			["Join Team"] = "Marine", -- "Pirate","Marine"
+				getgenv().Setting = {
+			["Join Team"] = "Pirate", -- "Pirate","Marine"
 			["Auto Farm Level"] = false,
 			["Auto Farm Cake Boss"] = false,
 		
 			-- Setting etc
-			["Select Weapon"] = "Melee",
+			["Select Weapon"] = "cac",
 			["Auto Rejoin"] = true,
 		
 			-- Old World
@@ -51,7 +51,9 @@ if getgenv().Setting then else
 			["Sword"] = false,
 			["Gun"] = false,
 			["Demon Fruit"] = false,
-		
+		    -- Devil Fruit
+		    ["Auto Store Fruit"] = false,
+		    ["Auto Random Fruit"] = false,
 			-- Use Candy
 			["Auto Buy Exp x2"] = false,
 			["Auto Buy Exp x2[ Exp Expire ]"] = false,
@@ -3915,9 +3917,9 @@ function checkframebring()
     elseif Ms == "Swan Pirate [Lv. 775]" then
         CFrameBring = CFrame.new(935.041199, 72.9947586, 1254.60291, 0.308177531, 2.9382532e-08, 0.951328695, 9.40288203e-08, 1, -6.13458724e-08, -0.951328695, 1.0835781e-07, 0.308177531)
     elseif Ms == "Factory Staff [Lv. 800]" then
-        CFrameBring = PosMon
-    elseif Ms == "Marine Lieutenant [Lv. 875]" then
         CFrameBring = CFrame.new(-1851.3783, 73.0011826, -3304.09302, 0.169271037, 0, -0.985569537, 0, 1, 0, 0.985569537, 0, 0.169271037)
+    elseif Ms == "Marine Lieutenant [Lv. 875]" then
+        CFrameBring = PosMon
     elseif Ms == "Marine Captain [Lv. 900]" then
         CFrameBring = PosMon
     elseif Ms == "Zombie [Lv. 950]" then
@@ -5325,11 +5327,11 @@ end
 		spawn(function()
 			game:GetService("RunService").Heartbeat:Connect(function() CheckQuest() checkframebring()
 				for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-					if farm and StartMagnetAutoFarmLevel and v.Name ~= "Ice Admiral [Lv. 700] [Boss]" and v.Name ~= "Don Swan [Lv. 3000] [Boss]" and v.Name ~= "Saber Expert [Lv. 200] [Boss]" and v.Name ~= "Longma [Lv. 2000] [Boss]" and (v.HumanoidRootPart.Position-CFrameBring.Position).magnitude <= 350 then
+					if farm and StartMagnetAutoFarmLevel and (v.HumanoidRootPart.Position - CFrameBring.Position).magnitude <= 400 then
 						if syn then
 							if isnetworkowner(v.HumanoidRootPart) then
 							    PosMon = CFrameBring
-								v.HumanoidRootPart.CFrame = CFrameBring
+							    v.HumanoidRootPart.CFrame = CFrameBring
 								v.Humanoid.JumpPower = 0
 								v.Humanoid.WalkSpeed = 0
 								v.HumanoidRootPart.CanCollide = false
@@ -12136,10 +12138,10 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 		}
 		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 	end)
-	ShopTab:Button("Buy Random Devil Fruit",function()
+	ShopTab:Button("Buy Random Devil Fruit", function()
 		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Cousin","Buy")
 	end)
-	ShopTab:Toggle("Auto Random Devil Fruit",false,function(v)
+	ShopTab:Toggle("Auto Random Devil Fruit",getgenv().Setting["Auto Random Fruit"],function(v)
 		DevilAutoBuy = v
 	end)
 	spawn(function()
@@ -12445,7 +12447,7 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 	local function RemoveSpaces(str)
 		return str:gsub(" Fruit", "")
 	end
-	Devil_Fruit_Sniper_Tab:Toggle("Auto Store Fruits",false,function(a)
+	Devil_Fruit_Sniper_Tab:Toggle("Auto Store Fruits",getgenv().Setting["Auto Store Fruit"],function(a)
 		AutoStoreFruits = a
 		if AutoStoreFruits then
 			for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
