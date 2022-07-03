@@ -4424,7 +4424,9 @@ function AttackNoCD()
     end
 end
 		AttackNoCD()
-		wait(0.06)
+		local cacnew = fastcac / 100
+		print(cacnew)
+		wait(cacnew)
 	    elseif not fastattack then
 	               	game:GetService'VirtualUser':CaptureController()
 					game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
@@ -4485,7 +4487,7 @@ function AttackNoCD()
                 game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetCurrentBlade()))
                 game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
                 game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
-                wait(0.09999)
+                wait(0.05)
             end
         end
     end
@@ -4627,7 +4629,7 @@ end
 							    local string_1 = "SetSpawnPoint";
 								local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
 								Target:InvokeServer(string_1);
-							elseif (CFrameQuest.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 100 then
+							elseif (CFrameQuest.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
 								if Questtween then Questtween:Stop() end
 								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameQuest
 								wait(.9)
@@ -4655,7 +4657,7 @@ end
 													if game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
 													    StartMagnetAutoFarmLevel = true
 														Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
-														if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 200 then
+														if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
 														    if StartMagnetAutoFarmLevel == false then
 														    StartMagnetAutoFarmLevel = true
 														    end
@@ -5323,7 +5325,7 @@ end
 		spawn(function()
 			game:GetService("RunService").Heartbeat:Connect(function() CheckQuest() checkframebring()
 				for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-					if farm and StartMagnetAutoFarmLevel and v.Name ~= "Ice Admiral [Lv. 700] [Boss]" and v.Name ~= "Don Swan [Lv. 3000] [Boss]" and v.Name ~= "Saber Expert [Lv. 200] [Boss]" and v.Name ~= "Longma [Lv. 2000] [Boss]" and (v.HumanoidRootPart.Position-CFrameBring.Position).magnitude <= 380 then
+					if farm and StartMagnetAutoFarmLevel and v.Name ~= "Ice Admiral [Lv. 700] [Boss]" and v.Name ~= "Don Swan [Lv. 3000] [Boss]" and v.Name ~= "Saber Expert [Lv. 200] [Boss]" and v.Name ~= "Longma [Lv. 2000] [Boss]" and (v.HumanoidRootPart.Position-CFrameBring.Position).magnitude <= 350 then
 						if syn then
 							if isnetworkowner(v.HumanoidRootPart) then
 							    PosMon = CFrameBring
@@ -12553,6 +12555,10 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 	
 	----------------------------------------------------------------------------------------------------------------------------
 	local SettingTab = Main:Tab("Setting")
+    fastcac = 3
+	SettingTab:Slider("Set Time Fast Attack",1,10,fastcac,nil,function(cac)
+	    fastcac = cac
+	end)
 	SettingTab:Button("Rejoin",function()
 		local ts = game:GetService("TeleportService")
 		local p = game:GetService("Players").LocalPlayer
