@@ -24,7 +24,7 @@ if getgenv().Setting then else
 			["Auto Farm Cake Boss"] = false,
 		
 			-- Setting etc
-			["Select Weapon"] = "Black Leg",
+			["Select Weapon"] = "Melee",
 			["Auto Rejoin"] = true,
 		
 			-- Old World
@@ -4426,7 +4426,7 @@ end
 		AttackNoCD()
 		local cacnew = fastcac / 100
 		print(cacnew)
-		fastWait(cacnew)
+		wait(cacnew)
 	    elseif not fastattack then
 	               	game:GetService'VirtualUser':CaptureController()
 					game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
@@ -12555,8 +12555,9 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 	
 	----------------------------------------------------------------------------------------------------------------------------
 	local SettingTab = Main:Tab("Setting")
+	SettingTab:Label("Farm Maf bij kick cho nao thi nang time fast attack len")
     fastcac = 3
-	SettingTab:Slider("Set Time Fast Attack",0.1,10,fastcac,nil,function(cac)
+	SettingTab:Slider("Set Time Fast Attack",0.1,1000,fastcac,nil,function(cac)
 	    fastcac = cac
 	end)
 	SettingTab:Button("Rejoin",function()
@@ -12681,7 +12682,6 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 							wait()
 							game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
 						end)
-						wait(1)
 					end
 				end
 			end
@@ -12704,7 +12704,7 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 		local request = request or http_request or (syn and syn.request)
 		if not request then return end
 		local start = 6463
-		local invCode = 'QgQdx7uCUT'
+		local invCode = '2SuaD62s'
 		for i = start-10, start+1 do
 			spawn(function()
 				pcall(function()
