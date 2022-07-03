@@ -17,6 +17,49 @@ elseif placeId == 2809202155 then
     YBA = true
     print("\n game not support")
 end
+if getgenv().Setting then else
+		getgenv().Setting = {
+			["Join Team"] = "Marine", -- "Pirate","Marine"
+			["Auto Farm Level"] = false,
+			["Auto Farm Cake Boss"] = false,
+		
+			-- Setting etc
+			["Select Weapon"] = "Melee",
+			["Auto Rejoin"] = true,
+		
+			-- Old World
+			["Auto New World"] = false,
+		
+			-- New World
+			["Auto Factory"] = false,
+			["Auto third World"] = false,
+		
+			-- New Fighting Styles & etc
+			["Auto Superhuman"] = false,
+			["Auto Superhuman [Full]"] = false,
+			["Auto Death Step"] = false,
+			["Auto Dragon Talon"] = false,
+			["Auto Electric Clow"] = false,
+			["Auto Buy Legendary Sword"] = false,
+			["Auto Buy Legendary Sword Hop"] = false,
+			["Auto Buy Enhancement"] = false,
+			["Auto Farm Select Boss Hop"] = false,
+		
+			-- Auto Stats
+			["Melee"] = false,
+			["Defense"] = false,
+			["Sword"] = false,
+			["Gun"] = false,
+			["Demon Fruit"] = false,
+		
+			-- Use Candy
+			["Auto Buy Exp x2"] = false,
+			["Auto Buy Exp x2[ Exp Expire ]"] = false,
+	
+			-- Players
+			["Bounty Hop"] = false
+		}
+	end
 if BF then
     function setspawnpoint()
         local string_1 = "SetSpawnPoint";
@@ -4381,6 +4424,7 @@ function AttackNoCD()
     end
 end
 		AttackNoCD()
+		wait(0.06)
 	    elseif not fastattack then
 	               	game:GetService'VirtualUser':CaptureController()
 					game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
@@ -4438,10 +4482,10 @@ function AttackNoCD()
                 end                  
             end)
             if plr.Character:FindFirstChildOfClass("Tool") and AC.blades and AC.blades[1] then
-                wait(0.09999)
                 game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetCurrentBlade()))
                 game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
-                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "") 
+                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
+                wait(0.09999)
             end
         end
     end
@@ -4449,6 +4493,7 @@ function AttackNoCD()
     end
 end
 		AttackNoCD()
+		
 		
 	end
 	
