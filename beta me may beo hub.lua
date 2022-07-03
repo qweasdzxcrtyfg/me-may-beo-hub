@@ -24,7 +24,7 @@ if getgenv().Setting then else
 			["Auto Farm Cake Boss"] = false,
 		
 			-- Setting etc
-			["Select Weapon"] = "Melee",
+			["Select Weapon"] = "Black Leg",
 			["Auto Rejoin"] = true,
 		
 			-- Old World
@@ -4426,7 +4426,7 @@ end
 		AttackNoCD()
 		local cacnew = fastcac / 100
 		print(cacnew)
-		wait(cacnew)
+		fastWait(cacnew)
 	    elseif not fastattack then
 	               	game:GetService'VirtualUser':CaptureController()
 					game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
@@ -12556,7 +12556,7 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 	----------------------------------------------------------------------------------------------------------------------------
 	local SettingTab = Main:Tab("Setting")
     fastcac = 3
-	SettingTab:Slider("Set Time Fast Attack",1,10,fastcac,nil,function(cac)
+	SettingTab:Slider("Set Time Fast Attack",0.1,10,fastcac,nil,function(cac)
 	    fastcac = cac
 	end)
 	SettingTab:Button("Rejoin",function()
