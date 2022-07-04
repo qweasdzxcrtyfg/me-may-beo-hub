@@ -63,6 +63,89 @@ if getgenv().Setting then else
 		}
 	end
 if BF then
+    local SaveSettings = {
+    ["Main"] = {
+        ["Autofarm"] = false,
+        ["Buso"] = false,
+        ["Ken"] = false,
+        ['SkillZ'] = false,
+        ['SkillX'] = false,
+        ['SkillC'] = false,
+        ['SkillV'] = false,
+        ['New World'] = false,
+        ["Super fast attack"] = false,
+    },
+    ["Item"] = {
+        ["Auto Superhuman"] = false,
+        ["Auto Superhuman Full"] = false,
+        ["Auto Buy Sword Legendary"] = false,
+        ["Auto Buy Sword Legendary HOP"] = false,
+        ["Auto Buy enchantment"] = false,
+        ["Auto Electric Claw"] = false,
+        ["Auto Dragon Talon"] = false,
+        ['Auto Death Step'] = false,
+    },
+    ["Stats"] = {
+        ["Auto Melee"] = false,
+        ["Auto Defense"] = false,
+        ["Auto Sword"] = false,
+        ["Auto Gun"] = false,
+        ["Auto Devil Fruit"] = false,
+    },
+    ["Auto Farm Misc"] = {
+        ["Auto Farm Boss"] = false,
+        ['Auto Farm Boss HOP'] = false,
+        ["Auto Farm Cake Prince"] = false,
+        ["Auto Farm Observation"] = false,
+        ["Auto Pole v1"] = false,
+        ["Auto Pole v1 HOP"] = false,
+        ["Auto true triple katana "] = false,
+        ["Auto Farm Ectoplasm"] = false
+    },
+    ["Shop Devil Fruit"] = {
+        ["Auto Random Devil Fruit"] = false,
+        ["Auto Store Fruit"] = false,
+    }
+}
+function Load()
+    if readfile and writefile and isfile and isfolder then
+        if isfolder("Mmbhub") == false then
+            makefolder("Mmbhub")
+        end
+        if isfile("/Mmbhub/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json") == false then
+            writefile("/Mmbhub/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json", game:GetService("HttpService"):JSONEncode(SaveSettings))
+        else
+            local Decode = game:GetService("HttpService"):JSONDecode(readfile("/Mmbhub/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json"))
+            for i,v in pairs(Decode) do
+                SaveSettings[i] = v
+            end
+        end
+    else
+        warn("Failed Load")
+        return false
+    end
+end
+function Save()
+    if readfile and writefile and isfile then
+        if isfile("/Mmbhub/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json") == false then
+            Load()
+        else
+            local Decode = game:GetService("HttpService"):JSONDecode(readfile("/Mmbhub/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json"))
+            local Array = {}
+            for i,v in pairs(SaveSettings) do
+                Array[i] = v
+            end
+            writefile("/Mmbhub/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json", game:GetService("HttpService"):JSONEncode(Array))
+        end
+    else
+        warn("Failed Save")
+        return false
+    end
+end
+
+
+Load()
+Save()
     function setspawnpoint()
         local string_1 = "SetSpawnPoint";
         local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
@@ -2978,11 +3061,11 @@ if BF then
 					CFrameMon = CFrame.new(976.467651, 111.174057, 1229.1084, 0.00852567982, -4.73897828e-08, -0.999963999, 1.12251888e-08, 1, -4.7295778e-08, 0.999963999, -1.08215579e-08, 0.00852567982)
 				elseif MyLevel == 800 or MyLevel <= 874 then -- Factory Staff [Lv. 800]
 					Ms = "Factory Staff [Lv. 800]"
-					NameQuest = "Area2Quest"
-					LevelQuest = 2
-					NameMon = "Factory Staff"
-					CFrameQuest = CFrame.new(638.43811, 71.769989, 918.282898, 0.139203906, 0, 0.99026376, 0, 1, 0, -0.99026376, 0, 0.139203906)
-					CFrameMon = CFrame.new(336.74585, 73.1620483, -224.129272, 0.993632793, 3.40154607e-08, 0.112668738, -3.87658332e-08, 1, 3.99718729e-08, -0.112668738, -4.40850592e-08, 0.993632793)
+			        NameQuest = "Area2Quest"
+			        LevelQuest = 2
+			        NameMon = "Factory Staff"
+			        CFrameQuest = CFrame.new(638.43811, 71.769989, 918.282898, 0.139203906, 0, 0.99026376, 0, 1, 0, -0.99026376, 0, 0.139203906)
+		        	CFrameMon = CFrame.new(336.74585, 73.1620483, -224.129272, 0.993632793, 3.40154607e-08, 0.112668738, -3.87658332e-08, 1, 3.99718729e-08, -0.112668738, -4.40850592e-08, 0.993632793)
 				elseif MyLevel == 875 or MyLevel <= 899 then -- Marine Lieutenant [Lv. 875]
 					Ms = "Marine Lieutenant [Lv. 875]"
 					NameQuest = "MarineQuest3"
@@ -3917,7 +4000,7 @@ function checkframebring()
     elseif Ms == "Swan Pirate [Lv. 775]" then
         CFrameBring = CFrame.new(935.041199, 72.9947586, 1254.60291, 0.308177531, 2.9382532e-08, 0.951328695, 9.40288203e-08, 1, -6.13458724e-08, -0.951328695, 1.0835781e-07, 0.308177531)
     elseif Ms == "Factory Staff [Lv. 800]" then
-        CFrameBring = CFrame.new(-1851.3783, 73.0011826, -3304.09302, 0.169271037, 0, -0.985569537, 0, 1, 0, 0.985569537, 0, 0.169271037)
+        CFrameBring = PosMon
     elseif Ms == "Marine Lieutenant [Lv. 875]" then
         CFrameBring = PosMon
     elseif Ms == "Marine Captain [Lv. 900]" then
@@ -5428,10 +5511,10 @@ end
 			end)
 		end)
 	end)
-	AutoFarmTab:Toggle("Auto Farm Level", getgenv().Setting["Auto Farm Level"],function(a)
-		Auto_Farm = a
-		MainAutoFarmFunction:UpdateFarmMode("AutoFarmLevel")
-		if Auto_Farm then
+	AutoFarmTab:Toggle("Auto Farm",SaveSettings["Main"]["Autofarm"],function(boolean)
+    SaveSettings["Main"]["Autofarm"] = boolean
+    Save()
+		if SaveSettings["Main"]["Autofarm"] then
 			MainAutoFarmFunction:Start()
 		else
 			MainAutoFarmFunction:Stop()
@@ -5485,8 +5568,10 @@ end
 	if OldWorld then
 		AutoFarmTab:Line()
 		-- Auto New World
-		AutoFarmTab:Toggle("Auto New World", getgenv().Setting["Auto New World"],function(vu)
-			AutoNew = vu
+		AutoFarmTab:Toggle("Auto New World", SaveSettings["Main"]["New World"],function(vu)
+		    SaveSettings["Main"]["New World"] = vu
+			AutoNew = SaveSettings["Main"]["New World"]
+			Save()
 		end)
 function CheckCusLevel()
         if levelcus then
@@ -5940,21 +6025,27 @@ end
 	end
 	AutoFarmTab:Line()
 	-- Auto Superhuman
-	AutoFarmTab:Toggle("Auto Superhuman", getgenv().Setting["Auto Superhuman"],function(vu)
-		Superhuman = vu
+	AutoFarmTab:Toggle("Auto Superhuman", SaveSettings["Item"]["Auto Superhuman"],function(vu)
+	    SaveSettings["Item"]["Auto Superhuman"] = vu
+		Superhuman = SaveSettings["Item"]["Auto Superhuman"]
+		Save()
 		if vu then
 			local args = {
-				[1] = "BuyElectro"
+				[1] = "BuyBlackLeg"
 			}
 			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 		end
 	end)
-	AutoFarmTab:Toggle("Auto Superhuman [Full]", getgenv().Setting["Auto Superhuman [Full]"],function(vu)
-		SuperhumanFull = vu
+	AutoFarmTab:Toggle("Auto Superhuman [Full]", SaveSettings["Item"]["Auto Superhuman Full"],function(vu)
+	    SaveSettings["Item"]["Auto Superhuman Full"] = vu
+		SuperhumanFull = SaveSettings["Item"]["Auto Superhuman Full"] 
+		Save()
 	end)
 	-- Auto Death Step
-	AutoFarmTab:Toggle("Auto Death Step",getgenv().Setting["Auto Death Step"],function(vu)
-		DeathStep = vu
+	AutoFarmTab:Toggle("Auto Death Step",SaveSettings["Item"]["Auto Death Step"],function(vu)
+	    SaveSettings["Item"]["Auto Death Step"] = vu
+		DeathStep = SaveSettings["Item"]["Auto Death Step"]
+		Save()
 		if vu then
 			local args = {
 				[1] = "BuyBlackLeg"
@@ -5963,8 +6054,10 @@ end
 		end
 	end)
 	-- Auto Dargon Talon
-	AutoFarmTab:Toggle("Auto Dragon Talon", getgenv().Setting["Auto Dragon Talon"],function(vu)
-		DargonTalon = vu
+	AutoFarmTab:Toggle("Auto Dragon Talon", SaveSettings["Item"]["Auto Dragon Talon"],function(vu)
+	    SaveSettings["Item"]["Auto Dragon Talon"] = vu
+		DargonTalon = SaveSettings["Item"]["Auto Dragon Talon"]
+		Save()
 		if vu then
 			local args = {
 				[1] = "BlackbeardReward",
@@ -5975,8 +6068,10 @@ end
 		end
 	end)
 	-- Auto Electric clow
-	AutoFarmTab:Toggle("Auto Electric Clow", getgenv().Setting["Auto Electric Clow"],function(vu)
-		Electricclow = vu
+	AutoFarmTab:Toggle("Auto Electric Clow", SaveSettings["Item"]["Auto Electric Claw"],function(vu)
+	    SaveSettings["Item"]["Auto Electric Claw"] = vu
+		Electricclow = SaveSettings["Item"]["Auto Electric Claw"]
+		Save()
 		if vu then
 			local args = {
 				[1] = "BuyElectro"
@@ -6213,15 +6308,21 @@ end
 		end
 	end)
 	-- Auto Buy Legendary Sword
-	AutoFarmTab:Toggle("Auto Buy Legendary Sword", getgenv().Setting["Auto Buy Legendary Sword"],function(Value)
-		Legendary = Value    
+	AutoFarmTab:Toggle("Auto Buy Legendary Sword", SaveSettings["Item"]["Auto Buy Sword Legendary"],function(Value)
+	    SaveSettings["Item"]["Auto Buy Sword Legendary"] = Value
+		Legendary = SaveSettings["Item"]["Auto Buy Sword Legendary"]
+		Save()
 	end)
-	AutoFarmTab:Toggle("Auto Buy Legendary Sword Hop", getgenv().Setting["Auto Buy Legendary Sword Hop"],function(Value)
-		LegendaryHop = Value    
+	AutoFarmTab:Toggle("Auto Buy Legendary Sword Hop", SaveSettings["Item"]["Auto Buy Sword Legendary HOP"],function(Value)
+	    SaveSettings["Item"]["Auto Buy Sword Legendary HOP"] = Value
+		LegendaryHop = SaveSettings["Item"]["Auto Buy Sword Legendary HOP"]   
+		Save()
 	end)
 	-- Auto Buy Enhancement
-	AutoFarmTab:Toggle("Auto Buy Enhancement", getgenv().Setting["Auto Buy Enhancement"],function(Value)
-		Enhancement = Value    
+	AutoFarmTab:Toggle("Auto Buy Enhancement", SaveSettings["Item"]["Auto Buy enchantment"],function(Value)
+	    SaveSettings["Item"]["Auto Buy enchantment"] = Value
+		Enhancement = SaveSettings["Item"]["Auto Buy enchantment"]
+		Save()
 	end)
 	spawn(function()
 		while wait() do
@@ -6440,11 +6541,15 @@ end
 	AutoFarmTab:Line()
 	AutoFarmTab:Label("Auto Farm Setting",true)
 	AUTOHAKI = true
-	AutoFarmTab:Toggle("Auto Haki", AUTOHAKI,function(Value)
-		AUTOHAKI = Value  
+	AutoFarmTab:Toggle("Auto Buso Haki", SaveSettings["Main"]["Buso"],function(Value)
+	    SaveSettings["Main"]["Buso"] = Value
+		AUTOHAKI = SaveSettings["Main"]["Buso"]
+		Save()
 	end)
-	AutoFarmTab:Toggle("Auto Observation haki", false,function(Value)
-		AUTOHAKIObs = Value  
+	AutoFarmTab:Toggle("Auto Observation haki", SaveSettings["Main"]["Ken"],function(Value)
+	    SaveSettings["Main"]["Ken"] = Value
+		AUTOHAKIObs = SaveSettings["Main"]["Ken"]
+		Save()
 	end)
 	AutoFarmTab:Toggle("Auto Rejoin", true,function(a)
 		AutoRejoin = a
@@ -6906,12 +7011,14 @@ end)
 			end
 		end
 	end
-	AutoFarmMiscTab:Toggle("Auto Farm Boss",false,function(Value)
+	AutoFarmMiscTab:Toggle("Auto Farm Boss",SaveSettings["Auto Farm Misc"]["Auto Farm Boss"],function(Value)
+	    SaveSettings["Auto Farm Misc"]["Auto Farm Boss"] = Value
 		local args = {
 			[1] = "AbandonQuest"
 		}
 		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-		FramBoss = Value
+		FramBoss = SaveSettings["Auto Farm Misc"]["Auto Farm Boss"]
+		Save()
 	end)
 	spawn(function()
 		while wait() do
@@ -6948,8 +7055,10 @@ end)
 		BossNameHop:Refresh(Boss,0)
 	end)
 	
-	AutoFarmMiscTab:Toggle("Auto Farm Select Boss Hop",getgenv().Setting["Auto Farm Select Boss Hop"],function(Value)
-		FramBossSelectHop = Value
+	AutoFarmMiscTab:Toggle("Auto Farm Select Boss Hop",SaveSettings["Auto Farm Misc"]["Auto Farm Boss HOP"],function(Value)
+	    SaveSettings["Auto Farm Misc"]["Auto Farm Boss HOP"] = Value
+		FramBossSelectHop = SaveSettings["Auto Farm Misc"]["Auto Farm Boss HOP"]
+		Save()
 	end)
 	
 	spawn(function()
@@ -7336,8 +7445,10 @@ end)
 	-- Auto Farm Observation
 	AutoFarmMiscTab:Label("Auto Farm Observation",true)
 	local ObservationVirtualUser = game:GetService('VirtualUser')
-	AutoFarmMiscTab:Toggle("Auto Farm Observation",false ,function(a)
-		Observation = a
+	AutoFarmMiscTab:Toggle("Auto Farm Observation",SaveSettings["Auto Farm Misc"]["Auto Farm Observation"] ,function(a)
+	    SaveSettings["Auto Farm Misc"]["Auto Farm Observation"] = a
+		Observation = SaveSettings["Auto Farm Misc"]["Auto Farm Observation"]
+		Save()
 		if Observation and not game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
 			ObservationVirtualUser:CaptureController()
 			ObservationVirtualUser:SetKeyDown('0x65')
@@ -7901,12 +8012,14 @@ end
 	end)
 	-- Auto Pole V.1
 	AutoFarmMiscTab:Label("Auto Pole V.1",true)
-	AutoFarmMiscTab:Toggle("Auto Pole V.1",_G.AutoPole,function(v)
+	AutoFarmMiscTab:Toggle("Auto Pole V.1",SaveSettings["Auto Farm Misc"]["Auto Pole v1"],function(v)
 		if OldWorld then
 			if SelectToolWeapon == "" and v then
 				library:Notification("Selected Weapon First","Okey")
 			else
-				AutoPole = v
+			    SaveSettings["Auto Farm Misc"]["Auto Pole v1"] = v
+				AutoPole = SaveSettings["Auto Farm Misc"]["Auto Pole v1"]
+				Save()
 			end
 		else
 			library:Notification("Use In Old World","Okey")    
@@ -7952,9 +8065,11 @@ end
 			end
 		end
 	end)
-	AutoFarmMiscTab:Toggle("Auto Pole V.1 HOP",_G.AutoPoleHop,function(v)
+	AutoFarmMiscTab:Toggle("Auto Pole V.1 HOP",SaveSettings["Auto Farm Misc"]["Auto Pole v1 HOP"],function(v)
 		if OldWorld then
-			AutoPoleHOP = v
+		    SaveSettings["Auto Farm Misc"]["Auto Pole v1 HOP"] = v
+			AutoPoleHOP = SaveSettings["Auto Farm Misc"]["Auto Pole v1 HOP"]
+			Save()
 		else
 			library:Notification("Use In Old World","Okey")    
 		end 
@@ -8301,7 +8416,9 @@ end
 	end)
 	AutoFarmMiscTab:Label("Auto true triple Katana",true)
 	AutoFarmMiscTab:Toggle("Auto true triple Katana",false,function(Value)
-		truetripleKatana = Value    
+	    SaveSettings["Auto Farm Misc"]["Auto true triple katana"] = Value
+		truetripleKatana = SaveSettings["Auto Farm Misc"]["Auto true triple katana"]
+		Save()
 	end)
 	spawn(function()
 		while wait() do
@@ -8391,9 +8508,11 @@ end
 	end)
 	-- Auto Farm Ectoplasm
 	AutoFarmMiscTab:Label("Auto Farm Ectoplasm",true)
-	AutoFarmMiscTab:Toggle("Auto Farm Ectoplasm",_G.AutoFarmEctoplasm,function(A)
+	AutoFarmMiscTab:Toggle("Auto Farm Ectoplasm",SaveSettings["Auto Farm Misc"]["Auto Farm Ectoplasm"],function(A)
 		if NewWorld then
-			AutoFramEctoplasm = A
+		    SaveSettings["Auto Farm Misc"]["Auto Farm Ectoplasm"] = A
+			AutoFramEctoplasm = SaveSettings["Auto Farm Misc"]["Auto Farm Ectoplasm"]
+			Save()
 		else
 			library:Notification("Use in New World")
 		end
@@ -8897,11 +9016,14 @@ end
 			end
 		end
 	end)
-	AutoFarmMiscTab:Toggle("Auto Farm Cake Prince",getgenv().Setting["Auto Farm Cake Boss"],function(vu)
+	AutoFarmMiscTab:Toggle("Auto Farm Cake Prince",SaveSettings["Auto Farm Misc"]["Auto Farm Cake Prince"],function(vu)
+	    
 		if not ThreeWorld and vu then
 			library:Notification('Use In Sea 3 (Three World)')
 		else 
-			AutoFarmCakePrince = vu
+		    SaveSettings["Auto Farm Misc"]["Auto Farm Cake Prince"] = vu
+			AutoFarmCakePrince = SaveSettings["Auto Farm Misc"]["Auto Farm Cake Prince"]
+			Save()
 		end  
 	end)    
 	spawn(function()
@@ -8913,10 +9035,10 @@ end
 						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 							if AutoFarmCakePrince and v.Name == "Cake Prince [Lv. 2300] [Raid Boss]" and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
 								repeat wait()
-									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
+									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 400 then
 										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
 										Usefastattack = false
-									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
+									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 399 then
 										if Farmtween then
 											Farmtween:Stop()
 										end
@@ -8931,6 +9053,7 @@ end
 										end
 										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
 										Click()
+										if Usefastattack == false then Usefastattack = true end
 									end
 								until not AutoFarmCakePrince or not v.Parent or v.Humanoid.Health <= 0 or game.ReplicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]")
 								Usefastattack = false
@@ -10278,20 +10401,30 @@ end
 	StatsTab:Label("Stats")
 	local Point = StatsTab:Label("Point :")
 	Point:Refresh("Point : "..game.Players.localPlayer.Data.Points.Value)
-	local MeleeStats = StatsTab:Toggle("Melee",getgenv().Setting["Melee"],function(value)
-		melee = value    
+	local MeleeStats = StatsTab:Toggle("Melee",SaveSettings["Stats"]["Auto Melee"],function(value)
+	    SaveSettings["Stats"]["Auto Melee"] = value
+		melee = SaveSettings["Stats"]["Auto Melee"]
+		Save()
 	end)
-	local DefenseStats = StatsTab:Toggle("Defense",getgenv().Setting["Defense"],function(value)
-		defense = value
+	local DefenseStats = StatsTab:Toggle("Defense",SaveSettings["Stats"]["Auto Defense"],function(value)
+	    SaveSettings["Stats"]["Auto Defense"] = value
+		defense = SaveSettings["Stats"]["Auto Defense"]
+		Save()
 	end)
-	local SwordStats = StatsTab:Toggle("Sword",getgenv().Setting["Sword"],function(value)
-		sword = value
+	local SwordStats = StatsTab:Toggle("Sword",SaveSettings["Stats"]["Auto Sword"],function(value)
+	    SaveSettings["Stats"]["Auto Sword"] = value
+		sword = SaveSettings["Stats"]["Auto Sword"]
+		Save()
 	end)
-	local GunStats = StatsTab:Toggle("Gun",getgenv().Setting["Gun"],function(value)
-		gun = value
+	local GunStats = StatsTab:Toggle("Gun",SaveSettings["Stats"]["Auto Gun"],function(value)
+	    SaveSettings["Stats"]["Auto Gun"] = value
+		gun = SaveSettings["Stats"]["Auto Gun"]
+		Save()
 	end)
-	local DemonFruitStats = StatsTab:Toggle("Demon Fruit",getgenv().Setting["Demon Fruit"],function(value)
-		demonfruit = value
+	local DemonFruitStats = StatsTab:Toggle("Demon Fruit",SaveSettings["Stats"]["Auto Devil Fruit"],function(value)
+	    SaveSettings["Stats"]["Auto Devil Fruit"] = value
+		demonfruit = SaveSettings["Stats"]["Auto Devil Fruit"]
+		Save()
 	end)
 	PointStats = 1
 	StatsTab:Slider("Point",1,10,PointStats,nil,function(a)
@@ -12141,8 +12274,10 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 	ShopTab:Button("Buy Random Devil Fruit", function()
 		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Cousin","Buy")
 	end)
-	ShopTab:Toggle("Auto Random Devil Fruit",getgenv().Setting["Auto Random Fruit"],function(v)
-		DevilAutoBuy = v
+	ShopTab:Toggle("Auto Random Devil Fruit",SaveSettings["Shop Devil Fruit"]["Auto Random Devil Fruit"],function(v)
+	    SaveSettings["Shop Devil Fruit"]["Auto Random Devil Fruit"] = v
+		DevilAutoBuy = SaveSettings["Shop Devil Fruit"]["Auto Random Devil Fruit"]
+		Save()
 	end)
 	spawn(function()
 		while wait() do 
@@ -12447,8 +12582,10 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 	local function RemoveSpaces(str)
 		return str:gsub(" Fruit", "")
 	end
-	Devil_Fruit_Sniper_Tab:Toggle("Auto Store Fruits",getgenv().Setting["Auto Store Fruit"],function(a)
-		AutoStoreFruits = a
+	Devil_Fruit_Sniper_Tab:Toggle("Auto Store Fruits",SaveSettings["Shop Devil Fruit"]["Auto Store Fruit"],function(a)
+	    SaveSettings["Shop Devil Fruit"]["Auto Store Fruit"] = a 
+		AutoStoreFruits = SaveSettings["Shop Devil Fruit"]["Auto Store Fruit"]
+		Save()
 		if AutoStoreFruits then
 			for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 				if string.find(v.Name,"Fruit") then
