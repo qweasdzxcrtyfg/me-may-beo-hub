@@ -3900,6 +3900,7 @@ Save()
 	end
 	CheckQuest()
 function checkframebring()
+    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
     if Ms == "Bandit [Lv. 5]" then
         CFrameBring = CFrame.new(1055.52478, 17.6797905, 1595.16431, -0.359148532, -4.15846735e-08, -0.933280408, -8.14267054e-08, 1, -1.3222599e-08, 0.933280408, 7.12450685e-08, -0.359148532)
     elseif Ms == "Monkey [Lv. 14]" then
@@ -3969,7 +3970,13 @@ function checkframebring()
     elseif Ms == "Vampire [Lv. 975]" then
         CFrameBring = CFrame.new(-6026.15137, 6.43774128, -1308.04541, 0.905033231, 0, 0.425341517, 0, 1, 0, -0.425341517, 0, 0.905033231)
     elseif Ms == "Snow Trooper [Lv. 1000]" then
-        CFrameBring = CFrame.new(541.685974, 401.457062, -5425.97803, 0.876006186, 0, -0.482299566, 0, 1, 0, 0.482299566, 0, 0.876006186)
+        CFrameBring = PosMon
+        --CFrameBring = CFrame.new(541.685974, 401.457062, -5425.97803, 0.876006186, 0, -0.482299566, 0, 1, 0, 0.482299566, 0, 0.876006186)
+        --if (v.HumanoidRootPart.Position-CFrameBring.Position).magnitude <= 350 then
+       -- CFrameBring = CFrame.new(541.685974, 401.457062, -5425.97803, 0.876006186, 0, -0.482299566, 0, 1, 0, 0.482299566, 0, 0.876006186)
+        --elseif (v.HumanoidRootPart.Position-CFrameBring.Position).magnitude > 350 then
+        --CFrameBring = CFrame.new(530, 390, -540)
+        --end
     elseif Ms == "Winter Warrior [Lv. 1050]" then
         CFrameBring = CFrame.new(1210.34583, 429.457001, -5195.65918, 0.439670891, 0, -0.898159027, 0, 1, 0, 0.898159027, 0, 0.439670891)
     elseif Ms == "Lab Subordinate [Lv. 1100]" then
@@ -4050,6 +4057,7 @@ function checkframebring()
         CFrameBring = CFrame.new(-2270.95142, 53.5375557, -12854.1123, -0.143372655, 0, 0.989668906, 0, 1, 0, -0.989668906, 0, -0.143372655)
     else
         CFrameBring = PosMon
+    end
     end
 end
 	SelectBoss = ""
@@ -5367,18 +5375,16 @@ end
 			end)
 		end)
 		spawn(function()
-			game:GetService("RunService").Heartbeat:Connect(function() CheckQuest() checkframebring()
+			game:GetService("RunService").Heartbeat:Connect(function() CheckQuest() 
 				for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-					if farm and StartMagnetAutoFarmLevel and (v.HumanoidRootPart.Position - CFrameBring.Position).magnitude <= 400 then
+					if farm and StartMagnetAutoFarmLevel and v.Name ~= "Ice Admiral [Lv. 700] [Boss]" and v.Name ~= "Don Swan [Lv. 3000] [Boss]" and v.Name ~= "Saber Expert [Lv. 200] [Boss]" and v.Name ~= "Longma [Lv. 2000] [Boss]" and (v.HumanoidRootPart.Position-PosMon.Position).magnitude <= 350 then checkframebring()
 						if syn then
 							if isnetworkowner(v.HumanoidRootPart) then
-							    PosMon = CFrameBring
-							    v.HumanoidRootPart.CFrame = CFrameBring
+								v.HumanoidRootPart.CFrame = PosMon
 								v.Humanoid.JumpPower = 0
 								v.Humanoid.WalkSpeed = 0
 								v.HumanoidRootPart.CanCollide = false
-								--Usefastattack = true
-								--v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+								v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 								if v.Humanoid:FindFirstChild("Animator") then
 									v.Humanoid.Animator:Destroy()
 								end
@@ -5386,11 +5392,11 @@ end
 								v.Humanoid:ChangeState(11)
 							end
 						else
-							v.HumanoidRootPart.CFrame = CFrameBring
+							v.HumanoidRootPart.CFrame = PosMon
 							v.Humanoid.JumpPower = 0
 							v.Humanoid.WalkSpeed = 0
 							v.HumanoidRootPart.CanCollide = false
-							--v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+							v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 							if v.Humanoid:FindFirstChild("Animator") then
 								v.Humanoid.Animator:Destroy()
 							end
