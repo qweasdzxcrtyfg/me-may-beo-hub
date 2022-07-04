@@ -18,7 +18,7 @@ elseif placeId == 2809202155 then
     print("\n game not support")
 end
 if BF then
-    local SaveSettings = {
+        local SaveSettings = {
     ["Main"] = {
         ["Autofarm"] = false,
         ["Buso"] = false,
@@ -111,6 +111,49 @@ Save()
         Target:InvokeServer(string_1); 
     end
 	repeat wait() until game:IsLoaded()
+	if getgenv().Setting then else
+		getgenv().Setting = {
+			["Join Team"] = "Marine", -- "Pirate","Marine"
+			["Auto Farm Level"] = false,
+			["Auto Farm Cake Boss"] = false,
+		
+			-- Setting etc
+			["Select Weapon"] = "Melee",
+			["Auto Rejoin"] = true,
+		
+			-- Old World
+			["Auto New World"] = false,
+		
+			-- New World
+			["Auto Factory"] = false,
+			["Auto third World"] = false,
+		
+			-- New Fighting Styles & etc
+			["Auto Superhuman"] = false,
+			["Auto Superhuman [Full]"] = false,
+			["Auto Death Step"] = false,
+			["Auto Dragon Talon"] = false,
+			["Auto Electric Clow"] = false,
+			["Auto Buy Legendary Sword"] = false,
+			["Auto Buy Legendary Sword Hop"] = false,
+			["Auto Buy Enhancement"] = false,
+			["Auto Farm Select Boss Hop"] = false,
+		
+			-- Auto Stats
+			["Melee"] = false,
+			["Defense"] = false,
+			["Sword"] = false,
+			["Gun"] = false,
+			["Demon Fruit"] = false,
+		
+			-- Use Candy
+			["Auto Buy Exp x2"] = false,
+			["Auto Buy Exp x2[ Exp Expire ]"] = false,
+	
+			-- Players
+			["Bounty Hop"] = false
+		}
+	end
 	
 	if not game:IsLoaded() then game.Loaded:Wait() end
 	repeat wait() until game.Players
@@ -121,14 +164,14 @@ Save()
 	repeat wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("Main");
 	repeat wait()
 		if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Main").ChooseTeam.Visible == true then
-			if SaveSettings["Main"]["Join Team "] == "Pirate" then
+			if getgenv().Setting["Join Team"] == "Pirate" then
 				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Size = UDim2.new(0, 10000, 0, 10000)
 				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Position = UDim2.new(-4, 0, -5, 0)
 				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.BackgroundTransparency = 1
 				wait(.5)
 				game:GetService'VirtualUser':Button1Down(Vector2.new(99,99))
 				game:GetService'VirtualUser':Button1Up(Vector2.new(99,99))
-			elseif SaveSettings["Main"]["Join Team "] == "Marine" then
+			elseif getgenv().Setting["Join Team"] == "Marine" then
 				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.Size = UDim2.new(0, 10000, 0, 10000)
 				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.Position = UDim2.new(-4, 0, -5, 0)
 				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.BackgroundTransparency = 1
@@ -3020,11 +3063,11 @@ Save()
 					CFrameMon = CFrame.new(976.467651, 111.174057, 1229.1084, 0.00852567982, -4.73897828e-08, -0.999963999, 1.12251888e-08, 1, -4.7295778e-08, 0.999963999, -1.08215579e-08, 0.00852567982)
 				elseif MyLevel == 800 or MyLevel <= 874 then -- Factory Staff [Lv. 800]
 					Ms = "Factory Staff [Lv. 800]"
-			        NameQuest = "Area2Quest"
-			        LevelQuest = 2
-			        NameMon = "Factory Staff"
-			        CFrameQuest = CFrame.new(638.43811, 71.769989, 918.282898, 0.139203906, 0, 0.99026376, 0, 1, 0, -0.99026376, 0, 0.139203906)
-		        	CFrameMon = CFrame.new(336.74585, 73.1620483, -224.129272, 0.993632793, 3.40154607e-08, 0.112668738, -3.87658332e-08, 1, 3.99718729e-08, -0.112668738, -4.40850592e-08, 0.993632793)
+					NameQuest = "Area2Quest"
+					LevelQuest = 2
+					NameMon = "Factory Staff"
+					CFrameQuest = CFrame.new(638.43811, 71.769989, 918.282898, 0.139203906, 0, 0.99026376, 0, 1, 0, -0.99026376, 0, 0.139203906)
+					CFrameMon = CFrame.new(336.74585, 73.1620483, -224.129272, 0.993632793, 3.40154607e-08, 0.112668738, -3.87658332e-08, 1, 3.99718729e-08, -0.112668738, -4.40850592e-08, 0.993632793)
 				elseif MyLevel == 875 or MyLevel <= 899 then -- Marine Lieutenant [Lv. 875]
 					Ms = "Marine Lieutenant [Lv. 875]"
 					NameQuest = "MarineQuest3"
@@ -3900,11 +3943,10 @@ Save()
 	end
 	CheckQuest()
 function checkframebring()
-    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
     if Ms == "Bandit [Lv. 5]" then
         CFrameBring = CFrame.new(1055.52478, 17.6797905, 1595.16431, -0.359148532, -4.15846735e-08, -0.933280408, -8.14267054e-08, 1, -1.3222599e-08, 0.933280408, 7.12450685e-08, -0.359148532)
     elseif Ms == "Monkey [Lv. 14]" then
-        CFrameBring = PosMon
+        CFrameBring = CFrame.new(-1610.68848, 15.852107, 116.647659, -0.0367756151, 0, 0.999323547, 0, 1, 0, -0.999323547, 0, -0.0367756151)
     elseif Ms == "Gorilla [Lv. 20]" then
         CFrameBring = CFrame.new(-1277.2063, 6.22048664, -514.007263, -0.600881577, 0, 0.799338043, 0, 1, 0, -0.799338043, 0, -0.600881577)
     elseif Ms == "Pirate [Lv. 35]" then
@@ -3962,7 +4004,7 @@ function checkframebring()
     elseif Ms == "Factory Staff [Lv. 800]" then
         CFrameBring = PosMon
     elseif Ms == "Marine Lieutenant [Lv. 875]" then
-        CFrameBring = PosMon
+        CFrameBring = CFrame.new(-1851.3783, 73.0011826, -3304.09302, 0.169271037, 0, -0.985569537, 0, 1, 0, 0.985569537, 0, 0.169271037)
     elseif Ms == "Marine Captain [Lv. 900]" then
         CFrameBring = PosMon
     elseif Ms == "Zombie [Lv. 950]" then
@@ -3970,13 +4012,7 @@ function checkframebring()
     elseif Ms == "Vampire [Lv. 975]" then
         CFrameBring = CFrame.new(-6026.15137, 6.43774128, -1308.04541, 0.905033231, 0, 0.425341517, 0, 1, 0, -0.425341517, 0, 0.905033231)
     elseif Ms == "Snow Trooper [Lv. 1000]" then
-        CFrameBring = PosMon
-        --CFrameBring = CFrame.new(541.685974, 401.457062, -5425.97803, 0.876006186, 0, -0.482299566, 0, 1, 0, 0.482299566, 0, 0.876006186)
-        --if (v.HumanoidRootPart.Position-CFrameBring.Position).magnitude <= 350 then
-       -- CFrameBring = CFrame.new(541.685974, 401.457062, -5425.97803, 0.876006186, 0, -0.482299566, 0, 1, 0, 0.482299566, 0, 0.876006186)
-        --elseif (v.HumanoidRootPart.Position-CFrameBring.Position).magnitude > 350 then
-        --CFrameBring = CFrame.new(530, 390, -540)
-        --end
+        CFrameBring = CFrame.new(541.685974, 401.457062, -5425.97803, 0.876006186, 0, -0.482299566, 0, 1, 0, 0.482299566, 0, 0.876006186)
     elseif Ms == "Winter Warrior [Lv. 1050]" then
         CFrameBring = CFrame.new(1210.34583, 429.457001, -5195.65918, 0.439670891, 0, -0.898159027, 0, 1, 0, 0.898159027, 0, 0.439670891)
     elseif Ms == "Lab Subordinate [Lv. 1100]" then
@@ -4057,7 +4093,6 @@ function checkframebring()
         CFrameBring = CFrame.new(-2270.95142, 53.5375557, -12854.1123, -0.143372655, 0, 0.989668906, 0, 1, 0, -0.989668906, 0, -0.143372655)
     else
         CFrameBring = PosMon
-    end
     end
 end
 	SelectBoss = ""
@@ -4412,7 +4447,6 @@ end
 	end)
 
 	function Click()
-	    if fastattack then
 	    local plr = game.Players.LocalPlayer
 
 local CbFw = getupvalues(require(plr.PlayerScripts.CombatFramework))
@@ -4476,79 +4510,6 @@ function AttackNoCD()
     end
 end
 		AttackNoCD()
-		local cacnew = fastcac / 100
-		print(cacnew)
-		wait(cacnew)
-	    elseif not fastattack then
-	               	game:GetService'VirtualUser':CaptureController()
-					game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
-						    local plr = game.Players.LocalPlayer
-
-local CbFw = getupvalues(require(plr.PlayerScripts.CombatFramework))
-local CbFw2 = CbFw[2]
-
-function GetCurrentBlade()
-    local p13 = CbFw2.activeController
-    local ret = p13.blades[1]
-    if not ret then return end
-    --if ret:FindFirstChild("Parent") then
-    while ret.Parent~=game.Players.LocalPlayer.Character do ret=ret.Parent end
-    return ret
-    end
-function AttackNoCD()
-    if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Health > 0 then
-    local AC = CbFw2.activeController
-    for i = 1, 1 do 
-        local bladehit = require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
-            plr.Character,
-            {plr.Character.HumanoidRootPart},
-            60
-        )
-        local cac = {}
-        local hash = {}
-        for k, v in pairs(bladehit) do
-            if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
-                table.insert(cac, v.Parent.HumanoidRootPart)
-                hash[v.Parent] = true
-            end
-        end
-        bladehit = cac
-        if #bladehit > 0 then
-            local u8 = debug.getupvalue(AC.attack, 5)
-            local u9 = debug.getupvalue(AC.attack, 6)
-            local u7 = debug.getupvalue(AC.attack, 4)
-            local u10 = debug.getupvalue(AC.attack, 7)
-            local u12 = (u8 * 798405 + u7 * 727595) % u9
-            local u13 = u7 * 798405
-            (function()
-                u12 = (u12 * u9 + u13) % 1099511627776
-                u8 = math.floor(u12 / u9)
-                u7 = u12 - u8 * u9
-            end)()
-            u10 = u10 + 1
-            debug.setupvalue(AC.attack, 5, u8)
-            debug.setupvalue(AC.attack, 6, u9)
-            debug.setupvalue(AC.attack, 4, u7)
-            debug.setupvalue(AC.attack, 7, u10)
-            pcall(function()
-                for k, v in pairs(AC.animator.anims.basic) do
-                    v:Play()
-                end                  
-            end)
-            if plr.Character:FindFirstChildOfClass("Tool") and AC.blades and AC.blades[1] then
-                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetCurrentBlade()))
-                game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
-                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
-                wait(0.05)
-            end
-        end
-    end
-    end
-    end
-end
-		AttackNoCD()
-		
-		
 	end
 	
 	function EquipWeapon(ToolSe)
@@ -4681,7 +4642,7 @@ end
 							    local string_1 = "SetSpawnPoint";
 								local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
 								Target:InvokeServer(string_1);
-							elseif (CFrameQuest.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+							elseif (CFrameQuest.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 100 then
 								if Questtween then Questtween:Stop() end
 								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameQuest
 								wait(.9)
@@ -4709,7 +4670,7 @@ end
 													if game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
 													    StartMagnetAutoFarmLevel = true
 														Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
-														if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+														if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 200 then
 														    if StartMagnetAutoFarmLevel == false then
 														    StartMagnetAutoFarmLevel = true
 														    end
@@ -5375,16 +5336,18 @@ end
 			end)
 		end)
 		spawn(function()
-			game:GetService("RunService").Heartbeat:Connect(function() CheckQuest() 
+			game:GetService("RunService").Heartbeat:Connect(function() CheckQuest() checkframebring()
 				for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-					if farm and StartMagnetAutoFarmLevel and v.Name ~= "Ice Admiral [Lv. 700] [Boss]" and v.Name ~= "Don Swan [Lv. 3000] [Boss]" and v.Name ~= "Saber Expert [Lv. 200] [Boss]" and v.Name ~= "Longma [Lv. 2000] [Boss]" and (v.HumanoidRootPart.Position-PosMon.Position).magnitude <= 350 then checkframebring()
+					if farm and StartMagnetAutoFarmLevel and v.Name ~= "Ice Admiral [Lv. 700] [Boss]" and v.Name ~= "Don Swan [Lv. 3000] [Boss]" and v.Name ~= "Saber Expert [Lv. 200] [Boss]" and v.Name ~= "Longma [Lv. 2000] [Boss]" and (v.HumanoidRootPart.Position-CFrameBring.Position).magnitude <= 380 then
 						if syn then
 							if isnetworkowner(v.HumanoidRootPart) then
-								v.HumanoidRootPart.CFrame = PosMon
+							    PosMon = CFrameBring
+								v.HumanoidRootPart.CFrame = CFrameBring
 								v.Humanoid.JumpPower = 0
 								v.Humanoid.WalkSpeed = 0
 								v.HumanoidRootPart.CanCollide = false
-								v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+								--Usefastattack = true
+								--v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 								if v.Humanoid:FindFirstChild("Animator") then
 									v.Humanoid.Animator:Destroy()
 								end
@@ -5392,11 +5355,11 @@ end
 								v.Humanoid:ChangeState(11)
 							end
 						else
-							v.HumanoidRootPart.CFrame = PosMon
+							v.HumanoidRootPart.CFrame = CFrameBring
 							v.Humanoid.JumpPower = 0
 							v.Humanoid.WalkSpeed = 0
 							v.HumanoidRootPart.CanCollide = false
-							v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+							--v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 							if v.Humanoid:FindFirstChild("Animator") then
 								v.Humanoid.Animator:Destroy()
 							end
@@ -5439,15 +5402,22 @@ end
 	local CameraShakerR = require(game.ReplicatedStorage.Util.CameraShaker)
 	CameraShakerR:Stop()
 	spawn(function()
-		while wait() do --game:GetService("RunService").Stepped:Connect(function()
+		game:GetService("RunService").Stepped:Connect(function()
 			pcall(function()
 				if Usefastattack then
-						--ifClick()
+					--if fastattack then
 						Click()
+						wait(.005)
+						--mmb:Refresh("Use Fast Attack: True")
+					--trueend
+				elseif not Usefastattack then
+				    --mmb:Refresh("Use Fast Attack: False")
+				    wait(1)
 				end
 			end)
-		end --)
+		end)
 	end)
+	
 	local Main = library:Window("Memaybeo","Blox Fruits Version 1.18")
 	local AutoFarmTab = Main:Tab("Auto Farm")
 	local MainAutoFarmFunction = AutoFarm(Ms,NameQuest,LevelQuest,NameMon,CFrameMon,CFrameQuest,"AutoFarmLevel")
@@ -5533,10 +5503,8 @@ end
 	if OldWorld then
 		AutoFarmTab:Line()
 		-- Auto New World
-		AutoFarmTab:Toggle("Auto New World", SaveSettings["Main"]["New World"],function(vu)
-		    SaveSettings["Main"]["New World"] = vu
-			AutoNew = SaveSettings["Main"]["New World"]
-			Save()
+		AutoFarmTab:Toggle("Auto New World", getgenv().Setting["Auto New World"],function(vu)
+			AutoNew = vu
 		end)
 function CheckCusLevel()
         if levelcus then
@@ -5644,10 +5612,8 @@ end
 		end)
 	elseif NewWorld then
 		AutoFarmTab:Line()
-		AutoFarmTab:Toggle("Auto Factory", SaveSettings["Main"]["Auto Factory"],function(A)
-		    SaveSettings["Main"]["Auto Factory"] = A
-			Factory = SaveSettings["Main"]["Auto Factory"]
-			Save()
+		AutoFarmTab:Toggle("Auto Factory", getgenv().Setting["Auto Factory"],function(A)
+			Factory = A
 			if not Factory then
 				FactoryCore = false
 			end
@@ -5699,7 +5665,7 @@ end
 				end
 			end
 		end)
-		AutoFarmTab:Toggle("Auto third World", SaveSettings["Main"]["Auto third World"],function(vu)
+		AutoFarmTab:Toggle("Auto third World", getgenv().Setting["Auto third World"],function(vu)
 			if SelectToolWeapon == "" and vu then
 				library:Notification("Select Weapon First in Tab Auto Farm")
 			else
@@ -5992,27 +5958,21 @@ end
 	end
 	AutoFarmTab:Line()
 	-- Auto Superhuman
-	AutoFarmTab:Toggle("Auto Superhuman", SaveSettings["Item"]["Auto Superhuman"],function(vu)
-	    SaveSettings["Item"]["Auto Superhuman"] = vu
-		Superhuman = SaveSettings["Item"]["Auto Superhuman"]
-		Save()
+	AutoFarmTab:Toggle("Auto Superhuman", getgenv().Setting["Auto Superhuman"],function(vu)
+		Superhuman = vu
 		if vu then
 			local args = {
-				[1] = "BuyBlackLeg"
+				[1] = "BuyElectro"
 			}
 			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 		end
 	end)
-	AutoFarmTab:Toggle("Auto Superhuman [Full]", SaveSettings["Item"]["Auto Superhuman Full"],function(vu)
-	    SaveSettings["Item"]["Auto Superhuman Full"] = vu
-		SuperhumanFull = SaveSettings["Item"]["Auto Superhuman Full"] 
-		Save()
+	AutoFarmTab:Toggle("Auto Superhuman [Full]", getgenv().Setting["Auto Superhuman [Full]"],function(vu)
+		SuperhumanFull = vu
 	end)
 	-- Auto Death Step
-	AutoFarmTab:Toggle("Auto Death Step",SaveSettings["Item"]["Auto Death Step"],function(vu)
-	    SaveSettings["Item"]["Auto Death Step"] = vu
-		DeathStep = SaveSettings["Item"]["Auto Death Step"]
-		Save()
+	AutoFarmTab:Toggle("Auto Death Step",getgenv().Setting["Auto Death Step"],function(vu)
+		DeathStep = vu
 		if vu then
 			local args = {
 				[1] = "BuyBlackLeg"
@@ -6021,10 +5981,8 @@ end
 		end
 	end)
 	-- Auto Dargon Talon
-	AutoFarmTab:Toggle("Auto Dragon Talon", SaveSettings["Item"]["Auto Dragon Talon"],function(vu)
-	    SaveSettings["Item"]["Auto Dragon Talon"] = vu
-		DargonTalon = SaveSettings["Item"]["Auto Dragon Talon"]
-		Save()
+	AutoFarmTab:Toggle("Auto Dragon Talon", getgenv().Setting["Auto Dragon Talon"],function(vu)
+		DargonTalon = vu
 		if vu then
 			local args = {
 				[1] = "BlackbeardReward",
@@ -6035,10 +5993,8 @@ end
 		end
 	end)
 	-- Auto Electric clow
-	AutoFarmTab:Toggle("Auto Electric Clow", SaveSettings["Item"]["Auto Electric Claw"],function(vu)
-	    SaveSettings["Item"]["Auto Electric Claw"] = vu
-		Electricclow = SaveSettings["Item"]["Auto Electric Claw"]
-		Save()
+	AutoFarmTab:Toggle("Auto Electric Clow", getgenv().Setting["Auto Electric Clow"],function(vu)
+		Electricclow = vu
 		if vu then
 			local args = {
 				[1] = "BuyElectro"
@@ -6275,21 +6231,15 @@ end
 		end
 	end)
 	-- Auto Buy Legendary Sword
-	AutoFarmTab:Toggle("Auto Buy Legendary Sword", SaveSettings["Item"]["Auto Buy Sword Legendary"],function(Value)
-	    SaveSettings["Item"]["Auto Buy Sword Legendary"] = Value
-		Legendary = SaveSettings["Item"]["Auto Buy Sword Legendary"]
-		Save()
+	AutoFarmTab:Toggle("Auto Buy Legendary Sword", getgenv().Setting["Auto Buy Legendary Sword"],function(Value)
+		Legendary = Value    
 	end)
-	AutoFarmTab:Toggle("Auto Buy Legendary Sword Hop", SaveSettings["Item"]["Auto Buy Sword Legendary HOP"],function(Value)
-	    SaveSettings["Item"]["Auto Buy Sword Legendary HOP"] = Value
-		LegendaryHop = SaveSettings["Item"]["Auto Buy Sword Legendary HOP"]   
-		Save()
+	AutoFarmTab:Toggle("Auto Buy Legendary Sword Hop", getgenv().Setting["Auto Buy Legendary Sword Hop"],function(Value)
+		LegendaryHop = Value    
 	end)
 	-- Auto Buy Enhancement
-	AutoFarmTab:Toggle("Auto Buy Enhancement", SaveSettings["Item"]["Auto Buy enchantment"],function(Value)
-	    SaveSettings["Item"]["Auto Buy enchantment"] = Value
-		Enhancement = SaveSettings["Item"]["Auto Buy enchantment"]
-		Save()
+	AutoFarmTab:Toggle("Auto Buy Enhancement", getgenv().Setting["Auto Buy Enhancement"],function(Value)
+		Enhancement = Value    
 	end)
 	spawn(function()
 		while wait() do
@@ -6453,6 +6403,7 @@ end
 		end
 	end
 	AutoFarmTab:Line()
+	--SelectToolWeapon = getgenv().Setting["Select Weapon"] or ""
 	SelectTypeWeapon = SaveSettings["Main"]["Selected Tool Weapon"]
 	AutoFarmTab:Label("Select Weapon Type",true)
 	local SelectedWeapon = AutoFarmTab:Dropdown("Selected Weapon Type",Weapon,0,function(a)
@@ -6510,15 +6461,11 @@ end
 	AutoFarmTab:Line()
 	AutoFarmTab:Label("Auto Farm Setting",true)
 	AUTOHAKI = true
-	AutoFarmTab:Toggle("Auto Buso Haki", SaveSettings["Main"]["Buso"],function(Value)
-	    SaveSettings["Main"]["Buso"] = Value
-		AUTOHAKI = SaveSettings["Main"]["Buso"]
-		Save()
+	AutoFarmTab:Toggle("Auto Haki", AUTOHAKI,function(Value)
+		AUTOHAKI = Value  
 	end)
-	AutoFarmTab:Toggle("Auto Observation haki", SaveSettings["Main"]["Ken"],function(Value)
-	    SaveSettings["Main"]["Ken"] = Value
-		AUTOHAKIObs = SaveSettings["Main"]["Ken"]
-		Save()
+	AutoFarmTab:Toggle("Auto Observation haki", false,function(Value)
+		AUTOHAKIObs = Value  
 	end)
 	AutoFarmTab:Toggle("Auto Rejoin", true,function(a)
 		AutoRejoin = a
@@ -6980,14 +6927,12 @@ end)
 			end
 		end
 	end
-	AutoFarmMiscTab:Toggle("Auto Farm Boss",SaveSettings["Auto Farm Misc"]["Auto Farm Boss"],function(Value)
-	    SaveSettings["Auto Farm Misc"]["Auto Farm Boss"] = Value
+	AutoFarmMiscTab:Toggle("Auto Farm Boss",false,function(Value)
 		local args = {
 			[1] = "AbandonQuest"
 		}
 		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-		FramBoss = SaveSettings["Auto Farm Misc"]["Auto Farm Boss"]
-		Save()
+		FramBoss = Value
 	end)
 	spawn(function()
 		while wait() do
@@ -7024,10 +6969,8 @@ end)
 		BossNameHop:Refresh(Boss,0)
 	end)
 	
-	AutoFarmMiscTab:Toggle("Auto Farm Select Boss Hop",SaveSettings["Auto Farm Misc"]["Auto Farm Boss HOP"],function(Value)
-	    SaveSettings["Auto Farm Misc"]["Auto Farm Boss HOP"] = Value
-		FramBossSelectHop = SaveSettings["Auto Farm Misc"]["Auto Farm Boss HOP"]
-		Save()
+	AutoFarmMiscTab:Toggle("Auto Farm Select Boss Hop",getgenv().Setting["Auto Farm Select Boss Hop"],function(Value)
+		FramBossSelectHop = Value
 	end)
 	
 	spawn(function()
@@ -7414,10 +7357,8 @@ end)
 	-- Auto Farm Observation
 	AutoFarmMiscTab:Label("Auto Farm Observation",true)
 	local ObservationVirtualUser = game:GetService('VirtualUser')
-	AutoFarmMiscTab:Toggle("Auto Farm Observation",SaveSettings["Auto Farm Misc"]["Auto Farm Observation"] ,function(a)
-	    SaveSettings["Auto Farm Misc"]["Auto Farm Observation"] = a
-		Observation = SaveSettings["Auto Farm Misc"]["Auto Farm Observation"]
-		Save()
+	AutoFarmMiscTab:Toggle("Auto Farm Observation",false ,function(a)
+		Observation = a
 		if Observation and not game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
 			ObservationVirtualUser:CaptureController()
 			ObservationVirtualUser:SetKeyDown('0x65')
@@ -7981,14 +7922,12 @@ end
 	end)
 	-- Auto Pole V.1
 	AutoFarmMiscTab:Label("Auto Pole V.1",true)
-	AutoFarmMiscTab:Toggle("Auto Pole V.1",SaveSettings["Auto Farm Misc"]["Auto Pole v1"],function(v)
+	AutoFarmMiscTab:Toggle("Auto Pole V.1",_G.AutoPole,function(v)
 		if OldWorld then
 			if SelectToolWeapon == "" and v then
 				library:Notification("Selected Weapon First","Okey")
 			else
-			    SaveSettings["Auto Farm Misc"]["Auto Pole v1"] = v
-				AutoPole = SaveSettings["Auto Farm Misc"]["Auto Pole v1"]
-				Save()
+				AutoPole = v
 			end
 		else
 			library:Notification("Use In Old World","Okey")    
@@ -8034,11 +7973,9 @@ end
 			end
 		end
 	end)
-	AutoFarmMiscTab:Toggle("Auto Pole V.1 HOP",SaveSettings["Auto Farm Misc"]["Auto Pole v1 HOP"],function(v)
+	AutoFarmMiscTab:Toggle("Auto Pole V.1 HOP",_G.AutoPoleHop,function(v)
 		if OldWorld then
-		    SaveSettings["Auto Farm Misc"]["Auto Pole v1 HOP"] = v
-			AutoPoleHOP = SaveSettings["Auto Farm Misc"]["Auto Pole v1 HOP"]
-			Save()
+			AutoPoleHOP = v
 		else
 			library:Notification("Use In Old World","Okey")    
 		end 
@@ -8385,9 +8322,7 @@ end
 	end)
 	AutoFarmMiscTab:Label("Auto true triple Katana",true)
 	AutoFarmMiscTab:Toggle("Auto true triple Katana",false,function(Value)
-	    SaveSettings["Auto Farm Misc"]["Auto true triple katana"] = Value
-		truetripleKatana = SaveSettings["Auto Farm Misc"]["Auto true triple katana"]
-		Save()
+		truetripleKatana = Value    
 	end)
 	spawn(function()
 		while wait() do
@@ -8477,11 +8412,9 @@ end
 	end)
 	-- Auto Farm Ectoplasm
 	AutoFarmMiscTab:Label("Auto Farm Ectoplasm",true)
-	AutoFarmMiscTab:Toggle("Auto Farm Ectoplasm",SaveSettings["Auto Farm Misc"]["Auto Farm Ectoplasm"],function(A)
+	AutoFarmMiscTab:Toggle("Auto Farm Ectoplasm",_G.AutoFarmEctoplasm,function(A)
 		if NewWorld then
-		    SaveSettings["Auto Farm Misc"]["Auto Farm Ectoplasm"] = A
-			AutoFramEctoplasm = SaveSettings["Auto Farm Misc"]["Auto Farm Ectoplasm"]
-			Save()
+			AutoFramEctoplasm = A
 		else
 			library:Notification("Use in New World")
 		end
@@ -8750,7 +8683,6 @@ end
 									if Farmtween then
 										Farmtween:Stop()
 									end
-									if not MagnetFarmBone then MagnetFarmBone = true end
 									Usefastattack = true
 									PosFarmBone = v.HumanoidRootPart.CFrame
 									EquipWeapon(SelectToolWeapon)
@@ -8762,7 +8694,7 @@ end
 									end
 									game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
 									Click()
-									
+									MagnetFarmBone = true
 								end
 							until not AutoFarmBone or not v.Parent or v.Humanoid.Health <= 0
 							Usefastattack = false
@@ -8985,14 +8917,11 @@ end
 			end
 		end
 	end)
-	AutoFarmMiscTab:Toggle("Auto Farm Cake Prince",SaveSettings["Auto Farm Misc"]["Auto Farm Cake Prince"],function(vu)
-	    
+	AutoFarmMiscTab:Toggle("Auto Farm Cake Prince",getgenv().Setting["Auto Farm Cake Boss"],function(vu)
 		if not ThreeWorld and vu then
 			library:Notification('Use In Sea 3 (Three World)')
 		else 
-		    SaveSettings["Auto Farm Misc"]["Auto Farm Cake Prince"] = vu
-			AutoFarmCakePrince = SaveSettings["Auto Farm Misc"]["Auto Farm Cake Prince"]
-			Save()
+			AutoFarmCakePrince = vu
 		end  
 	end)    
 	spawn(function()
@@ -9020,18 +8949,18 @@ end
 											}
 											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 										end
-										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 25, 0)
 										Click()
-										if Usefastattack == false then Usefastattack = true end
+										--rejoinmmb()
 									end
-								until not AutoFarmCakePrince or not v.Parent or v.Humanoid.Health <= 0 or game.ReplicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]")
+								until not AutoFarmCakePrince or not v.Parent or v.Humanoid.Health <= 0 or not game.ReplicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]")
 								Usefastattack = false
 							end
 						end
 					else
 						Usefastattack = false
 						Questtween = toTarget(CFrame.new(-2151.82153, 149.315704, -12404.9053).Position,CFrame.new(-2151.82153, 149.315704, -12404.9053))
-						if (CFrame.new(-2151.82153, 149.315704, -12404.9053).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
+						if (CFrame.new(-2151.82153, 149.315704, -12404.9053).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 399 then
 							if Questtween then Questtween:Stop() end
 							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2151.82153, 149.315704, -12404.9053)
 						end
@@ -9045,9 +8974,9 @@ end
 										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
 										MagnetFarmCakePrince = true
 										Usefastattack = false
-									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
+									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 200 then
+									    if MagnetFarmCakePrince == false then MagnetFarmCakePrince = true end
 										if Farmtween then Farmtween:Stop() end
-										if not MagnetFarmCakePrince then MagnetFarmCakePrince = true end
 										Usefastattack = true
 										PosFarmCakePrince = v.HumanoidRootPart.CFrame
 										EquipWeapon(SelectToolWeapon)
@@ -9057,19 +8986,22 @@ end
 											}
 											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 										end
-										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+										setspawnpoint()
+										wait(0.25)
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 25, 0)
 										Click()
+										
 									end
 								until not AutoFarmCakePrince or not v.Parent or v.Humanoid.Health <= 0
 								Usefastattack = false
-								MagnetFarmBone = false
+								MagnetFarmCakePrince = false
 							end
 						end
 					else
 						MagnetFarmCakePrince = false
 						Usefastattack = false
 						Questtween = toTarget(CFrame.new(-2077, 252, -12373).Position,CFrame.new(-2077, 252, -12373))
-						if (CFrame.new(-2077, 252, -12373).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
+						if (CFrame.new(-2077, 252, -12373).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 399 then
 							if Questtween then Questtween:Stop() end
 							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2077, 252, -12373)
 						end
@@ -10370,30 +10302,20 @@ end
 	StatsTab:Label("Stats")
 	local Point = StatsTab:Label("Point :")
 	Point:Refresh("Point : "..game.Players.localPlayer.Data.Points.Value)
-	local MeleeStats = StatsTab:Toggle("Melee",SaveSettings["Stats"]["Auto Melee"],function(value)
-	    SaveSettings["Stats"]["Auto Melee"] = value
-		melee = SaveSettings["Stats"]["Auto Melee"]
-		Save()
+	local MeleeStats = StatsTab:Toggle("Melee",getgenv().Setting["Melee"],function(value)
+		melee = value    
 	end)
-	local DefenseStats = StatsTab:Toggle("Defense",SaveSettings["Stats"]["Auto Defense"],function(value)
-	    SaveSettings["Stats"]["Auto Defense"] = value
-		defense = SaveSettings["Stats"]["Auto Defense"]
-		Save()
+	local DefenseStats = StatsTab:Toggle("Defense",getgenv().Setting["Defense"],function(value)
+		defense = value
 	end)
-	local SwordStats = StatsTab:Toggle("Sword",SaveSettings["Stats"]["Auto Sword"],function(value)
-	    SaveSettings["Stats"]["Auto Sword"] = value
-		sword = SaveSettings["Stats"]["Auto Sword"]
-		Save()
+	local SwordStats = StatsTab:Toggle("Sword",getgenv().Setting["Sword"],function(value)
+		sword = value
 	end)
-	local GunStats = StatsTab:Toggle("Gun",SaveSettings["Stats"]["Auto Gun"],function(value)
-	    SaveSettings["Stats"]["Auto Gun"] = value
-		gun = SaveSettings["Stats"]["Auto Gun"]
-		Save()
+	local GunStats = StatsTab:Toggle("Gun",getgenv().Setting["Gun"],function(value)
+		gun = value
 	end)
-	local DemonFruitStats = StatsTab:Toggle("Demon Fruit",SaveSettings["Stats"]["Auto Devil Fruit"],function(value)
-	    SaveSettings["Stats"]["Auto Devil Fruit"] = value
-		demonfruit = SaveSettings["Stats"]["Auto Devil Fruit"]
-		Save()
+	local DemonFruitStats = StatsTab:Toggle("Demon Fruit",getgenv().Setting["Demon Fruit"],function(value)
+		demonfruit = value
 	end)
 	PointStats = 1
 	StatsTab:Slider("Point",1,10,PointStats,nil,function(a)
@@ -10700,7 +10622,7 @@ end
 		getgenv().spamskillmdf = true
 	end)
 	
-	PlayerEspTab:Toggle("Bounty Hop Only Melee",false,function(bool)
+	PlayerEspTab:Toggle("Bounty Hop Only Melee",getgenv().Setting["Bounty Hop"],function(bool)
 		BountyHop = bool
 	end)
 	
@@ -11612,7 +11534,6 @@ end
 		while wait() do
 			if AuctoClick then
 				Click()
-				wait(0.1)
 			end
 		end
 	end)
@@ -11736,7 +11657,7 @@ end
 			end
 		end
 	end)
-	MiscTab:Button("Remove Lava",function()
+	MiscTab:Button("Remove Lave",function()
 		for i,v in pairs(game.Workspace:GetDescendants()) do
 			if v.Name == "Lava" then   
 				v:Destroy()
@@ -12240,13 +12161,11 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 		}
 		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 	end)
-	ShopTab:Button("Buy Random Devil Fruit", function()
+	ShopTab:Button("Buy Random Devil Fruit",function()
 		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Cousin","Buy")
 	end)
-	ShopTab:Toggle("Auto Random Devil Fruit",SaveSettings["Shop Devil Fruit"]["Auto Random Devil Fruit"],function(v)
-	    SaveSettings["Shop Devil Fruit"]["Auto Random Devil Fruit"] = v
-		DevilAutoBuy = SaveSettings["Shop Devil Fruit"]["Auto Random Devil Fruit"]
-		Save()
+	ShopTab:Toggle("Auto Random Devil Fruit",false,function(v)
+		DevilAutoBuy = v
 	end)
 	spawn(function()
 		while wait() do 
@@ -12551,10 +12470,8 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 	local function RemoveSpaces(str)
 		return str:gsub(" Fruit", "")
 	end
-	Devil_Fruit_Sniper_Tab:Toggle("Auto Store Fruits",SaveSettings["Shop Devil Fruit"]["Auto Store Fruit"],function(a)
-	    SaveSettings["Shop Devil Fruit"]["Auto Store Fruit"] = a 
-		AutoStoreFruits = SaveSettings["Shop Devil Fruit"]["Auto Store Fruit"]
-		Save()
+	Devil_Fruit_Sniper_Tab:Toggle("Auto Store Fruits",false,function(a)
+		AutoStoreFruits = a
 		if AutoStoreFruits then
 			for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 				if string.find(v.Name,"Fruit") then
@@ -12663,11 +12580,6 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 	
 	----------------------------------------------------------------------------------------------------------------------------
 	local SettingTab = Main:Tab("Setting")
-	SettingTab:Label("Farm Maf bij kick cho nao thi nang time fast attack len")
-    fastcac = 3
-	SettingTab:Slider("Set Time Fast Attack",0.1,1000,fastcac,nil,function(cac)
-	    fastcac = cac
-	end)
 	SettingTab:Button("Rejoin",function()
 		local ts = game:GetService("TeleportService")
 		local p = game:GetService("Players").LocalPlayer
@@ -12790,6 +12702,7 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 							wait()
 							game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
 						end)
+						wait(1)
 					end
 				end
 			end
@@ -12812,7 +12725,7 @@ RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disabl
 		local request = request or http_request or (syn and syn.request)
 		if not request then return end
 		local start = 6463
-		local invCode = '2SuaD62s'
+		local invCode = 'QgQdx7uCUT'
 		for i = start-10, start+1 do
 			spawn(function()
 				pcall(function()
@@ -25961,18 +25874,17 @@ end)
 
 local time = SettingTab:Label("Server Time : N/a")
 local function Munrock()
-	if game:GetService("Workspace").AllNPC:FindFirstChild('QuestLvl' .. tostring(new_table))then
-		plr.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").AllNPC:FindFirstChild('QuestLvl' .. tostring(new_table)).HumanoidRootPart.CFrame * CFrame.new(0,-6.5,0)
+	if game:GetService("Workspace").AntiTPNPC:FindFirstChild('QuestLvl' .. tostring(new_table))then
+		plr.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").AntiTPNPC:FindFirstChild('QuestLvl' .. tostring(new_table)).HumanoidRootPart.CFrame * CFrame.new(0,-6.5,0)
 	elseif game:GetService("ReplicatedStorage").MAP:FindFirstChild('QuestLvl' .. tostring(new_table)) then
 		plr.Character.HumanoidRootPart.CFrame = game:GetService("ReplicatedStorage").MAP:FindFirstChild('QuestLvl' .. tostring(new_table)).HumanoidRootPart.CFrame  * CFrame.new(0,-6.5,0)
     else
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,5000,0)
 	end
 	wait(.1)
-	game:GetService("ReplicatedStorage").Remotes.Functions.CheckQuest:InvokeServer(workspace.AllNPC:FindFirstChild(('QuestLvl' .. tostring(new_table))))
+	game:GetService("ReplicatedStorage").Remotes.Functions.CheckQuest:InvokeServer(workspace.AntiTPNPC:FindFirstChild(('QuestLvl' .. tostring(new_table))))
 end
 local function click()
-    
     VirtualUser:CaptureController()
     VirtualUser:ClickButton1(Vector2.new(50, 50), CFrame.new(Vector3.new(0, 0, 0)))
 end
