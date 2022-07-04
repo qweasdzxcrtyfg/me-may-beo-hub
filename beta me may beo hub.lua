@@ -17,51 +17,6 @@ elseif placeId == 2809202155 then
     YBA = true
     print("\n game not support")
 end
-if getgenv().Setting then else
-				getgenv().Setting = {
-			["Join Team"] = "Pirate", -- "Pirate","Marine"
-			["Auto Farm Level"] = false,
-			["Auto Farm Cake Boss"] = false,
-		
-			-- Setting etc
-			["Select Weapon"] = "cac",
-			["Auto Rejoin"] = true,
-		
-			-- Old World
-			["Auto New World"] = false,
-		
-			-- New World
-			["Auto Factory"] = false,
-			["Auto third World"] = false,
-		
-			-- New Fighting Styles & etc
-			["Auto Superhuman"] = false,
-			["Auto Superhuman [Full]"] = false,
-			["Auto Death Step"] = false,
-			["Auto Dragon Talon"] = false,
-			["Auto Electric Clow"] = false,
-			["Auto Buy Legendary Sword"] = false,
-			["Auto Buy Legendary Sword Hop"] = false,
-			["Auto Buy Enhancement"] = false,
-			["Auto Farm Select Boss Hop"] = false,
-		
-			-- Auto Stats
-			["Melee"] = false,
-			["Defense"] = false,
-			["Sword"] = false,
-			["Gun"] = false,
-			["Demon Fruit"] = false,
-		    -- Devil Fruit
-		    ["Auto Store Fruit"] = false,
-		    ["Auto Random Fruit"] = false,
-			-- Use Candy
-			["Auto Buy Exp x2"] = false,
-			["Auto Buy Exp x2[ Exp Expire ]"] = false,
-	
-			-- Players
-			["Bounty Hop"] = false
-		}
-	end
 if BF then
     local SaveSettings = {
     ["Main"] = {
@@ -74,6 +29,10 @@ if BF then
         ['SkillV'] = false,
         ['New World'] = false,
         ["Super fast attack"] = false,
+        ["Join Team "] = "Pirate",
+        ["Auto Factory"] = false,
+        ["Auto Third World"] = false,
+        ["Selected Tool Weapon"] = "",
     },
     ["Item"] = {
         ["Auto Superhuman"] = false,
@@ -162,14 +121,14 @@ Save()
 	repeat wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("Main");
 	repeat wait()
 		if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Main").ChooseTeam.Visible == true then
-			if getgenv().Setting["Join Team"] == "Pirate" then
+			if SaveSettings["Main"]["Join Team "] == "Pirate" then
 				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Size = UDim2.new(0, 10000, 0, 10000)
 				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Position = UDim2.new(-4, 0, -5, 0)
 				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.BackgroundTransparency = 1
 				wait(.5)
 				game:GetService'VirtualUser':Button1Down(Vector2.new(99,99))
 				game:GetService'VirtualUser':Button1Up(Vector2.new(99,99))
-			elseif getgenv().Setting["Join Team"] == "Marine" then
+			elseif SaveSettings["Main"]["Join Team "] == "Marine" then
 				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.Size = UDim2.new(0, 10000, 0, 10000)
 				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.Position = UDim2.new(-4, 0, -5, 0)
 				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.BackgroundTransparency = 1
@@ -5679,8 +5638,10 @@ end
 		end)
 	elseif NewWorld then
 		AutoFarmTab:Line()
-		AutoFarmTab:Toggle("Auto Factory", getgenv().Setting["Auto Factory"],function(A)
-			Factory = A
+		AutoFarmTab:Toggle("Auto Factory", SaveSettings["Main"]["Auto Factory"],function(A)
+		    SaveSettings["Main"]["Auto Factory"] = A
+			Factory = SaveSettings["Main"]["Auto Factory"]
+			Save()
 			if not Factory then
 				FactoryCore = false
 			end
@@ -5732,7 +5693,7 @@ end
 				end
 			end
 		end)
-		AutoFarmTab:Toggle("Auto third World", getgenv().Setting["Auto third World"],function(vu)
+		AutoFarmTab:Toggle("Auto third World", SaveSettings["Main"]["Auto third World"],function(vu)
 			if SelectToolWeapon == "" and vu then
 				library:Notification("Select Weapon First in Tab Auto Farm")
 			else
@@ -6486,10 +6447,12 @@ end
 		end
 	end
 	AutoFarmTab:Line()
-	SelectToolWeapon = getgenv().Setting["Select Weapon"] or ""
+	SelectTypeWeapon = SaveSettings["Main"]["Selected Tool Weapon"]
 	AutoFarmTab:Label("Select Weapon Type",true)
 	local SelectedWeapon = AutoFarmTab:Dropdown("Selected Weapon Type",Weapon,0,function(a)
-	    SelectTypeWeapon = a
+	    SaveSettings["Main"]["Selected Tool Weapon"] = a
+	    SelectTypeWeapon = SaveSettings["Main"]["Selected Tool Weapon"]
+	    Save()
 		--SelectToolWeapon = a
 		--while SelectToolWeapon == "" and wait() do
 		while wait() do
@@ -10731,7 +10694,7 @@ end
 		getgenv().spamskillmdf = true
 	end)
 	
-	PlayerEspTab:Toggle("Bounty Hop Only Melee",getgenv().Setting["Bounty Hop"],function(bool)
+	PlayerEspTab:Toggle("Bounty Hop Only Melee",false,function(bool)
 		BountyHop = bool
 	end)
 	
