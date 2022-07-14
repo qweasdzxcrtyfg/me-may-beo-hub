@@ -6762,10 +6762,15 @@ end)
 	end)
 	
 	AutoFarmMiscTab:Line()
+	local Labelnon = AutoFarmMiscTab:Label("Selected Boss To Hop: nil",true)
 	
+	if SaveSettings["Auto Farm Misc"]["Selected Boss To HOP"] == SaveSettings["Auto Farm Misc"]["Selected Boss To HOP"] then
+	    Labelnon:Refresh("Select Boss To Hop: "..SaveSettings["Auto Farm Misc"]["Selected Boss To HOP"])
+	end
 	local BossNameHop = AutoFarmMiscTab:Dropdown("Select Boss To Farm Hop",Boss,0,function(Value)
 	    SaveSettings["Auto Farm Misc"]["Selected Boss To HOP"] = Value
 		_G.SelectBossHop = SaveSettings["Auto Farm Misc"]["Selected Boss To HOP"]
+		Labelnon:Refresh("Select Boss To Hop: "..SaveSettings["Auto Farm Misc"]["Selected Boss To HOP"])
 		Save()
 	end)
 	
