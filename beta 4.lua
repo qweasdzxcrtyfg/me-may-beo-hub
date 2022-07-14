@@ -54,6 +54,7 @@ if BF then
     },
     ["Auto Farm Misc"] = {
         ["Auto Farm Boss"] = false,
+        ["Selected Boss To HOP"] = "",
         ['Auto Farm Boss HOP'] = false,
         ["Auto Farm Cake Prince"] = false,
         ["Auto Farm Observation"] = false,
@@ -6763,7 +6764,9 @@ end)
 	AutoFarmMiscTab:Line()
 	
 	local BossNameHop = AutoFarmMiscTab:Dropdown("Select Boss To Farm Hop",Boss,0,function(Value)
-		_G.SelectBossHop = Value
+	    SaveSettings["Auto Farm Misc"]["Selected Boss To HOP"] = Value
+		_G.SelectBossHop = SaveSettings["Auto Farm Misc"]["Selected Boss To HOP"]
+		Save()
 	end)
 	
 	AutoFarmMiscTab:Button("Refresh Boss",function()
