@@ -6248,25 +6248,17 @@ end
 	local SelectedWeapon = AutoFarmTab:Dropdown("Selected Weapon",Weapon,0,function(a)
 		SelectToolWeapon = a 
 	end)
-    AutoFarmTab:Button("Refresh", function()
-		for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-		    if SelectTypeWeapon == "Melee" then
-		        if v.ToolTip == "Melee" then
-		            SelectToolWeapon = v.Name
-		        end
-		    elseif SelectTypeWeapon == "Sword" then
-		        if v.ToolTip == "Sword" then
-		           SelectToolWeapon = v.Name 
-		        end
-		    elseif SelectTypeWeapon == "Gun" then
-	           if v.ToolTip == "Gun" then
-	              SelectToolWeapon = v.Name
-	           elseif SelectTypeWeapon == "Misc" then
-                  if v.Name == "Light" or v.Name == "Ice" then
-                      SelectToolWeapon = v.Name
-                  end
-	           end
-		    end
+    AutoFarmTab:Button("Refrash", function()
+		Weapon = {}
+		for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do  
+			if v:IsA("Tool") then
+				table.insert(Weapon ,v.Name)
+			end
+		end
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do  
+			if v:IsA("Tool") then
+				table.insert(Weapon, v.Name)
+			end
 		end
 		SelectedWeapon:Refresh(Weapon,0)
 	end)
@@ -8820,6 +8812,11 @@ end
 												[1] = "Buso"
 											}
 											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+										end
+										if SelectToolWeapon == "" then
+										    for i,v in pairs (game.Players.LocalPlayer.Backpack:GetChildren()) do
+										        if v.ToolTip == "Melee" then SelectToolWeapon = v.Name end
+										    end
 										end
 										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
 										Click()
