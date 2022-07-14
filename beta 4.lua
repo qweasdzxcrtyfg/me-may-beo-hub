@@ -18,6 +18,11 @@ elseif placeId == 2809202155 then
     print("\n game not support")
 end
 if BF then
+    function sespawn()
+                                    local string_1 = "SetSpawnPoint";
+								    local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
+								    Target:InvokeServer(string_1);
+								    end
     local SaveSettings = {
     ["Main"] = {
         ["Autofarm"] = false,
@@ -7015,14 +7020,12 @@ end)
 				KillBossuseGet = true
 				CheckQuestBoss()
 				Questtween = toTarget(CFrameQuestBoss.Position,CFrameQuestBoss)
-				if Fuckinginstantteleport and (CFrameQuestBoss.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude >= 5000 then
-				    game.Players.LocalPlayer.Character.Humanoid.Health = 0 
+				if (CFrameQuestBoss.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude >= 4500 and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Health > 0 then
+				    game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Health = 0
 				    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameQuestBoss
-				    wait(0.9)
-				    setspawnpoint()
-                else 
-				end
-				if (CFrameQuestBoss.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+				    wait(0.25)
+				    sespawn()
+				elseif (CFrameQuestBoss.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 and (CFrameQuestBoss.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 4500 and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Health > 0 then
 					if Questtween then
 						Questtween:Stop()
 					end
@@ -7039,13 +7042,13 @@ end)
 									Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
 								elseif v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
 									EquipWeapon(SelectToolWeapon)
+									Usefastattack = true
 									if Farmtween then
 										Farmtween:Stop()
 									end
 									if Modstween then
 										Modstween:Stop()
 									end
-									Usefastattack = true
 									if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
 										local args = {
 											[1] = "Buso"
@@ -7064,7 +7067,7 @@ end)
 					KillBossuseGet = true
 					Usefastattack = false
 					Questtween = toTarget(CFrameBoss.Position,CFrameBoss)
-					if ThreeWorld and game:GetService("Players").LocalPlayer.Data.Level.Value >= 1925 and MsBoss == "Beautiful Pirate [Lv. 1950] [Boss]" and (CFrameBoss.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude > 20000 then
+					if ThreeWorld and game:GetService("Players").LocalPlayer.Data.Level.Value >= 1925 and MsBoss == "Beautiful Pirate [Lv. 1950] [Boss]" and (CFrameBoss.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude > 5000 then
 						if Questtween then
 							Questtween:Stop()
 						end
