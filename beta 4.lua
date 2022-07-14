@@ -5244,7 +5244,7 @@ end
 				if Usefastattack then
 					--if fastattack then
 						Click()
-						fastWait(fastcac)
+						wait(fastcac)
 					--end
 				end
 			end)
