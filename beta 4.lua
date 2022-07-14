@@ -5233,15 +5233,16 @@ end
 	local CameraShakerR = require(game.ReplicatedStorage.Util.CameraShaker)
 	CameraShakerR:Stop()
 		spawn(function()
-		game:GetService("RunService").Stepped:Connect(function()
+		while wait() do
 			pcall(function()
 				if Usefastattack then
-					if fastattack then
+					--if fastattack then
 						Click()
-					end
+						fastWait(fastcac)
+					--end
 				end
 			end)
-		end)
+		end
 	end)
 	local Main = library:Window("Memaybeo","Blox Fruits Version 1.19")
 	local AutoFarmTab = Main:Tab("Auto Farm")
@@ -6240,20 +6241,6 @@ end
 	AutoFarmTab:Label("Select Weapon",true)
 	local SelectedWeapon = AutoFarmTab:Dropdown("Selected Weapon",Weapon,0,function(a)
 		SelectToolWeapon = a 
-	end)
-	AutoFarmTab:Button("Refrash", function()
-		Weapon = {}
-		for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do  
-			if v:IsA("Tool") then
-				table.insert(Weapon ,v.Name)
-			end
-		end
-		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do  
-			if v:IsA("Tool") then
-				table.insert(Weapon, v.Name)
-			end
-		end
-		SelectedWeapon:Refresh(Weapon,0)
 	end)
     AutoFarmTab:Button("Refresh", function()
 		for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
