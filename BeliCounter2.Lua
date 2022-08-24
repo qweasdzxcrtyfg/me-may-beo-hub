@@ -10,6 +10,12 @@ repeat wait() until game.Players
 repeat wait() until game.Players.LocalPlayer
 repeat wait() until game.Players.LocalPlayer:FindFirstChild("Data")
 repeat wait() until game.Players.LocalPlayer.Data:FindFirstChild("Beli")
+if not table.find(getgenv().PlayersName,game.Players.LocalPlayer.Name) then
+    Beli.Text = "Sorry Son This Will Be Destroyed!"
+    wait(5)
+    Beli.Text = ""
+    return;
+end 
 oldbeli = game:GetService("Players").LocalPlayer.Data.Beli.Value
 totalbeli = 0
 local SaveDatas = {
