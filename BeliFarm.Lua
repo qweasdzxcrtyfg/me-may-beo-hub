@@ -95,6 +95,16 @@ function TPReturner()
                         game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
                     end)
                     wait(4)
+                elseif founded_server_to_hop == true then
+                    table.insert(AllIDs, ID)
+                    wait(2.5)
+                    pcall(function()
+                        print('founded sv')
+                        writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                        wait()
+                        game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                    end)
+                    wait(4)
                 end
             end
         end
