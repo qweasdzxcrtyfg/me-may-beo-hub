@@ -1,4 +1,3 @@
---source
 if not getgenv().SelectTeam then 
     getgenv().SelectTeam = "Marine"
 end
@@ -36,6 +35,7 @@ if not table.find(getgenv().PlayersName, game.Players.LocalPlayer.Name) then ret
 
 local plr = game.Players.LocalPlayer
 function hop()
+    founded_server_to_hop = false
     print('im hopping')
     local PlaceID = game.PlaceId
 local AllIDs = {}
@@ -84,15 +84,18 @@ function TPReturner()
                 num = num + 1
             end
             if Possible == true then
-                table.insert(AllIDs, ID)
-                wait()
-                pcall(function()
-                    print('founded sv')
-                    writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                if founded_server_to_hop == false then
+                    table.insert(AllIDs, ID)
                     wait()
-                    game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
-                end)
-                wait(4)
+                    pcall(function()
+                        founded_server_to_hop = true
+                        print('founded sv')
+                        writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                        wait()
+                        game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                    end)
+                    wait(4)
+                end
             end
         end
     end
