@@ -1,15 +1,3 @@
-getgenv().Farm = true--true/false
-getgenv().SelectTeam = "Marine"--"Marine"/"Pirate"
-getgenv().WhiteScreen = false--false/true
-getgenv().AutoDarkBeard = true --true/fasle: auto active dark beard and kill it (required Stats Melee)
-getgenv().PlayersName = { 
-    --ghi name cua may o day, cai nay la bat buoc nhe thang lon
-    "vidu1",
-    "BMGMMB_2",
-    "vidu3",
-    "vidu4",
-    "vidu5", --cu add name account ntn la dc
-}
 if not getgenv().SelectTeam then 
     getgenv().SelectTeam = "Marine"
 end
