@@ -114,6 +114,7 @@ while wait() do
         AttackNoCD()
         wait(1)
     end
+end
 function hop()
     hopping = true
     founded_server_to_hop = false
