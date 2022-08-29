@@ -32,8 +32,9 @@ if not table.find(getgenv().PlayersName, game.Players.LocalPlayer.Name) then ret
 			end
 		end
 	until game.Players.LocalPlayer.Team ~= nil and game:IsLoaded() 
-
-local plr = game.Players.LocalPlayer
+hopping = false
+while wait() do
+    local plr = game.Players.LocalPlayer
 local plr = game.Players.LocalPlayer
 local CbFw = getupvalues(require(plr.PlayerScripts.CombatFramework))
 local CbFw2 = CbFw[2]
@@ -95,8 +96,6 @@ function AttackNoCD()
         end
     end
 end
-hopping = false
-while wait() do
     if Usefastattack then
         AttackNoCD()
         AttackNoCD()
