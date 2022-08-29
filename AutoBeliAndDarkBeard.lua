@@ -309,8 +309,6 @@ spawn(function()
                     plr.Character.Head:Destroy()
                 end
             end)
-        elseif getgenv().Farm == false then
-            print('farm == false')
         end
     end
 end)
