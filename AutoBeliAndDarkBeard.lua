@@ -222,11 +222,6 @@ spawn(function()
         if getgenv().AutoDarkBeard then
             if game.Players.LocalPlayer and game.Players.LocalPlayer.Backpack then
                 if game.Players.LocalPlayer.Backpack:FindFirstChild("Fist of Darkness") then
-                    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-                        if v:IsA("Tool") and v.ToolTip == "Melee" then
-                            Weapon = v.Name
-                        end
-                    end
                     if getgenv().Farm then
                         getgenv().Farm = false
                     end
@@ -235,43 +230,68 @@ spawn(function()
                     local string_1 = "SetSpawnPoint";
                     local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
                     Target:InvokeServer(string_1);
-                    for i, v in pairs(game.ReplicatedStorage:GetChildren()) do
-                        if string.find(v.Name, "Beard") then
-                            print('dark beard finded')
-                            DarkBeard = v.Name
-                            DarkBeardCFrame = v.HumanoidRootPart.CFrame
-                        end
+                    if game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
+                        StartKillDarkBeard = true
+                    else
+                        StartKillDarkBeard = false
                     end
-                    if DarkBeard == "" then
-                    elseif string.find(DarkBeard,"Beard") and DarkBeardCFrame then
-                        if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-DarkBeardCFrame.Position).magnitude > 350 then
-                            TweenSpeed(DarkBeardCFrame)
-                        elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-DarkBeardCFrame.Position).magnitude <= 350 then
-                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = DarkBeardCFrame
-                            KillMob(DarkBeard)
-                        end
-                    end
-                        
                 end
             end
         end
     end
 end)
-function KillMob(mobname)
-    if game:GetService("Workspace").Enemies:FindFirstChild(mobname) then
-        for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-            if v.Name == mobname then
-                EquipWeapon(Weapon)
-                v.HumanoidRootPart.Size = Vector3.new(75,75,75)
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,25,0)
-                game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0,0,0) 
-                AttackNoCD()
+spawn(function()
+    while wait() do
+        if game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild("Backpack") then
+            for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                if v:IsA("Tool") and v.ToolTip == "Melee" then
+                    Melee = v.Name
+                end
             end
         end
-    else
-        print('mob name ~= nil')
+        if StartKillDarkBeard then
+            if game.Workspace.Enemies:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
+                for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+                    if v.Name == "Darkbeard [Lv. 1000] [Raid Boss]" and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
+                        repeat wait()
+                            pcall(function()
+                                if (v.HumanoidRootPart.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 350 then
+                                    TweenSpeed(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                                    Usefastattack = false
+                                    if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") t   hen
+                                        local args = {
+                                            [1] = "Buso"
+                                        }
+                                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+                                    end
+                                elseif (v.HumanoidRootPart.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
+                                    EquipWeapon(Melee)
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
+                                    Usefastattack = true
+                                    if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+                                        local args = {
+                                            [1] = "Buso"
+                                        }
+                                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+                                    end
+                                end
+                            end)
+                        until not game.Workspace.Enemies:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") or v.Humanoid.Health <= 0 or not v.HumanoidRootPart
+                        Usefastattack = false
+                        if getgenv().Farm == false then
+                            getgenv().Farm = true
+                        end
+                    end
+                end
+            else
+                if game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
+                    cac = game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]")
+                    TweenSpeed(cac.HumanoidRootPart.CFrame)
+                end
+            end
+        end
     end
-end
+end)
 spawn(function()
     while wait() do
         if getgenv().Farm then
