@@ -115,14 +115,12 @@ while wait() do
 	if SaveDatas["Time Counter"]["Second"] >= 60 then
 		SaveDatas["Time Counter"]["Second"] = SaveDatas["Time Counter"]["Second"]-60
 		SaveDatas["Time Counter"]["Minute"] = SaveDatas["Time Counter"]["Minute"] + 1
-		print('+1 for minute')
 		Save()
 	end
 	
 	if SaveDatas["Time Counter"]["Minute"] >= 60 then
 		SaveDatas["Time Counter"]["Minute"] = SaveDatas["Time Counter"]["Minute"]-60
 		SaveDatas["Time Counter"]["Hour"] = SaveDatas["Time Counter"]["Hour"] + 1
-		print('+1 for hour')
 		Save()
 	end
     wait(0.1)
