@@ -244,9 +244,7 @@ spawn(function()
             end
         end
         if game.Workspace.Enemies:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
-            if getgenv().Farm then
-                getgenv().Farm = false
-            end
+            getgenv().Farm = false
             for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
                 if v.Name == "Darkbeard [Lv. 1000] [Raid Boss]" and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
                     repeat wait()
@@ -325,6 +323,7 @@ spawn(function()
                     plr.Character.Head:Destroy()
                 end
             end)
+        elseif not getgenv().Farm then
         end
     end
 end)
