@@ -95,6 +95,24 @@ local plr = game.Players.LocalPlayer
             end
         end
 hopping = false
+while wait() do
+    if Usefastattack then
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        AttackNoCD()
+        wait(1)
 function hop()
     hopping = true
     founded_server_to_hop = false
@@ -245,6 +263,7 @@ spawn(function()
         end
         if game.Workspace.Enemies:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
             getgenv().Farm = false
+            game.Players.LocalPlayer.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
             for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
                 if v.Name == "Darkbeard [Lv. 1000] [Raid Boss]" and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
                     repeat wait()
