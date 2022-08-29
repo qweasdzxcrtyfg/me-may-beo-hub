@@ -8,7 +8,7 @@ if not game:IsLoaded() then game.Loaded:Wait() end
 	repeat wait() until game.Players.LocalPlayer
 
 if not table.find(getgenv().PlayersName, game.Players.LocalPlayer.Name) then return; end
-
+    print('filled')
 	repeat wait() until game.ReplicatedStorage
 	repeat wait() until game.ReplicatedStorage:FindFirstChild("Remotes");
 	repeat wait() until game.Players.LocalPlayer:FindFirstChild("PlayerGui");
@@ -205,6 +205,7 @@ function Teleport()
 end
 Teleport()
 end
+print('loaded function hop')
 function TweenSpeed(dist)
     Speed = 350
     local tweenfunc = {}
@@ -222,13 +223,15 @@ function TweenSpeed(dist)
     if not tween then return tween end
     return tweenfunc
 end
+print('loadedfunction tween')
 function EquipWeapon(ToolSe)
     if game.Players.LocalPlayer.Backpack:FindFirstChild(ToolSe) then
         local tool = game.Players.LocalPlayer.Backpack:FindFirstChild(ToolSe)
         wait(.4)
         game.Players.LocalPlayer.Character.Humanoid:EquipTool(tool)
     end
-end    
+end
+print('loaded function equip weapon')    
 if getgenv().AutoDarkBeard then
     if game.PlaceId == 4442272183 then
         getgenv().AutoDarkBeard = true
@@ -242,6 +245,7 @@ spawn(function()
         if getgenv().AutoDarkBeard then
             if game.Players.LocalPlayer and game.Players.LocalPlayer.Backpack then
                 if game.Players.LocalPlayer.Backpack:FindFirstChild("Fist of Darkness") then
+                    print('active boss now')
                     if getgenv().Farm then
                         getgenv().Farm = false
                     end
