@@ -229,14 +229,6 @@ spawn(function()
                     local string_1 = "SetSpawnPoint";
                     local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
                     Target:InvokeServer(string_1);
-                    if game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
-                        StartKillDarkBeard = true
-                    else
-                        if getgenv().Farm == false then
-                            getgenv().Farm = true
-                        end
-                        StartKillDarkBeard = false
-                    end
                 end
             end
         end
@@ -251,45 +243,46 @@ spawn(function()
                 end
             end
         end
-        if StartKillDarkBeard then
-            if game.Workspace.Enemies:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
-                for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-                    if v.Name == "Darkbeard [Lv. 1000] [Raid Boss]" and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
-                        repeat wait()
-                            pcall(function()
-                                if (v.HumanoidRootPart.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 350 then
-                                    TweenSpeed(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
-                                    Usefastattack = false
-                                    if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-                                        local args = {
-                                            [1] = "Buso"
-                                        }
-                                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-                                    end
-                                elseif (v.HumanoidRootPart.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
-                                    EquipWeapon(Melee)
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
-                                    Usefastattack = true
-                                    if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-                                        local args = {
-                                            [1] = "Buso"
-                                        }
-                                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-                                    end
+        if game.Workspace.Enemies:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
+            if getgenv().Farm then
+                getgenv().Farm = false
+            end
+            for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+                if v.Name == "Darkbeard [Lv. 1000] [Raid Boss]" and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
+                    repeat wait()
+                        pcall(function()
+                            if (v.HumanoidRootPart.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 350 then
+                                TweenSpeed(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+                                Usefastattack = false
+                                if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+                                    local args = {
+                                        [1] = "Buso"
+                                    }
+                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
                                 end
-                            end)
-                        until not game.Workspace.Enemies:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") or v.Humanoid.Health <= 0 or not v.HumanoidRootPart
-                        Usefastattack = false
-                        if getgenv().Farm == false then
-                            getgenv().Farm = true
-                        end
+                            elseif (v.HumanoidRootPart.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
+                                EquipWeapon(Melee)
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
+                                Usefastattack = true
+                                if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+                                    local args = {
+                                        [1] = "Buso"
+                                    }
+                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+                                end
+                            end
+                        end)
+                    until not game.Workspace.Enemies:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") or v.Humanoid.Health <= 0 or not v.HumanoidRootPart
+                    Usefastattack = false
+                    if getgenv().Farm == false then
+                        getgenv().Farm = true
                     end
                 end
-            else
-                if game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
-                    cac = game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]")
-                    TweenSpeed(cac.HumanoidRootPart.CFrame)
-                end
+            end
+        else
+            if game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
+                cac = game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]")
+                TweenSpeed(cac.HumanoidRootPart.CFrame)
             end
         end
     end
