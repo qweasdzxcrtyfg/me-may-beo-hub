@@ -132,10 +132,29 @@ spawn(function()
                         if string.find(v.Name, "Chest") then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
                         end
-                        if not game:GetService("Workspace"):FindFirstChild("Chest1") or not game:GetService("Workspace"):FindFirstChild("Chest2") or not game:GetService("Workspace"):FindFirstChild("Chest3") then
-                            print('game dau cac')
-                            hop()
-                            wait(30)
+                        if not game:GetService("Workspace"):FindFirstChild("Chest1") and hopping == false then
+                            if not game:GetService("Workspace"):FindFirstChild("Chest2") and hopping == false then
+                                if not game:GetService("Workspace"):FindFirstChild("Chest3") and hopping == false then
+                                    hop()
+                                    wait(30)
+                                end
+                            end
+                        end
+                        if not game:GetService("Workspace"):FindFirstChild("Chest2") and hopping == false then
+                            if not game:GetService("Workspace"):FindFirstChild("Chest3") and hopping == false then
+                                if not game:GetService("Workspace"):FindFirstChild("Chest1") and hopping == false then
+                                    hop()
+                                    wait(30)
+                                end
+                            end
+                        end
+                        if not game:GetService("Workspace"):FindFirstChild("Chest3") and hopping == false then
+                            if not game:GetService("Workspace"):FindFirstChild("Chest2") and hopping == false then
+                                if not game:GetService("Workspace"):FindFirstChild("Chest1") and hopping == false then
+                                    hop()
+                                    wait(30)
+                                end
+                            end
                         end
                     end
                 else
