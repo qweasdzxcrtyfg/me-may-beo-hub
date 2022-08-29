@@ -232,6 +232,9 @@ spawn(function()
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
                         StartKillDarkBeard = true
                     else
+                        if getgenv().Farm == false then
+                            getgenv().Farm = true
+                        end
                         StartKillDarkBeard = false
                     end
                 end
