@@ -237,6 +237,7 @@ spawn(function()
                     Target:InvokeServer(string_1);
                     for i, v in pairs(game.ReplicatedStorage:GetChildren()) do
                         if string.find(v.Name, "Beard") then
+                            print('dark beard finded')
                             DarkBeard = v.Name
                             DarkBeardCFrame = v.HumanoidRootPart.CFrame
                         end
