@@ -226,7 +226,6 @@ spawn(function()
                         getgenv().Farm = false
                     end
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3777.79102, 14.8506603, -3498.9248, 0.138036132, -6.52015189e-08, -0.990427196, 1.47190837e-08, 1, -6.37803126e-08, 0.990427196, -5.77419312e-09, 0.138036132) 
-                    wait(.9)
                     local string_1 = "SetSpawnPoint";
                     local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
                     Target:InvokeServer(string_1);
