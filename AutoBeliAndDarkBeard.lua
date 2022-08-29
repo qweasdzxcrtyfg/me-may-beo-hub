@@ -113,6 +113,7 @@ while wait() do
         AttackNoCD()
         AttackNoCD()
         wait(1)
+    end
 function hop()
     hopping = true
     founded_server_to_hop = false
@@ -298,7 +299,7 @@ spawn(function()
             end
         else
             if game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
-                game.Players.LocalPlayer.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
+                
                 cac = game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]")
                 TweenSpeed(cac.HumanoidRootPart.CFrame)
             end
