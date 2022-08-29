@@ -32,7 +32,6 @@ local SaveDatas = {
 function Load()
     if readfile and writefile and isfile then
         if isfile("BeliCounter-" .. game.Players.LocalPlayer.Name .. ".json") == false then
-            print('belicounter fail ')
             writefile("BeliCounter-" .. game.Players.LocalPlayer.Name .. ".json", game:GetService("HttpService"):JSONEncode(SaveDatas))
         else
             local Decode = game:GetService("HttpService"):JSONDecode(readfile("BeliCounter-" .. game.Players.LocalPlayer.Name .. ".json"))
