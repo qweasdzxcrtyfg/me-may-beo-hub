@@ -1,3 +1,4 @@
+--improve auto beli
 ------------------------------------------ Wait Path ----------------------------------------------
 repeat wait() until game:IsLoaded()
 repeat wait() until game.Players
@@ -27,6 +28,7 @@ repeat wait()
     end
 until game.Players.LocalPlayer.Team ~= nil and game:IsLoaded()
 ------------------------------------------ Hop Server Function ----------------------------------------------
+local foundedserver_hopping = false
 local PlaceID = game.PlaceId
 local AllIDs = {}
 local foundAnything = ""
@@ -72,15 +74,26 @@ function TPReturner()
                 num = num + 1
             end
             if Possible == true then
-                table.insert(AllIDs, ID)
-                wait()
-                pcall(function()
-                    writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                if foundedserver_hopping == false then
+                    table.insert(AllIDs, ID)
                     wait()
-                    game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
-                    wait(2.5)
-                end)
-                wait(4)
+                    pcall(function()
+                        foundedserver_hopping == true
+                        writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                        wait()
+                        game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                    end)
+                    wait(4)
+                elseif foundedserver_hopping == true then
+                    table.insert(AllIDs, ID)
+                    wait(5)
+                    pcall(function()
+                        writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                        wait()
+                        game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                    end)
+                    wait(4)
+                end
             end
         end
     end
