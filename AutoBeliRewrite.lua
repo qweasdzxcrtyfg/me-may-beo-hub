@@ -133,11 +133,14 @@ spawn(function()
                                 v.Name = "Chest Sliver"
                             end
                             if string.find(v.Name,"Chest Pro") then
+                                print(v.Name)
                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
                             elseif string.find(v.Name,"Chest Gold") then
+                                print(v.Name)
                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
                             elseif string.find(v.Name,"Chest Sliver") then
                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                                print(v.Name)
                             end
                         end
                     else
