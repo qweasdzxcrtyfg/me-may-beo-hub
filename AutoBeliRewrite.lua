@@ -125,10 +125,18 @@ spawn(function()
                 pcall(function()
                     if not game.Players.LocalPlayer.Character:FindFirstChild("Head") then
                         for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-                            if string.find(v.Name, "Chest") then
-                                v.Name = "Chest"..chestleft
+                            if string.find(v.Name, "Chest3") then
+                                v.Name = "Chest Pro"
+                            elseif string.find(v.Name,"2") then
+                                v.Name = "Chest Gold"
+                            elseif string.find(v.Name,"1") then
+                                v.Name = "Chest Sliver"
                             end
-                            if string.find(v.Name,chestleft) then
+                            if string.find(v.Name,"Chest Pro") then
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                            elseif string.find(v.Name,"Chest Gold") then
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                            elseif string.find(v.Name,"Chest Sliver") then
                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
                             end
                         end
