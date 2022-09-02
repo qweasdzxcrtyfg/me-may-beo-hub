@@ -1,3 +1,4 @@
+--clone
 --improve auto beli
 ------------------------------------------ Wait Path ----------------------------------------------
 repeat wait() until game:IsLoaded()
@@ -125,6 +126,9 @@ spawn(function()
                     if not game.Players.LocalPlayer.Character:FindFirstChild("Head") then
                         for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
                             if string.find(v.Name, "Chest") then
+                                v.Name = "Chest"..chestleft
+                            end
+                            if string.find(v.Name,chestleft) then
                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
                             end
                         end
