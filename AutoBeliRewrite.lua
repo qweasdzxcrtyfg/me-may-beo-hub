@@ -1,6 +1,7 @@
 --clone
 --improve auto beli
 ------------------------------------------ Wait Path ----------------------------------------------
+version = 1.10
 repeat wait() until game:IsLoaded()
 repeat wait() until game.Players
 repeat wait() until game.Players.LocalPlayer
@@ -10,6 +11,7 @@ if getgenv().PlayerFillter then
         return;
     end
 end
+print("Auto Beli Version: "..version)
 ------------------------------------------ Join Team Function ----------------------------------------------
 repeat wait()
     if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Main").ChooseTeam.Visible == true then
