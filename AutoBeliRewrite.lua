@@ -1,5 +1,3 @@
---clone
---improve auto beli
 ------------------------------------------ Wait Path ----------------------------------------------
 version = 1.10
 repeat wait() until game:IsLoaded()
@@ -81,7 +79,7 @@ function TPReturner()
                     table.insert(AllIDs, ID)
                     wait()
                     pcall(function()
-                        foundedserver_hopping == true
+                        foundedserver_hopping = true
                         writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
                         wait()
                         game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
@@ -127,20 +125,13 @@ spawn(function()
                 pcall(function()
                     if not game.Players.LocalPlayer.Character:FindFirstChild("Head") then
                         for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-                            if string.find(v.Name, "Chest3") then
-                                v.Name = "Chest Pro"
-                            elseif string.find(v.Name,"2") then
-                                v.Name = "Chest Gold"
-                            elseif string.find(v.Name,"1") then
-                                v.Name = "Chest Sliver"
-                            end
-                            if string.find(v.Name,"Chest Pro") then
-                                print(v.Name)
+                            if string.find(v.Name,"Chest3") then
                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-                            elseif string.find(v.Name,"Chest Gold") then
                                 print(v.Name)
+                            elseif string.find(v.Name,"Chest2") then
                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-                            elseif string.find(v.Name,"Chest Sliver") then
+                                print(v.Name)
+                            elseif string.find(v.Name,"Chest1") then
                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
                                 print(v.Name)
                             end
