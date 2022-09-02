@@ -1,11 +1,3 @@
-getgenv().AutoBeli = true
-getgenv().SelectTeam = "Marines"
-getgenv().WhiteScreen = false
-getgenv().PlayerFillter = true--false/true
-getgenv().PlayersName = {
-    "soivnt224",
-    "TEOVIETNAM213",
-}
 ------------------------------------------ Wait Path ----------------------------------------------
 version = 1.10
 repeat wait() until game:IsLoaded()
@@ -134,7 +126,7 @@ spawn(function()
                     if not game.Players.LocalPlayer.Character:FindFirstChild("Head") then
                         for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
                             if string.find(v.Name, "Chest") then
-                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(1.5,0,0)
                             end
                         end
                     else
