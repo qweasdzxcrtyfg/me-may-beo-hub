@@ -126,7 +126,7 @@ spawn(function()
                     if not game.Players.LocalPlayer.Character:FindFirstChild("Head") then
                         for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
                             if string.find(v.Name, "Chest") then
-                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(1.5,0,0)
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(0,1.5,0)
                             end
                         end
                     else
