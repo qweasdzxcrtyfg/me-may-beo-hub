@@ -35,7 +35,6 @@ local decalsyeeted = true -- Leaving this on makes games look shitty but the fps
 				e.Enabled = false
 			end
 		end
-	end)
 for _,v in pairs(workspace:GetDescendants()) do
   if v.ClassName == "Part"
   or v.ClassName == "SpawnLocation"
