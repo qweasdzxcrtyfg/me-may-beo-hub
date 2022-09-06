@@ -51,4 +51,6 @@ or v.ClassName == "Texture" then
 v:Destroy()
 end
 end
+local RunService = game:GetService("RunService")
+RunService:Set3dRenderingEnabled(false)
 setfpscap(10)
