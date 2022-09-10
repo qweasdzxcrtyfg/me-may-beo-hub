@@ -12367,9 +12367,102 @@ end
 		end
 	end)
 	SettingTab:DestroyGui()
-	
+	local MeleeCheckTable = {
+		["Superhuman"] = false,
+		["Death Step"] = false,
+		["Electric Claw"] = false,
+		["Dragon Talon"] = false,
+		["Sharkman Karate"] = false,
+	}
+	local x_emoji = "❌"
+	local y_emoji = "✅"
+	local InfoPLayer = Main:Tab("Account Info",true)
+	local SuperHumanCheck = InfoPLayer:Label("Super Human: "..x_emoji)
+	local DeathStepCheck = InfoPLayer:Label("Death Step: "..x_emoji)
+	local SharkmanCheck = InfoPLayer:Label("Sharkman Karate: "..x_emoji)
+	local ElectricClawCheck = InfoPLayer:Label("Electric Claw: "..x_emoji)
+	local DargonTalonCheck = InfoPLayer:Label("Dragon Talon: "..x_emoji)
+	function CheckMeleeOwned()
+		if MeleeCheckTable["Superhuman"] == false then
+			local args = {
+				[1] = "BuySuperhuman"
+			}
+			
+			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+			wait(0.25)
+			if game.Players.LocalPlayer.Backpack:FindFirstChild("Superhuman") or game.Players.LocalPlayer.Character:FindFirstChild("Superhuman") then
+				MeleeCheckTable["Superhuman"] = true
+			end
+		end
+		if MeleeCheckTable["Death Step"] == false then
+			local args = {
+				[1] = "BuyDeathStep"
+			}
+			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+			wait(0.25)
+			if game.Players.LocalPlayer.Backpack:FindFirstChild("Death Step") or game.Players.LocalPlayer.Character:FindFirstChild("Death Step") then
+				MeleeCheckTable["Death Step"] = true
+			end
+		end
+		if MeleeCheckTable["Electric Claw"] == false then
+			local string_1 = "BuyElectricClaw";
+			local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
+			Target:InvokeServer(string_1);
+			wait(0.25)
+			if game.Players.LocalPlayer.Backpack:FindFirstChild("Electric Claw") or game.Players.LocalPlayer.Character:FindFirstChild("Electric Claw") then
+				MeleeCheckTable["Electric Claw"] = true
+			end
+		end
+		if MeleeCheckTable["Dragon Talon"] == false then
+			local string_1 = "BuyDragonTalon";
+			local bool_1 = true;
+			local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
+			Target:InvokeServer(string_1, bool_1);
+			local string_1 = "BuyDragonTalon";
+			local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
+			Target:InvokeServer(string_1);
+			wait(0.25)
+			if game.Players.LocalPlayer.Backpack:FindFirstChild("Dragon Talon") or game.Players.LocalPlayer.Character:FindFirstChild("Dragon Talon") then
+				MeleeCheckTable["Dragon Talon"] = true
+			end
+		end
+		if MeleeCheckTable["Sharkman Karate"] == false then
+			local args = {
+				[1] = "BuySharkmanKarate",
+				[2] = true
+			}
+			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+			local args = {
+				[1] = "BuySharkmanKarate"
+			}
+			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+			wait(0.25)
+			if game.Players.LocalPlayer.Backpack:FindFirstChild("Sharkman Karate") or game.Players.LocalPlayer.Character:FindFirstChild("Sharkman Karate") then
+				MeleeCheckTable["Sharkman Karate"] = true
+			end
+		end
+		if MeleeCheckTable["Superhuman"] then
+			SuperHumanCheck:Refresh("Superhuman: "..y_emoji)
+		end
+		if MeleeCheckTable["Death Step"] then
+			DeathStepCheck:Refresh("Death Step: "..y_emoji)
+		end
+		if MeleeCheckTable["Electric Claw"] then
+			ElectricClawCheck:Refresh("Electric Claw: "..y_emoji)
+		end
+		if MeleeCheckTable["Dragon Talon"] then
+			DargonTalonCheck:Refresh("Dragon Talon: "..y_emoji)
+		end
+		if MeleeCheckTable["Sharkman Karate"] then
+			SharkmanCheck:Refresh("SharkMan Karate: "..y_emoji)
+		end
+	end
+	InfoPLayer:Button("Check Melees",function()
+		CheckMeleeOwned()
+	end)
+
+
 	local SecretTab = Main:Tab("Secret PVP",true)
-	
 	SecretTab:Toggle("Aim Bot Skill And Gun Fov Fully",false,function(a)
 		AimBotFullFunction = a
 	end)
