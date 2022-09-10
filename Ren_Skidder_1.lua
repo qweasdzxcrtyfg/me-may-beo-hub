@@ -12382,14 +12382,16 @@ end
 	local SharkmanCheck = InfoPLayer:Label("Sharkman Karate: "..x_emoji)
 	local ElectricClawCheck = InfoPLayer:Label("Electric Claw: "..x_emoji)
 	local DargonTalonCheck = InfoPLayer:Label("Dragon Talon: "..x_emoji)
+	Checking = false
 	function CheckMeleeOwned()
+		Checking = true
 		if MeleeCheckTable["Superhuman"] == false then
 			local args = {
 				[1] = "BuySuperhuman"
 			}
 			
 			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-			wait(0.25)
+			wait(.1)
 			if game.Players.LocalPlayer.Backpack:FindFirstChild("Superhuman") or game.Players.LocalPlayer.Character:FindFirstChild("Superhuman") then
 				MeleeCheckTable["Superhuman"] = true
 			end
@@ -12399,7 +12401,7 @@ end
 				[1] = "BuyDeathStep"
 			}
 			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-			wait(0.25)
+			wait(.1)
 			if game.Players.LocalPlayer.Backpack:FindFirstChild("Death Step") or game.Players.LocalPlayer.Character:FindFirstChild("Death Step") then
 				MeleeCheckTable["Death Step"] = true
 			end
@@ -12408,7 +12410,7 @@ end
 			local string_1 = "BuyElectricClaw";
 			local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
 			Target:InvokeServer(string_1);
-			wait(0.25)
+			wait(.1)
 			if game.Players.LocalPlayer.Backpack:FindFirstChild("Electric Claw") or game.Players.LocalPlayer.Character:FindFirstChild("Electric Claw") then
 				MeleeCheckTable["Electric Claw"] = true
 			end
@@ -12421,7 +12423,7 @@ end
 			local string_1 = "BuyDragonTalon";
 			local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
 			Target:InvokeServer(string_1);
-			wait(0.25)
+			wait(.1)
 			if game.Players.LocalPlayer.Backpack:FindFirstChild("Dragon Talon") or game.Players.LocalPlayer.Character:FindFirstChild("Dragon Talon") then
 				MeleeCheckTable["Dragon Talon"] = true
 			end
@@ -12436,7 +12438,7 @@ end
 				[1] = "BuySharkmanKarate"
 			}
 			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-			wait(0.25)
+			wait(.1)
 			if game.Players.LocalPlayer.Backpack:FindFirstChild("Sharkman Karate") or game.Players.LocalPlayer.Character:FindFirstChild("Sharkman Karate") then
 				MeleeCheckTable["Sharkman Karate"] = true
 			end
@@ -12456,10 +12458,42 @@ end
 		if MeleeCheckTable["Sharkman Karate"] then
 			SharkmanCheck:Refresh("SharkMan Karate: "..y_emoji)
 		end
+		Checking = false
 	end
 	InfoPLayer:Button("Check Melees",function()
-		CheckMeleeOwned()
+		if Checking == false then
+			CheckMeleeOwned()
+		end
 	end)
+	function CheckInventory()
+		LegendarySwords = {}
+		toprintvvv = "Legendary swords: "
+		game:GetService("Players").LocalPlayer.PlayerGui.Main.Inventory.Visible = true
+		for _,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Main.Inventory.Container.Stored.ScrollingFrame.Frame:GetChildren()) do
+			if v.Name ~= "UIGridLayout" and v.Name ~= "Template" then
+				print('loc 1')
+				if v:FindFirstChild("Title") then
+					print('loc 2')
+					if v.Title:FindFirstChild("TextLabel") then
+						print('loc 3')
+						if v.Title.TextLabel.Text == "Legendary" then
+							print('loc 4')
+							if not table.find(LegendarySwords,v.Name) then
+								print('loc 5')
+								table.insert(LegendarySwords,v.Name) 
+							end
+						end
+					end
+				end
+			end
+		end
+		for i,v in next,LegendarySwords do
+			if v then
+				toprintvvv = toprintvvv..v..","
+			end
+		end
+		print(toprintvvv)
+	end
 
 
 	local SecretTab = Main:Tab("Secret PVP",true)
