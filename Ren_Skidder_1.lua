@@ -72,26 +72,17 @@ if BF then
 	repeat wait()
 		if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Main").ChooseTeam.Visible == true then
 			if getgenv().Setting["Join Team"] == "Pirate" then
-				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Size = UDim2.new(0, 10000, 0, 10000)
-				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Position = UDim2.new(-4, 0, -5, 0)
-				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.BackgroundTransparency = 1
-				wait(.5)
-				game:GetService'VirtualUser':Button1Down(Vector2.new(99,99))
-				game:GetService'VirtualUser':Button1Up(Vector2.new(99,99))
+				for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.MouseButton1Click)) do
+					v.Function()
+				end
 			elseif getgenv().Setting["Join Team"] == "Marine" then
-				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.Size = UDim2.new(0, 10000, 0, 10000)
-				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.Position = UDim2.new(-4, 0, -5, 0)
-				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.BackgroundTransparency = 1
-				wait(.5)
-				game:GetService'VirtualUser':Button1Down(Vector2.new(99,99))
-				game:GetService'VirtualUser':Button1Up(Vector2.new(99,99))
+				for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.MouseButton1Click)) do
+					v.Function()
+				end
 			else
-				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Size = UDim2.new(0, 10000, 0, 10000)
-				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Position = UDim2.new(-4, 0, -5, 0)
-				game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.BackgroundTransparency = 1
-				wait(.5)
-				game:GetService'VirtualUser':Button1Down(Vector2.new(99,99))
-				game:GetService'VirtualUser':Button1Up(Vector2.new(99,99))
+				for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.MouseButton1Click)) do
+					v.Function()
+				end
 			end
 		end
 	until game.Players.LocalPlayer.Team ~= nil and game:IsLoaded() 
@@ -5333,7 +5324,7 @@ end
 		end)
 	end)
 	
-	local Main = library:Window("Ren","Blox Fruit 1.18.2.4.5WeP")
+	local Main = library:Window("Nguoi ngu","Version: Ba may gay")
 	local AutoFarmTab = Main:Tab("Auto Farm")
 	local MainAutoFarmFunction = AutoFarm(Ms,NameQuest,LevelQuest,NameMon,CFrameMon,CFrameQuest,"AutoFarmLevel")
 	spawn(function()
@@ -10974,14 +10965,16 @@ end
 		end
 	end)
 	MiscTab:Line()
-	MiscTab:Toggle("Auto Hide Title",false,function(v)
+	MiscTab:Toggle("Auto Hide Title('May' Work)",false,function(v)
 		AutoHideTitle = v
-		if AutoHideTitle then
-			game:GetService("Players").LocalPlayer.PlayerGui.Notifications.ChildAdded:Connect(function(mom)
-				if mom:IsA("TextLabel") then
-					mom.Visible = false
+		while wait() do
+			if AutoHideTitle then
+				for _,title in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Notifications:GetChildren()) do
+					if title:IsA("TextLabel") then
+						title.Visible = false
+					end
 				end
-			end)
+			end
 		end
 	end)
 	MiscTab:Line()
@@ -11278,21 +11271,33 @@ end
 			end
 		end
 	end)
-	MiscTab:Button("Redeem All Code",function()
+	MiscTab:Button("Redeem All X2 Exp Codes",function()
 		function UseCode(Text)
 			game:GetService("ReplicatedStorage").Remotes.Redeem:InvokeServer(Text)
 		end
-		UseCode("SUB2GAMERROBOT_EXP1")
-		UseCode("StrawHatMaine")
-		UseCode("Sub2OfficialNoobie")
-		UseCode("FUDD10")
-		UseCode("BIGNEWS")
-		UseCode("THEGREATACE")
-		UseCode("SUB2NOOBMASTER123")
-		UseCode("Sub2Daigrock")
-		UseCode("Axiore")
-		UseCode("TantaiGaming")
-		UseCode("STRAWHATMAINE")
+		local CodesList = {
+			"kittgaming",
+			"Sub2Fer999",
+			"Enyu_is_Pro",
+			"Magicbus",
+			"JCWK",
+			"Starcodeheo",
+			"Bluxxy",
+			"fudd10_v2",
+			"FUDD10",
+			"BIGNEWS",
+			"THEGREATACE",
+			"Sub2OfficialNoobie",
+			"SUB2GAMERROBOT_EXP1",
+			"StrawHatMaine",
+			"SUB2NOOBMASTER123",
+			"Sub2Daigrock",
+			"Axiore",
+			"TantaiGaming",
+		}
+		for _,Code in next,CodesList do
+			UseCode(Code)
+		end
 	end)
 	MiscTab:Button("FPS Boost",function()
 		local decalsyeeted = true -- Leaving this on makes games look shitty but the fps goes up by at least 20.
@@ -11332,6 +11337,46 @@ end
 				e.Enabled = false
 			end
 		end
+	end)
+	MiscTab:Button("Low FPS (Less cpu usage)",function()
+	    setfpscap(10)
+	end)
+	MiscTab:Button("Reset Fps Cap",function()
+	    setfpscap(60)
+	end)
+	MiscTab:Button("Change Stage Haki To 0",function()
+		local args = {
+			[1] = "ChangeBusoStage",
+			[2] = 0
+		}
+		
+	game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+
+	end)
+	MiscTab:Button("White screen", function(mmb)
+	    _G.wsr = not _G.wsr
+        if _G.wsr then
+        	local RunService = game:GetService("RunService")
+			RunService:Set3dRenderingEnabled(false) --false thi la trang sat, true thi disable
+        else
+            local RunService = game:GetService("RunService")
+			RunService:Set3dRenderingEnabled(true) --false thi la trang sat, true thi disable
+        end
+	end)
+	MiscTab:Toggle("Auto White Screen",false,function(mmb)
+		autowhitescreen = mmb
+		local UserInputService = game:GetService("UserInputService")
+		local RunService = game:GetService("RunService")
+		local WindowFocusReleasedFunction = function()
+    		if autowhitescreen then
+    	    	RunService:Set3dRenderingEnabled(false)
+    		end
+		end
+		local WindowFocusedFunction = function()
+    		RunService:Set3dRenderingEnabled(true)
+		end
+		UserInputService.WindowFocusReleased:Connect(WindowFocusReleasedFunction)
+		UserInputService.WindowFocused:Connect(WindowFocusedFunction)	
 	end)
 	----------------------------------------------------------------------------------------------------------------------------
 	local RaidsTab = Main:Tab("Raids")
