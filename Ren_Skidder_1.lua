@@ -5338,7 +5338,8 @@ if BF then
 					BringMob()
 					pcall(function()
 						AttackNoCD()
-						wait(0.09999)
+						print("attack no cd with slower")
+						wait(0.03999)
 					end)
 					
 				end
