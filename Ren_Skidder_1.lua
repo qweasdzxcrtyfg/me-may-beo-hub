@@ -5339,9 +5339,8 @@ if BF then
 					pcall(function()
 						AttackNoCD()
 						print("attack no cd with slower")
-						wait(0.03999)
+						wait(0.02)
 					end)
-					
 				end
 			end
 		end
