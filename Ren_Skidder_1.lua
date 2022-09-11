@@ -4775,7 +4775,7 @@ if BF then
 		end
 	end)
 	
-	local Main = library:Window("Nguoi ngu","Version: Ba may gay")
+	local Main = library:Window("Nguoi ngu","Version: 1.02")
 	local AutoFarmTab = Main:Tab("Auto Farm")
 	local MainAutoFarmFunction = AutoFarm(Ms,NameQuest,LevelQuest,NameMon,CFrameMon,CFrameQuest,"AutoFarmLevel")
 	spawn(function()
