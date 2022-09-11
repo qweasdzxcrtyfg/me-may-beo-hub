@@ -4127,7 +4127,6 @@ if BF then
 	ElectricClawMasteryed = false
 	SharkManKarateMasteryed = false
 	function CheckMelee()
-		print('checking melee')
 		if SuperHumanMasteryed == false and game.Players.LocalPlayer.Backpack:FindFirstChild("Superhuman") and game.Players.LocalPlayer.Backpack:FindFirstChild("Superhuman").Level.Value <= 599 then
 			if not SelectToolWeapon == "Superhuman" then
 				SelectToolWeapon = "Superhuman"
@@ -4534,66 +4533,68 @@ if BF then
 			end)
 		end
 	end)
-local plr = game.Players.LocalPlayer
+	local SuperFastMode = false -- Change to true if you want Super Super Super Fast attack (Like instant kill) but it will make the game kick you more than normal mode
 
-local CbFw = debug.getupvalues(require(plr.PlayerScripts.CombatFramework))
-local CbFw2 = CbFw[2]
 
-function GetCurrentBlade() 
-    local p13 = CbFw2.activeController
-    local ret = p13.blades[1]
-    if not ret then return end
-    while ret.Parent~=game.Players.LocalPlayer.Character do ret=ret.Parent end
-    return ret
-end
-function AttackNoCD() 
-    local AC = CbFw2.activeController
-    for i = 1, 1 do 
-        local bladehit = require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
-            plr.Character,
-            {plr.Character.HumanoidRootPart},
-            60
-        )
-        local cac = {}
-        local hash = {}
-        for k, v in pairs(bladehit) do
-            if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
-                table.insert(cac, v.Parent.HumanoidRootPart)
-                hash[v.Parent] = true
-            end
-        end
-        bladehit = cac
-        if #bladehit > 0 then
-            local u8 = debug.getupvalue(AC.attack, 5)
-            local u9 = debug.getupvalue(AC.attack, 6)
-            local u7 = debug.getupvalue(AC.attack, 4)
-            local u10 = debug.getupvalue(AC.attack, 7)
-            local u12 = (u8 * 798405 + u7 * 727595) % u9
-            local u13 = u7 * 798405
-            (function()
-                u12 = (u12 * u9 + u13) % 1099511627776
-                u8 = math.floor(u12 / u9)
-                u7 = u12 - u8 * u9
-            end)()
-            u10 = u10 + 1
-            debug.setupvalue(AC.attack, 5, u8)
-            debug.setupvalue(AC.attack, 6, u9)
-            debug.setupvalue(AC.attack, 4, u7)
-            debug.setupvalue(AC.attack, 7, u10)
-            pcall(function()
-                for k, v in pairs(AC.animator.anims.basic) do
-                    v:Play()
-                end                  
-            end)
-            if plr.Character:FindFirstChildOfClass("Tool") and AC.blades and AC.blades[1] and game.Players.LocalPlayer:FindFirstChild("Character") and game.Players.LocalPlayer.Character.Humanoid and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then 
-                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetCurrentBlade()))
-                game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
-                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
-				print('attack no cooldown') 
-            end
-        end
-    end
-end
+	local plr = game.Players.LocalPlayer
+	
+	local CbFw = debug.getupvalues(require(plr.PlayerScripts.CombatFramework))
+	local CbFw2 = CbFw[2]
+	
+	function GetCurrentBlade() 
+		local p13 = CbFw2.activeController
+		local ret = p13.blades[1]
+		if not ret then return end
+		while ret.Parent~=game.Players.LocalPlayer.Character do ret=ret.Parent end
+		return ret
+	end
+	function AttackNoCD() 
+		local AC = CbFw2.activeController
+		for i = 1, 1 do 
+			local bladehit = require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
+				plr.Character,
+				{plr.Character.HumanoidRootPart},
+				60
+			)
+			local cac = {}
+			local hash = {}
+			for k, v in pairs(bladehit) do
+				if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
+					table.insert(cac, v.Parent.HumanoidRootPart)
+					hash[v.Parent] = true
+				end
+			end
+			bladehit = cac
+			if #bladehit > 0 then
+				local u8 = debug.getupvalue(AC.attack, 5)
+				local u9 = debug.getupvalue(AC.attack, 6)
+				local u7 = debug.getupvalue(AC.attack, 4)
+				local u10 = debug.getupvalue(AC.attack, 7)
+				local u12 = (u8 * 798405 + u7 * 727595) % u9
+				local u13 = u7 * 798405
+				(function()
+					u12 = (u12 * u9 + u13) % 1099511627776
+					u8 = math.floor(u12 / u9)
+					u7 = u12 - u8 * u9
+				end)()
+				u10 = u10 + 1
+				debug.setupvalue(AC.attack, 5, u8)
+				debug.setupvalue(AC.attack, 6, u9)
+				debug.setupvalue(AC.attack, 4, u7)
+				debug.setupvalue(AC.attack, 7, u10)
+				pcall(function()
+					for k, v in pairs(AC.animator.anims.basic) do
+						v:Play()
+					end                  
+				end)
+				if plr.Character:FindFirstChildOfClass("Tool") and AC.blades and AC.blades[1] and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then 
+					game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetCurrentBlade()))
+					game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
+					game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "") 
+				end
+			end
+		end
+	end
 	function Click()
 		local VirtualUser = game:GetService('VirtualUser')
 		VirtualUser:CaptureController()
@@ -5324,15 +5325,21 @@ end
 			if Usefastattack then
 				if fastattack then
 					BringMob()
-					Click()
-					TickCheck = TickCheck + 1 or TickCheck + 2 or TickCheck + 3
-					if TickCheck >= 3 then
-						AttackNoCD()
-						TickCheck = 0
-					end
+					AttackNoCD()
 				end
 			end
 		end)
+	end)
+	spawn(function()
+		while wait() do
+			if Usefastattack then
+				if fastattack == false then
+					BringMob()
+					AttackNoCD()
+					wait(0.09999)
+				end
+			end
+		end
 	end)
 	
 	local Main = library:Window("Nguoi ngu","Version: Ba may gay")
