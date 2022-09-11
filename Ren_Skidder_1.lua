@@ -5318,32 +5318,6 @@ end
 	local CombatFrameworkR = getupvalues(CombatFrameworkROld)[2]
 	local CameraShakerR = require(game.ReplicatedStorage.Util.CameraShaker)
 	CameraShakerR:Stop()
-	spawn(function()
-		game:GetService("RunService").Stepped:Connect(function()
-			pcall(function()
-				CombatFrameworkR.activeController.hitboxMagnitude = 55
-				if Usefastattack then
-					if fastattack then
-						if game.Players.LocalPlayer.Character:FindFirstChild("Black Leg") then
-							CombatFrameworkR.activeController.timeToNextAttack = 3
-						elseif game.Players.LocalPlayer.Character:FindFirstChild("Electro") then
-							CombatFrameworkR.activeController.timeToNextAttack = 2
-						else
-							CombatFrameworkR.activeController.timeToNextAttack = 0
-						end
-						CombatFrameworkR.activeController.attacking = false
-						CombatFrameworkR.activeController.increment = 3
-						CombatFrameworkR.activeController.blocking = false
-						CombatFrameworkR.activeController.timeToNextBlock = 0
-						game.Players.LocalPlayer.Character.Humanoid.Sit = false	
-						game:GetService("ReplicatedStorage").Util.Sound:Destroy()
-		                game:GetService("ReplicatedStorage").Effect.Container:Destroy()
-		                game:GetService("ReplicatedStorage").Assets.Gui:Destroy()
-					end
-				end
-			end)
-		end)
-	end)
 	TickCheck = 0
 	spawn(function()
 		game:GetService("RunService").Stepped:Connect(function()
@@ -5352,7 +5326,8 @@ end
 					BringMob()
 					Click()
 					TickCheck = TickCheck + 1 or TickCheck + 2 or TickCheck + 3
-					if TickCheck >= 5 then
+					if TickCheck >= 3 then
+						AttackNoCD()
 						TickCheck = 0
 					end
 				end
