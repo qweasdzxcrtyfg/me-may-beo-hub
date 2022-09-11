@@ -4435,7 +4435,6 @@ if BF then
 							v.Humanoid.WalkSpeed = 0
 							v.HumanoidRootPart.CanCollide = false
 							v.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
-							v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 							if v.Humanoid:FindFirstChild("Animator") then
 								v.Humanoid.Animator:Destroy()
 							end
@@ -4447,7 +4446,6 @@ if BF then
 						v.Humanoid.JumpPower = 0
 						v.Humanoid.WalkSpeed = 0
 						v.HumanoidRootPart.CanCollide = false
-						v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 						if v.Humanoid:FindFirstChild("Animator") then
 							v.Humanoid.Animator:Destroy()
 						end
@@ -5339,7 +5337,7 @@ if BF then
 					pcall(function()
 						AttackNoCD()
 						print("attack no cd with slower")
-						wait(0.02)
+						wait(0.03)
 					end)
 				end
 			end
@@ -8645,11 +8643,13 @@ if BF then
 	PortalKill = AutoFarmMiscTab:Label("N/S")
 	spawn(function()
 		while wait() do
-			if game.ReplicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") then
-				PortalKill:Refresh("Can Open Door To Kill Cake Prince")
-			elseif string.match(game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CakePrinceSpawner", true), "%d+") ~= nil then
-				PortalKill:Refresh("Need Kill Mods : " .. string.match(game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CakePrinceSpawner", true), "%d+") .. " To Open Kill Cake Prince")
-			end
+			pcall(function()
+				if game.ReplicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") then
+					PortalKill:Refresh("Can Open Door To Kill Cake Prince")
+				else
+					PortalKill:Refresh("Need Kill Mods : " .. string.match(game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CakePrinceSpawner", true), "%d+") .. " To Open Kill Cake Prince")
+				end
+			end)
 		end
 	end)
 	AutoFarmMiscTab:Toggle("Auto Farm Cake Prince",_G.AutoFarmCakePrince,function(vu)
