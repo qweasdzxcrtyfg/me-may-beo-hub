@@ -5325,7 +5325,8 @@ if BF then
 			if Usefastattack then
 				if fastattack then
 					BringMob()
-					AttackNoCD()
+					pcall(AttackNoCD())
+					
 				end
 			end
 		end)
@@ -5335,7 +5336,7 @@ if BF then
 			if Usefastattack then
 				if fastattack == false then
 					BringMob()
-					AttackNoCD()
+					pcall(AttackNoCD())
 					wait(0.09999)
 				end
 			end
