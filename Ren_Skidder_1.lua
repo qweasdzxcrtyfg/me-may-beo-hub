@@ -4774,7 +4774,7 @@ if BF then
 					pcall(function()
 						AttackNoCD()
 						BringMob()
-						wait(0.05)
+						wait(0.059219423952923942942934929)
 					end)
 				end
 			end
@@ -9407,11 +9407,16 @@ if BF then
 	----------------------------------------------------------------------------------------------------------------------------
 	local Update17_3Tab = Main:Tab("Update 17.3 Farms")
 	TableMeterials = {
-		"Dragon scale",
-		"Fishman Tails",
+		"Dragon Scale",
+		"Fishman Tail",
+		"Mystic Droplets",
 	}
 	Update17_3Tab:Dropdown("Choose Meterials To Farm",TableMeterials,"Fishman Tails",function(v)
-		SelectedMeterials = v
+		if v == "Dragon Scale" or v == "Fishman Tail" and game.PlaceId == 7449423635 then
+			SelectedMeterials = v
+		else
+			library:Notification("Only Sea 3 Son.","Click or you gay!")
+		end
 	end)
 	Update17_3Tab:Toggle("Auto Farm Selected Meterials",false,function(v)
 		AutoFarmMMT = v 
@@ -9496,7 +9501,6 @@ if BF then
 								Step1_Success = true
 								Step4_Success = false
 							end
-
 						end
 						if FoundedMobToKill == false then
 							Questtween = toTarget(Step2_1.Position,Step2_1)
@@ -9535,6 +9539,8 @@ if BF then
 							end
 						end
 					end
+				elseif SelectedMeterials == "Mystic Droplets" then
+
 				end
 			end
 		end
