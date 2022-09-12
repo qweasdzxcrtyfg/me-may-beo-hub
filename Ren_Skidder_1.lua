@@ -3869,6 +3869,9 @@ if BF then
 							if v.Humanoid:FindFirstChild("Animator") then
 								v.Humanoid.Animator:Destroy()
 							end
+							if v.Humanoid.Health > 0 then
+								v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+							end
 							sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius",  math.huge)
 							v.Humanoid:ChangeState(11)
 						end
@@ -3879,6 +3882,9 @@ if BF then
 						v.HumanoidRootPart.CanCollide = false
 						if v.Humanoid:FindFirstChild("Animator") then
 							v.Humanoid.Animator:Destroy()
+						end
+						if v.Humanoid.Health > 0 then
+							v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 						end
 						sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius",  math.huge)
 						v.Humanoid:ChangeState(11)
@@ -4659,7 +4665,7 @@ if BF then
 		end)
 		spawn(function()
 			game:GetService("RunService").Stepped:Connect(function()
-				if farm or TweenIsland or TweenNPC or AutoFarmChest or FramBossSelectHop or AutoNew or Auto_Farm or AutoNew or Factory or Autothird or MasteryDevilFruit or MasteryWeapon or MasteryGun or FramBoss or KillAllBoss or AutoMobAura or Observation or AutoSaber or AutoPole or AutoPoleHOP or AutoQuestBartilo or AutoEvoRace2 or AutoRengoku or AutoFramEctoplasm or AutoBuddySwords or AutoBuddySwords or AutoFarmBone or AutoHallowScythe or AutoSoulReaper or AutoFarmCakePrince or AutoYama or HolyTorch or AutoEliteHunter or AutoHakiRainbow or MusketeeHat or AutoObservationHakiV2 or NextIsland or AutoRaids then
+				if farm or TweenIsland or TweenNPC or AutoFarmChest or FramBossSelectHop or AutoNew or Auto_Farm or AutoNew or Factory or Autothird or MasteryDevilFruit or MasteryWeapon or MasteryGun or FramBoss or KillAllBoss or AutoMobAura or Observation or AutoSaber or AutoPole or AutoPoleHOP or AutoQuestBartilo or AutoEvoRace2 or AutoRengoku or AutoFramEctoplasm or AutoBuddySwords or AutoBuddySwords or AutoFarmBone or AutoHallowScythe or AutoSoulReaper or AutoFarmCakePrince or AutoYama or HolyTorch or AutoEliteHunter or AutoHakiRainbow or MusketeeHat or AutoObservationHakiV2 or NextIsland or AutoRaids or AutoFarmMMT then
 					if not KRNL_LOADED and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
 						setfflag("HumanoidParallelRemoveNoPhysics", "False")
 						setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
@@ -4753,9 +4759,10 @@ if BF then
 		game:GetService("RunService").Stepped:Connect(function()
 			if Usefastattack then
 				if fastattack then
-					BringMob()
-					pcall(AttackNoCD())
-					
+					pcall(function()
+						AttackNoCD()
+						BringMob()
+					end)
 				end
 			end
 		end)
@@ -4764,8 +4771,8 @@ if BF then
 		while wait() do
 			if Usefastattack then
 				if fastattack == false then
-					BringMob()
 					pcall(function()
+						BringMob()
 						AttackNoCD()
 						print("attack no cd with slower")
 						wait(0.03)
@@ -5323,7 +5330,7 @@ if BF then
 	-- Auto Electric clow
 	AutoFarmTab:Toggle("Auto Electric Clow", getgenv().Setting["Auto Electric Clow"],function(vu)
 		Electricclow = vu
-		if vu then
+		if Electricclow then
 			local args = {
 				[1] = "BuyElectro"
 			}
@@ -9398,7 +9405,125 @@ if BF then
 			end
 		end
 	end)
-	
+	----------------------------------------------------------------------------------------------------------------------------
+	local Update17_3Tab = Main:Tab("Update 17.3 Farms")
+	TableMeterials = {
+		"Dragon scale",
+		"Fishman Tails",
+	}
+	Update17_3Tab:Dropdown("Choose Meterials To Farm",TableMeterials,"Fishman Tails",function(v)
+		SelectedMeterials = v
+	end)
+	Update17_3Tab:Toggle("Auto Farm Selected Meterials",false,function(v)
+		AutoFarmMMT = v 
+	end)
+	spawn(function()
+		while wait() do
+			if AutoFarmMMT then
+				if SelectedMeterials == "Fishman Tails" then
+					if game:GetService("Workspace").Enemies:FindFirstChild("Fishman Raider [Lv. 1775]") then
+						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+							if AutoFarmMMT and v.Name == "Fishman Raider [Lv. 1775]" and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+								repeat wait()
+									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+										if Farmtween then
+											Farmtween:Stop()
+										end
+										EquipWeapon(SelectToolWeapon)
+										Usefastattack = true
+										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+											local args = {
+												[1] = "Buso"
+											}
+											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+										end
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30,0)
+										Click()
+									end 
+								until AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials
+								Usefastattack = false
+							end
+						end
+					else
+						WaitToMon = CFrame.new(-10322.400390625, 390.94473266602, -8580.0908203125)
+						Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
+					end
+				elseif SelectedMeterials == "Dragon scale" then
+					if game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Archer [Lv. 1600]") or game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Warrior [Lv. 1575]") or v.Name == "Female Islander [Lv. 1625]" or v.Name == "Giant Islander [Lv. 1650]" then
+						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+							if AutoFarmMMT and v.Name == "Dragon Crew Archer [Lv. 1600]" or v.Name == "Dragon Crew Warrior [Lv. 1575]" or v.Name == "Female Islander [Lv. 1625]" or v.Name == "Giant Islander [Lv. 1650]" and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+								repeat wait()
+									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+										if Farmtween then
+											Farmtween:Stop()
+										end
+										EquipWeapon(SelectToolWeapon)
+										Usefastattack = true
+										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+											local args = {
+												[1] = "Buso"
+											}
+											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+										end
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30,0)
+										Click()
+									end 
+								until AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials
+								Usefastattack = false
+							end
+						end
+					else
+						for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
+							if game:GetService("ReplicatedStorage"):FindFirstChild("Dragon Crew Archer [Lv. 1600]") and v.Name == "Dragon Crew Archer [Lv. 1600]" then
+								repeat wait()
+									pcall(function()
+										WaitToMon = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
+										Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
+									end)
+								until not v or AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials or game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
+								wait(1)
+								if Farmtween then Farmtween:Stop() end
+							elseif game:GetService("ReplicatedStorage"):FindFirstChild("Dragon Crew Warrior [Lv. 1575]") and v.Name == "Dragon Crew Warrior [Lv. 1575]" then
+								repeat wait()
+									pcall(function()
+										WaitToMon = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
+										Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
+									end)
+								until not v or AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials or game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
+								wait(1)
+								if Farmtween then Farmtween:Stop() end
+							elseif game:GetService("ReplicatedStorage"):FindFirstChild("Female Islander [Lv. 1625]") and v.Name == "Female Islander [Lv. 1625]" then
+								repeat wait()
+									pcall(function()
+										WaitToMon = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
+										Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
+									end)
+								until not v or AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials or game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
+								wait(1)
+								if Farmtween then Farmtween:Stop() end
+							elseif game:GetService("ReplicatedStorage"):FindFirstChild("Giant Islander [Lv. 1650]") and v.Name == "Giant Islander [Lv. 1650]" then
+								repeat wait()
+									pcall(function()
+										WaitToMon = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
+										Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
+									end)
+								until not v or AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials or game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
+								wait(1)
+								if Farmtween then Farmtween:Stop() end
+							else
+							WaitToMon = CFrame.new(6488.9155273438, 383.38375854492, -110.66246032715)
+							Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
+							end
+						end
+					end
+				end
+			end
+		end
+	end)
 	----------------------------------------------------------------------------------------------------------------------------
 	local StatsTab = Main:Tab("Stats")
 	PlayerServer = StatsTab:Label("Players in Server : "..game.Players.NumPlayers .. "/"..game.Players.MaxPlayers)
