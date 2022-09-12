@@ -9421,23 +9421,25 @@ if BF then
 						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 							if AutoFarmMMT and v.Name == "Fishman Raider [Lv. 1775]" and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
 								repeat wait()
-									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
-										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
-									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
-										if Farmtween then
-											Farmtween:Stop()
-										end
-										EquipWeapon(SelectToolWeapon)
-										Usefastattack = true
-										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-											local args = {
-												[1] = "Buso"
-											}
-											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-										end
-										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30,0)
-										Click()
-									end 
+									pcall(function()
+										if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+											Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+										elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+											if Farmtween then
+												Farmtween:Stop()
+											end
+											EquipWeapon(SelectToolWeapon)
+											Usefastattack = true
+											if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+												local args = {
+													[1] = "Buso"
+												}
+												game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+											end
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30,0)
+											Click()
+										end 
+									end)
 								until AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials
 								Usefastattack = false
 							end
@@ -9456,23 +9458,25 @@ if BF then
 						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 							if AutoFarmMMT and v.Name == "Dragon Crew Archer [Lv. 1600]" or v.Name == "Dragon Crew Warrior [Lv. 1575]" or v.Name == "Female Islander [Lv. 1625]" or v.Name == "Giant Islander [Lv. 1650]" and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
 								repeat wait()
-									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
-										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
-									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
-										if Farmtween then
-											Farmtween:Stop()
-										end
-										EquipWeapon(SelectToolWeapon)
-										Usefastattack = true
-										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-											local args = {
-												[1] = "Buso"
-											}
-											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-										end
-										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30,0)
-										Click()
-									end 
+									pcall(function()
+										if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+											Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+										elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+											if Farmtween then
+												Farmtween:Stop()
+											end
+											EquipWeapon(SelectToolWeapon)
+											Usefastattack = true
+											if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+												local args = {
+													[1] = "Buso"
+												}
+												game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+											end
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30,0)
+											Click()
+										end 
+									end)
 								until AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials
 								Usefastattack = false
 							end
@@ -9537,23 +9541,25 @@ if BF then
 						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 							if AutoFarmMMT and v.Name == "Water Fighter [Lv. 1450]" or v.Name == "Sea Soldier [Lv. 1425]"  and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
 								repeat wait()
-									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
-										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
-									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
-										if Farmtween then
-											Farmtween:Stop()
+									pcall(function()
+										if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+											Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+										elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+											if Farmtween then
+												Farmtween:Stop()
+											end
+											EquipWeapon(SelectToolWeapon)
+											Usefastattack = true
+											if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+												local args = {
+													[1] = "Buso"
+												}
+												game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+											end
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30,0)
+											Click()
 										end
-										EquipWeapon(SelectToolWeapon)
-										Usefastattack = true
-										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-											local args = {
-												[1] = "Buso"
-											}
-											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-										end
-										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30,0)
-										Click()
-									end 
+									end) 
 								until AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials
 								Usefastattack = false
 							end
@@ -9572,23 +9578,25 @@ if BF then
 						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 							if AutoFarmMMT and v.Name == "Magma Ninja [Lv. 1175]" or v.Name == "Lava Pirate [Lv. 1200]"  and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
 								repeat wait()
-									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
-										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
-									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
-										if Farmtween then
-											Farmtween:Stop()
-										end
-										EquipWeapon(SelectToolWeapon)
-										Usefastattack = true
-										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-											local args = {
-												[1] = "Buso"
-											}
-											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-										end
-										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
-										Click()
-									end 
+									pcall(function()
+										if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+											Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+										elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+											if Farmtween then
+												Farmtween:Stop()
+											end
+											EquipWeapon(SelectToolWeapon)
+											Usefastattack = true
+											if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+												local args = {
+													[1] = "Buso"
+												}
+												game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+											end
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
+											Click()
+										end 
+									end)
 								until AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials
 								Usefastattack = false
 							end
