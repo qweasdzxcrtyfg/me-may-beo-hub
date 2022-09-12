@@ -9451,7 +9451,7 @@ if BF then
 						Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
 					end
 				elseif SelectedMeterials == "Dragon scale" then
-					if game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Archer [Lv. 1600]") or game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Warrior [Lv. 1575]") or v.Name == "Female Islander [Lv. 1625]" or v.Name == "Giant Islander [Lv. 1650]" then
+					if game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Archer [Lv. 1600]") or game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Warrior [Lv. 1575]") or game:GetService("Workspace").Enemies:FindFirstChild("Female Islander [Lv. 1625]") or game:GetService("Workspace").Enemies:FindFirstChild("Giant Islander [Lv. 1650]") then
 						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 							if AutoFarmMMT and v.Name == "Dragon Crew Archer [Lv. 1600]" or v.Name == "Dragon Crew Warrior [Lv. 1575]" or v.Name == "Female Islander [Lv. 1625]" or v.Name == "Giant Islander [Lv. 1650]" and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
 								repeat wait()
