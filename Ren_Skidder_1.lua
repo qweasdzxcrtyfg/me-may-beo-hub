@@ -3870,7 +3870,7 @@ if BF then
 								v.Humanoid.Animator:Destroy()
 							end
 							if v.Humanoid.Health > 0 then
-								v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+								--v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 							end
 							sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius",  math.huge)
 							v.Humanoid:ChangeState(11)
@@ -4772,10 +4772,9 @@ if BF then
 			if Usefastattack then
 				if fastattack == false then
 					pcall(function()
-						BringMob()
 						AttackNoCD()
-						print("attack no cd with slower")
-						wait(0.03)
+						BringMob()
+						wait(0.05)
 					end)
 				end
 			end
@@ -9451,6 +9450,11 @@ if BF then
 						Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
 					end
 				elseif SelectedMeterials == "Dragon scale" then
+						if game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Archer [Lv. 1600]") or game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Warrior [Lv. 1575]") or game:GetService("Workspace").Enemies:FindFirstChild("Female Islander [Lv. 1625]") or game:GetService("Workspace").Enemies:FindFirstChild("Giant Islander [Lv. 1650]") then
+							FoundedMobToKill = true
+						else
+							FoundedMobToKill = false
+						end 
 					if game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Archer [Lv. 1600]") or game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Warrior [Lv. 1575]") or game:GetService("Workspace").Enemies:FindFirstChild("Female Islander [Lv. 1625]") or game:GetService("Workspace").Enemies:FindFirstChild("Giant Islander [Lv. 1650]") then
 						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 							if AutoFarmMMT and v.Name == "Dragon Crew Archer [Lv. 1600]" or v.Name == "Dragon Crew Warrior [Lv. 1575]" or v.Name == "Female Islander [Lv. 1625]" or v.Name == "Giant Islander [Lv. 1650]" and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
@@ -9477,46 +9481,57 @@ if BF then
 							end
 						end
 					else
-						for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
-							if game:GetService("ReplicatedStorage"):FindFirstChild("Dragon Crew Archer [Lv. 1600]") and v.Name == "Dragon Crew Archer [Lv. 1600]" then
-								repeat wait()
-									pcall(function()
-										WaitToMon = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
-										Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
-									end)
-								until not v or AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials or game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
-								wait(1)
-								if Farmtween then Farmtween:Stop() end
-							elseif game:GetService("ReplicatedStorage"):FindFirstChild("Dragon Crew Warrior [Lv. 1575]") and v.Name == "Dragon Crew Warrior [Lv. 1575]" then
-								repeat wait()
-									pcall(function()
-										WaitToMon = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
-										Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
-									end)
-								until not v or AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials or game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
-								wait(1)
-								if Farmtween then Farmtween:Stop() end
-							elseif game:GetService("ReplicatedStorage"):FindFirstChild("Female Islander [Lv. 1625]") and v.Name == "Female Islander [Lv. 1625]" then
-								repeat wait()
-									pcall(function()
-										WaitToMon = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
-										Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
-									end)
-								until not v or AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials or game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
-								wait(1)
-								if Farmtween then Farmtween:Stop() end
-							elseif game:GetService("ReplicatedStorage"):FindFirstChild("Giant Islander [Lv. 1650]") and v.Name == "Giant Islander [Lv. 1650]" then
-								repeat wait()
-									pcall(function()
-										WaitToMon = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
-										Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
-									end)
-								until not v or AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials or game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
-								wait(1)
-								if Farmtween then Farmtween:Stop() end
-							else
-							WaitToMon = CFrame.new(6488.9155273438, 383.38375854492, -110.66246032715)
-							Farmtween =	toTarget(WaitToMon.Position,WaitToMon)
+						Step1_1 = CFrame.new(6488.9155273438, 383.38375854492, -110.66246032715)
+						Step2_1 = CFrame.new(6241.9951171875, 51.522083282471, -1243.9771728516)
+						Step3_1 = CFrame.new(4770.4990234375, 758.95520019531, 1069.8680419922)
+						Step4_1 = CFrame.new(4530.3540039063, 656.75695800781, -131.60952758789)
+						if FoundedMobToKill == false then
+							Questtween = toTarget(Step1_1.Position,Step1_1)
+							if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Step1_1.Position).Magnitude <= 349 then
+							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Step1_1
+							wait(.5)
+							end
+							if game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Archer [Lv. 1600]") then
+								FoundedMobToKill = true
+								Step1_Success = true
+								Step4_Success = false
+							end
+
+						end
+						if FoundedMobToKill == false then
+							Questtween = toTarget(Step2_1.Position,Step2_1)
+							if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Step2_1.Position).Magnitude <= 349 then
+								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Step2_1
+								wait(.5)
+							end
+							if game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Warrior [Lv. 1575]") then
+								FoundedMobToKill = true
+								Step1_Success = false
+								Step2_Success = true
+							end
+						end
+						if FoundedMobToKill == false then
+							Questtween = toTarget(Step3_1.Position,Step3_1)
+							if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Step3_1.Position).Magnitude <= 349 then
+								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Step3_1
+								wait(.5)
+							end
+							if game:GetService("Workspace").Enemies:FindFirstChild("Female Islander [Lv. 1625]") then
+								FoundedMobToKill = true
+								Step2_Success = false
+								Step3_Success = true
+							end
+						end
+						if FoundedMobToKill == false then
+							Questtween = toTarget(Step4_1.Position,Step4_1)
+							if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Step4_1.Position).Magnitude <= 349 then
+								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Step4_1
+								wait(.5)
+							end
+							if game:GetService("Workspace").Enemies:FindFirstChild("Giant Islander [Lv. 1650]") then
+								FoundedMobToKill = true
+								Step3_Success = false
+								Step4_Success = true
 							end
 						end
 					end
