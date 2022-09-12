@@ -4774,8 +4774,8 @@ if BF then
 					pcall(function()
 						BringMob()
 						AttackNoCD()
-						wait(0.059219423952923942942934929)
 					end)
+					wait(0.05)
 				end
 			end
 		end
