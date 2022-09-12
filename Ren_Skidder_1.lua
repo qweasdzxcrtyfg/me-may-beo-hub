@@ -73,7 +73,29 @@ if BF then
 	repeat wait() until game.Players.LocalPlayer:FindFirstChild("PlayerGui");
 	repeat wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("Main");
 	repeat wait()
-	until game.Players.LocalPlayer.Team ~= nil and game:IsLoaded() 
+		if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Main").ChooseTeam.Visible == true then
+			if string.find(getgenv().SelectTeam, "Pirate") then
+				local ChooseTeam = game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam
+	
+				firesignal(ChooseTeam.Container["Pirates"].Frame.ViewportFrame.TextButton.Activated)
+				workspace.Camera.CameraType = Enum.CameraType.Custom
+				ChooseTeam.Visible = false
+			elseif string.find(getgenv().SelectTeam, "Marine")  then
+				local ChooseTeam = game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam
+	
+				firesignal(ChooseTeam.Container["Marines"].Frame.ViewportFrame.TextButton.Activated)
+				workspace.Camera.CameraType = Enum.CameraType.Custom
+				ChooseTeam.Visible = false
+			else
+				local ChooseTeam = game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam
+	
+				firesignal(ChooseTeam.Container["Pirates"].Frame.ViewportFrame.TextButton.Activated)
+				workspace.Camera.CameraType = Enum.CameraType.Custom
+				ChooseTeam.Visible = false
+			end
+		end
+	until game.Players.LocalPlayer.Team ~= nil and game:IsLoaded()
+	------------------------------------------ Hop Server Function -------
 	
 	wait(1)
 	
@@ -5340,10 +5362,7 @@ if BF then
 		getgenv().Setting["Auto Farm Mastery All Melee(Only Work If You Already Have 5+ Melee)"] = vu
 		while wait() do
 			if vu then
-				CheckMelee()
-				CheckMelee()
-				CheckMelee()
-				wait(15)
+				pcall(CheckMelee())
 			end
 		end
 	end)
