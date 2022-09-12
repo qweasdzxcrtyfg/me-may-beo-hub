@@ -3703,15 +3703,15 @@ if BF then
 		elseif Mc == "Snowman [Lv. 100]" then
 			CFrameBring = CFrame.new(1262.75671, 105.779335, -1427.86047, -0.439801037, 0, 0.898095191, 0, 1, 0, -0.898095191, 0, -0.439801037)
 		elseif Mc == "Chief Petty Officer [Lv. 120]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Sky Bandit [Lv. 150]" then
 			CFrameBring = CFrame.new(-4989.16113, 278.066803, -2812.13306, 0.252207011, 0, 0.967673361, 0, 1, 0, -0.967673361, 0, 0.252207011)
 		elseif Mc == "Dark Master [Lv. 175]" then
 			CFrameBring = CFrame.new(-5251.39209, 388.652039, -2243.81201, -0.942741752, 0, 0.333523571, 0, 1, 0, -0.333523571, 0, -0.942741752)
 		elseif Mc == "Prisoner [Lv. 190]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Dangerous Prisoner [Lv. 210]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Toga Warrior [Lv. 250]" then
 			CFrameBring = CFrame.new(-1935.53137, 7.47758675, -2806.09326, -0.277900249, 0, -0.960610032, 0, 1, 0, 0.960610032, 0, -0.277900249)
 		elseif Mc == "Gladiator [Lv. 275]" then
@@ -3735,19 +3735,19 @@ if BF then
 		elseif Mc == "Galley Pirate [Lv. 625]" then
 			CFrameBring = CFrame.new(5580.59131, 50.4132233, 4022.22607, -0.586501181, 6.70978011e-08, -0.809948444, 3.66596744e-08, 1, 5.62959848e-08, 0.809948444, 3.325201e-09, -0.586501181)
 		elseif Mc == "Galley Captain [Lv. 650]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Raider [Lv. 700]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Mercenary [Lv. 725]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Swan Pirate [Lv. 775]" then
 			CFrameBring = CFrame.new(935.041199, 72.9947586, 1254.60291, 0.308177531, 2.9382532e-08, 0.951328695, 9.40288203e-08, 1, -6.13458724e-08, -0.951328695, 1.0835781e-07, 0.308177531)
 		elseif Mc == "Factory Staff [Lv. 800]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Marine Lieutenant [Lv. 875]" then
 			CFrameBring = CFrame.new(-1851.3783, 73.0011826, -3304.09302, 0.169271037, 0, -0.985569537, 0, 1, 0, 0.985569537, 0, 0.169271037)
 		elseif Mc == "Marine Captain [Lv. 900]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Zombie [Lv. 950]" then
 			CFrameBring = CFrame.new(-5774.52197, 48.5151672, -728.932251, -0.998371422, -3.18745279e-08, -0.0570483208, -3.30395586e-08, 1, 1.94785912e-08, 0.0570483208, 2.13317204e-08, -0.998371422)
 		elseif Mc == "Vampire [Lv. 975]" then
@@ -3757,55 +3757,55 @@ if BF then
 		elseif Mc == "Winter Warrior [Lv. 1050]" then
 			CFrameBring = CFrame.new(1210.34583, 429.457001, -5195.65918, 0.439670891, 0, -0.898159027, 0, 1, 0, 0.898159027, 0, 0.439670891)
 		elseif Mc == "Lab Subordinate [Lv. 1100]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Horned Warrior [Lv. 1125]" then
 			CFrameBring = CFrame.new(-6334.1416, 18.9115181, -5818.80713, 0.156731039, 0, -0.987641335, 0, 1, 0, 0.987641335, 0, 0.156731039)
 		elseif Mc == "Magma Ninja [Lv. 1175]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Lava Pirate [Lv. 1200]" then
 			CFrameBring = CFrame.new(-5222.68115, 28.602932, -4635.19434, -0.758588612, 4.35613785e-08, -0.65157032, 2.11213855e-08, 1, 4.22655084e-08, 0.65157032, 1.83000708e-08, -0.758588612)
 		elseif Mc == "Ship Deckhand [Lv. 1250]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Ship Engineer [Lv. 1275]" then
 			CFrameBring = CFrame.new(918.79071, 40.4779129, 32918.3125, 0.982641935, -5.05457294e-08, -0.185512424, 4.90394854e-08, 1, -1.27079183e-08, 0.185512424, 3.38989925e-09, 0.982641935)
 		elseif Mc == "Ship Steward [Lv. 1300]" then
 			CFrameBring = CFrame.new(916.955261, 129.591064, 33446.9648, -0.999993503, 1.24532926e-08, -0.00360700791, 1.23484973e-08, 1, 2.90755366e-08, 0.00360700791, 2.90308062e-08, -0.999993503)
 		elseif Mc == "Ship Officer [Lv. 1325]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Arctic Warrior [Lv. 1350]" then
 			CFrameBring = CFrame.new(6068.44824, 28.4020767, -6259.03564, -0.473853856, 0, -0.880603433, 0, 1, 0, 0.880603433, 0, -0.473853856)
 		elseif Mc == "Snow Lurker [Lv. 1375]" then
 			CFrameBring = CFrame.new(5517.979, 60.5559998, -6831.18359, -0.627233982, -5.43752883e-08, -0.778830886, -3.27744187e-09, 1, -6.71770479e-08, 0.778830886, -3.95831492e-08, -0.627233982)
 		elseif Mc == "Sea Soldier [Lv. 1425]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Water Fighter [Lv. 1450]" then
 			CFrameBring = CFrame.new(-3421.59644, 290.213684, -10582.4971, -0.995755136, -2.90209279e-09, -0.0920420364, -2.17321738e-09, 1, -8.01916755e-09, 0.0920420364, -7.78510056e-09, -0.995755136)
 		elseif Mc == "Pirate Millionaire [Lv. 1500]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Pistol Billionaire [Lv. 1525]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Dragon Crew Warrior [Lv. 1575]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Dragon Crew Archer [Lv. 1600]" then
 			CFrameBring = CFrame.new(6649.94434, 386.041901, 132.133652, -0.766758561, 0, 0.641935587, 0, 1, 0, -0.641935587, 0, -0.766758561)
 		elseif Mc == "Female Islander [Lv. 1625]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Giant Islander [Lv. 1650]" then
-			CFrameBring = PosMon 
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0) 
 		elseif Mc == "Marine Commodore [Lv. 1700]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Marine Rear Admiral [Lv. 1725]" then
 			CFrameBring = CFrame.new(-10388.4307, 331.79776, -8378.95508, -0.728248835, 0, -0.685312808, 0, 1, 0, 0.685312808, 0, -0.728248835)
 		elseif Mc == "Fishman Raider [Lv. 1775]" then
 			CFrameBring = CFrame.new(-10409.3271, 331.79776, -8375.375, 0.114401579, 0, 0.993434906, 0, 1, 0, -0.993434906, 0, 0.114401579)
 		elseif Mc == "Fishman Captain [Lv. 1800]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Forest Pirate [Lv. 1825]" then
 			CFrameBring = CFrame.new(-13430.6328, 354.534393, -7801.64355, -0.995815098, 4.8740759e-08, 0.0913910568, 5.034304e-08, 1, 1.52268687e-08, -0.0913910568, 1.97640482e-08, -0.995815098)
 		elseif Mc == "Mythological Pirate [Lv. 1850]" then
 			CFrameBring = CFrame.new(-13502.3867, 469.619446, -6849.84326, -0.592985988, -8.33170404e-08, -0.805212796, -8.88527563e-09, 1, -9.6928666e-08, 0.805212796, -5.03228001e-08, -0.592985988)
 		elseif Mc == "Jungle Pirate [Lv. 1900]" then
-			CFrameBring = PosMon
+			CFrameBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
 		elseif Mc == "Musketeer Pirate [Lv. 1925]" then
 			CFrameBring = CFrame.new(-13341.2988, 391.580688, -9797.19727, 0.313264191, -1.68403975e-08, -0.949666023, 3.8043293e-08, 1, -5.18371346e-09, 0.949666023, -3.45045521e-08, 0.313264191)
 		elseif Mc == "Reborn Skeleton [Lv. 1975]" then
@@ -4781,7 +4781,7 @@ if BF then
 		end
 	end)
 	
-	local Main = library:Window("Nguoi ngu","Version: 1.02")
+	local Main = library:Window("Nguoi ngu","Version: 1.05")
 	local AutoFarmTab = Main:Tab("Auto Farm")
 	local MainAutoFarmFunction = AutoFarm(Ms,NameQuest,LevelQuest,NameMon,CFrameMon,CFrameQuest,"AutoFarmLevel")
 	spawn(function()
@@ -9405,6 +9405,7 @@ if BF then
 		"Dragon Scale",
 		"Fishman Tail",
 		"Mystic Droplets",
+		"Magma Ores",
 	}
 	Update17_3Tab:Dropdown("Choose Meterials To Farm",TableMeterials,"Fishman Tails",function(v)
 		SelectedMeterials = v
@@ -9531,7 +9532,6 @@ if BF then
 						end
 					end
 				elseif SelectedMeterials == "Mystic Droplets" then
-					print('cool')
 					WaitMobCFrame = CFrame.new(-3035.25122, 167.147293, -10124.1143, 0.955402374, 0, -0.295307219, 0, 1, 0, 0.295307219, 0, 0.955402374)
 					if game.Workspace.Enemies:FindFirstChild("Water Fighter [Lv. 1450]") or game.Workspace.Enemies:FindFirstChild("Sea Soldier [Lv. 1425]") then
 						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
@@ -9552,6 +9552,41 @@ if BF then
 											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 										end
 										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30,0)
+										Click()
+									end 
+								until AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials
+								Usefastattack = false
+							end
+						end
+					else
+						pcall(function()
+							Farmtween = toTarget(WaitMobCFrame.Position,WaitMobCFrame)
+							if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-WaitMobCFrame.Position).Magnitude <= 349 then
+								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = WaitMobCFrame
+							end
+						end)
+					end
+				elseif SelectedMeterials == "Magma Ores" then
+					WaitMobCFrame = CFrame.new(-5391.86621, 16.4166107, -5283.02148, 0.937662363, 0, 0.347547799, 0, 1, 0, -0.347547799, 0, 0.937662363)
+					if game.Workspace.Enemies:FindFirstChild("Magma Ninja [Lv. 1175]") or game.Workspace.Enemies:FindFirstChild("Lava Pirate [Lv. 1200]") then
+						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+							if AutoFarmMMT and v.Name == "Magma Ninja [Lv. 1175]" or v.Name == "Lava Pirate [Lv. 1200]"  and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+								repeat wait()
+									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+										if Farmtween then
+											Farmtween:Stop()
+										end
+										EquipWeapon(SelectToolWeapon)
+										Usefastattack = true
+										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+											local args = {
+												[1] = "Buso"
+											}
+											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+										end
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
 										Click()
 									end 
 								until AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials
