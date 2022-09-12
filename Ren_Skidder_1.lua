@@ -4760,8 +4760,8 @@ if BF then
 			if Usefastattack then
 				if fastattack then
 					pcall(function()
-						AttackNoCD()
 						BringMob()
+						AttackNoCD()
 					end)
 				end
 			end
@@ -4772,8 +4772,8 @@ if BF then
 			if Usefastattack then
 				if fastattack == false then
 					pcall(function()
-						AttackNoCD()
 						BringMob()
+						AttackNoCD()
 						wait(0.059219423952923942942934929)
 					end)
 				end
@@ -5757,11 +5757,6 @@ if BF then
 		vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 	end)
 	AutoFarmTab:Toggle("Anit AFK", true,function(vu)
-		game:GetService("Players").LocalPlayer.Idled:connect(function()
-			vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-			wait(1)
-			vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-		end)
 	end)
 	AutoFarmTab:Label("Auto Farm Mastery Skill Setting",true)
 	AutoFarmTab:Toggle("Skill Z", true,function(a)
@@ -9412,11 +9407,7 @@ if BF then
 		"Mystic Droplets",
 	}
 	Update17_3Tab:Dropdown("Choose Meterials To Farm",TableMeterials,"Fishman Tails",function(v)
-		if v == "Dragon Scale" or v == "Fishman Tail" and game.PlaceId == 7449423635 then
-			SelectedMeterials = v
-		else
-			library:Notification("Only Sea 3 Son.","Click or you gay!")
-		end
+		SelectedMeterials = v
 	end)
 	Update17_3Tab:Toggle("Auto Farm Selected Meterials",false,function(v)
 		AutoFarmMMT = v 
@@ -9540,7 +9531,41 @@ if BF then
 						end
 					end
 				elseif SelectedMeterials == "Mystic Droplets" then
-
+					print('cool')
+					WaitMobCFrame = CFrame.new(-3035.25122, 167.147293, -10124.1143, 0.955402374, 0, -0.295307219, 0, 1, 0, 0.295307219, 0, 0.955402374)
+					if game.Workspace.Enemies:FindFirstChild("Water Fighter [Lv. 1450]") or game.Workspace.Enemies:FindFirstChild("Sea Soldier [Lv. 1425]") then
+						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+							if AutoFarmMMT and v.Name == "Water Fighter [Lv. 1450]" or v.Name == "Sea Soldier [Lv. 1425]"  and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+								repeat wait()
+									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+										if Farmtween then
+											Farmtween:Stop()
+										end
+										EquipWeapon(SelectToolWeapon)
+										Usefastattack = true
+										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+											local args = {
+												[1] = "Buso"
+											}
+											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+										end
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30,0)
+										Click()
+									end 
+								until AutoFarmMMT == false or not v.Parent or v.Humanoid.Health <= 0 or SelectedMeterials ~= SelectedMeterials
+								Usefastattack = false
+							end
+						end
+					else
+						pcall(function()
+							Farmtween = toTarget(WaitMobCFrame.Position,WaitMobCFrame)
+							if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-WaitMobCFrame.Position).Magnitude <= 349 then
+								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = WaitMobCFrame
+							end
+						end)
+					end
 				end
 			end
 		end
