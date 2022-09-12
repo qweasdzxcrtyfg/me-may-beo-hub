@@ -5356,7 +5356,9 @@ if BF then
 		getgenv().Setting["Auto Farm Mastery All Melee(Only Work If You Already Have 5+ Melee)"] = vu
 		while wait() do
 			if vu then
-				pcall(CheckMelee())
+				pcall(function()
+					CheckMelee()
+				end)
 			end
 		end
 	end)
