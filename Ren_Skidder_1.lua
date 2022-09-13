@@ -4825,6 +4825,7 @@ if BF then
 	fastattack = true
 	AutoFarmTab:Toggle("Fast Attack", true,function(a)
 		fastattack = a
+		hidefastattack = a
 	end)
 	if game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("Candies","Check") then
 		AutoFarmTab:Line()
@@ -8115,6 +8116,7 @@ if BF then
 						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 							if AutoFarmCakePrince and v.Name == "Cake Prince [Lv. 2300] [Raid Boss]" and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
 								repeat wait()
+									fastattack = false
 									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
 										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
 										Usefastattack = false
@@ -8136,6 +8138,9 @@ if BF then
 									end
 								until not AutoFarmCakePrince or not v.Parent or v.Humanoid.Health <= 0 or game.ReplicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]")
 								Usefastattack = false
+								if hidefastattack then
+									fastattack = true
+								end
 							end
 						end
 					else
