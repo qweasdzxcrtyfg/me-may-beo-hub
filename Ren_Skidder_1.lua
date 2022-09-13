@@ -94,7 +94,7 @@ if BF then
             ["Auto Farm"] = false,
             ["Buso"] = true,
             ["Ken"] = true,
-            ["Fast Tween"] = false,
+            ["Fast Tween"] = true,
             ["Auto New World"] = false,
             ["Fast Attack"] = true,
             ["Join Team "] = "Pirate",
@@ -139,7 +139,7 @@ if BF then
             ["Auto Store Fruit"] = false,
         },
         ["Settings"] = {
-            ["Auto Save"] = true,
+            ["Auto Save"] = false,
         }
     }
     function Load()
@@ -12016,11 +12016,10 @@ if BF then
         SaveSettings["Settings"]["Auto Save"] = v 
         Save()
         if v then
-            library:notification("Rejoin and load script again!")
             wait(3)
             local ts = game:GetService("TeleportService")
 		    local p = game:GetService("Players").LocalPlayer
-		    ts:Teleport(game.PlaceId, p)
+		    --ts:Teleport(game.PlaceId, p)
         end
     end)
     SettingTab:Line()
