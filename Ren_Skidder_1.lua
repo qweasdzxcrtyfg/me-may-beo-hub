@@ -94,7 +94,7 @@ if BF then
             ["Auto Farm"] = false,
             ["Buso"] = true,
             ["Ken"] = true,
-            ["Fast Tween"] = true,
+            ["Fast Tween"] = false,
             ["Auto New World"] = false,
             ["Fast Attack"] = true,
             ["Join Team "] = "Pirate",
@@ -139,7 +139,7 @@ if BF then
             ["Auto Store Fruit"] = false,
         },
         ["Settings"] = {
-            ["Auto Save"] = false,
+            ["Auto Save"] = true,
         }
     }
     function Load()
@@ -8943,7 +8943,7 @@ if BF then
 							end
 						end
 					else
-						if AutoEliteHunterHOP and game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("EliteHunter") == "I don't have anything for you right now. Come back later." and not game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chalice") then
+						if AutoEliteHunterHOP and game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("EliteHunter") == "I don't have anything for you right now. Come back later." and not game.Players.LocalPlayer.Backpack:FindFirstChild("God Chalice") then
 							local PlaceID = game.PlaceId
 							local AllIDs = {}
 							local foundAnything = ""
@@ -9012,7 +9012,7 @@ if BF then
 						end
 					end
 				else
-					if AutoEliteHunterHOP and game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("EliteHunter") == "I don't have anything for you right now. Come back later." and not game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chalice") then
+					if AutoEliteHunterHOP and game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("EliteHunter") == "I don't have anything for you right now. Come back later." and not game.Players.LocalPlayer.Backpack:FindFirstChild("God Chalice") then
 						local PlaceID = game.PlaceId
 						local AllIDs = {}
 						local foundAnything = ""
@@ -12016,10 +12016,11 @@ if BF then
         SaveSettings["Settings"]["Auto Save"] = v 
         Save()
         if v then
+            library:notification("Rejoin and load script again!")
             wait(3)
             local ts = game:GetService("TeleportService")
 		    local p = game:GetService("Players").LocalPlayer
-		    --ts:Teleport(game.PlaceId, p)
+		    ts:Teleport(game.PlaceId, p)
         end
     end)
     SettingTab:Line()
