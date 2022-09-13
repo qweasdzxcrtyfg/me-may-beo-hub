@@ -5018,7 +5018,7 @@ if BF then
 		end)
 		AutoFarmTab:Toggle("Auto third World", getgenv().Setting["Auto third World"],function(vu)
 			if SelectToolWeapon == "" and vu then
-				Flux:Notification("Select Weapon First in Tab Auto Farm")
+				library:Notification("Select Weapon First in Tab Auto Farm")
 			else
 				OldSelectToolWeapon = SelectToolWeapon
 				Autothird = vu
@@ -6898,11 +6898,11 @@ if BF then
 	AutoFarmMiscTab:Label("Sea 1 (Old World)",true)
 	AutoFarmMiscTab:Toggle("Auto Open Saber Room",_G.AutoOpenSaberRoom,function(vu)
 		if not OldWorld then
-			Flux:Notification("Use In Old World","Okey")
+			library:Notification("Use In Old World","Okey")
 		elseif SelectToolWeapon == "" and vu then
-			Flux:Notification("Select Weapon First in Tab Auto Farm","Okey")
+			library:Notification("Select Weapon First in Tab Auto Farm","Okey")
 		elseif game.Workspace.Map.Jungle.Final.Part.Transparency == 1 and vu then
-			Flux:Notification("Saber Room Succeed","Okey")
+			library:Notification("Saber Room Succeed","Okey")
 		else
 			AutoSaber = vu
 		end  
@@ -7118,12 +7118,12 @@ if BF then
 	AutoFarmMiscTab:Toggle("Auto Pole V.1",_G.AutoPole,function(v)
 		if OldWorld then
 			if SelectToolWeapon == "" and v then
-				Flux:Notification("Selected Weapon First","Okey")
+				library:Notification("Selected Weapon First","Okey")
 			else
 				AutoPole = v
 			end
 		else
-			Flux:Notification("Use In Old World","Okey")    
+			library:Notification("Use In Old World","Okey")    
 		end 
 	end)
 	spawn(function()
@@ -7170,7 +7170,7 @@ if BF then
 		if OldWorld then
 			AutoPoleHOP = v
 		else
-			Flux:Notification("Use In Old World","Okey")    
+			library:Notification("Use In Old World","Okey")    
 		end 
 	end)
 	spawn(function()
@@ -7284,7 +7284,7 @@ if BF then
 	WeaponBartilo = ""
 	AutoFarmMiscTab:Toggle("Auto Quest Bartilo",_G.AutoQuestBartilo,function(v)
 		if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo") == 3 and v == true then
-			Flux:Notification("Quest Bartilo Successfully")
+			library:Notification("Quest Bartilo Successfully")
 		else
 			AutoQuestBartilo = v
 		end
@@ -7414,14 +7414,14 @@ if BF then
 	AutoFarmMiscTab:Label("Auto Quest Flower",true)
 	AutoFarmMiscTab:Toggle("Auto Quest Flower",_G.AutoQuestFlower,function(Bool)
 		if game.Players.LocalPlayer.Data.Level.Value < 850 and Bool then
-			Flux:Notification("Need Level More 850")
+			library:Notification("Need Level More 850")
 		else
 			if SelectToolWeapon == "" and Bool then
-				Flux:Notification("Selected Weapon First")
+				library:Notification("Selected Weapon First")
 			elseif  game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo") ~= 3 and Bool == true then
-				Flux:Notification("Quest Bartilo Not Successfully")
+				library:Notification("Quest Bartilo Not Successfully")
 			elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Alchemist","3") == -2 and Bool == true then
-				Flux:Notification("Evo Race V.2 Successfully")
+				library:Notification("Evo Race V.2 Successfully")
 			else
 				AutoEvoRace2 = Bool
 			end
@@ -7532,9 +7532,9 @@ if BF then
 	AutoFarmMiscTab:Label("Auto Rengoku",true)
 	AutoFarmMiscTab:Toggle("Auto Rengoku",_G.AutoRengoku,function(v)
 		if not NewWorld then
-			Flux:Notification("Use in New World")
+			library:Notification("Use in New World")
 		elseif SelectToolWeapon == "" and v then
-			Flux:Notification("Select Wapon First")
+			library:Notification("Select Wapon First")
 		else
 			AutoRengoku = v
 		end 
@@ -7609,7 +7609,7 @@ if BF then
 		if NewWorld then
 			AutoFramEctoplasm = A
 		else
-			Flux:Notification("Use in New World")
+			library:Notification("Use in New World")
 		end
 	end)
 	spawn(function()
@@ -7682,21 +7682,21 @@ if BF then
 		if NewWorld then
 			AutoBuyBizarreRifle = A
 		else
-			Flux:Notification("Use in New World")
+			library:Notification("Use in New World")
 		end
 	end)
 	AutoFarmMiscTab:Toggle("Auto Buy Ghoul Mask",_G.AutoBuyGhoulMask,function(A)
 		if NewWorld then
 			AutoBuyGhoulMask = A
 		else
-			Flux:Notification("Use in New World")
+			library:Notification("Use in New World")
 		end
 	end)
 	AutoFarmMiscTab:Toggle("Auto Buy Midnight Blade",_G.AutoBuyMidnightBlade,function(A)
 		if NewWorld then
 			AutoBuyMidnightBlade = A
 		else
-			Flux:Notification("Use in New World")
+			library:Notification("Use in New World")
 		end
 	end)
 	spawn(function()
@@ -7853,7 +7853,7 @@ if BF then
 	AutoFarmMiscTab:Label("🎃 Hallow Ween 🎃")
 	AutoFarmMiscTab:Toggle("Auto Farm Bone",_G.AutoFarmBone,function(vu)
 		if not ThreeWorld and vu then
-			Flux:Notification('Use In Sea 3 (Three World)')
+			library:Notification('Use In Sea 3 (Three World)')
 		else 
 			AutoFarmBone = vu
 			MainAutoFarmBone = vu
@@ -7929,9 +7929,9 @@ if BF then
 			end
 		end
 		if not ThreeWorld and a then
-			Flux:Notification('Use In Sea 3 (Three World)')
+			library:Notification('Use In Sea 3 (Three World)')
 		elseif HaveHallowScythe and a then
-			Flux:Notification('You Have Hallow Scythe')
+			library:Notification('You Have Hallow Scythe')
 		else    
 			AutoHallowScythe = a
 		end 
@@ -8005,7 +8005,7 @@ if BF then
 	end)
 	AutoFarmMiscTab:Toggle("Auto Farm Soul Reaper",_G.AutoFarmSoulReaper,function(a)
 		if not ThreeWorld and a then
-			Flux:Notification('Use In Sea 3 (Three World)')
+			library:Notification('Use In Sea 3 (Three World)')
 		else    
 			AutoSoulReaper = a
 		end 
@@ -8718,17 +8718,21 @@ if BF then
 			CheckEliteHunter:Refresh("Kill " .. game.ReplicatedStorage.Remotes.CommF_:InvokeServer("EliteHunter", "Progress") .. " Elite Enemies")
 		end
 	end)
+	_G.AutoEliteHunter = _G.AutoEliteHunter or false
 	AutoFarmMiscTab:Toggle("Auto Elite Hunter",_G.AutoEliteHunter,function(a)
 		if ThreeWorld then
-			AutoEliteHunter = a
+			_G.AutoEliteHunter = a
+			AutoEliteHunter = _G.AutoEliteHunter
 		else
 			library:Notification("Use In Thire World")
 		end
 	end)
+	_G.AutoEliteHunterHop = _G.AutoEliteHunterHop or false
 	AutoFarmMiscTab:Toggle("Auto Elite Hunter HOP",_G.AutoEliteHunterHop,function(a)
 		if ThreeWorld then
-			AutoEliteHunter = a
-			AutoEliteHunterHOP = a
+			_G.AutoEliteHunterHop = a
+			AutoEliteHunter = _G.AutoEliteHunterHop
+			AutoEliteHunterHOP = _G.AutoEliteHunterHop
 		else
 			library:Notification("Use In Thire World")
 		end
@@ -8982,7 +8986,7 @@ if BF then
 		if ThreeWorld then
 			AutoHakiRainbow = a
 		else
-			Flux:Notification("Use In Three World")
+			library:Notification("Use In Three World")
 		end
 	end)
 	spawn(function()
@@ -9255,7 +9259,7 @@ if BF then
 		if ThreeWorld then
 			MusketeeHat = a
 		else
-			Flux:Notification("Use In Three World")
+			library:Notification("Use In Three World")
 		end
 	end)
 	spawn(function()
@@ -9373,12 +9377,12 @@ if BF then
 			if game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CitizenQuestProgress", "Citizen") == 4 or game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CitizenQuestProgress", "Citizen") == 3 and game:GetService("Players").LocalPlayer.VisionRadius == 3000 then
 				AutoObservationHakiV2 = a
 			elseif game:GetService("Players").LocalPlayer.VisionRadius < 3000 then
-				Flux:Notification("Observation Haki Not Max")
+				library:Notification("Observation Haki Not Max")
 			else
-				Flux:Notification("Quest Musketee Hat No Compete")
+				library:Notification("Quest Musketee Hat No Compete")
 			end 
 		else
-			Flux:Notification("Use In Three World")
+			library:Notification("Use In Three World")
 		end
 	end)
 	spawn(function()
@@ -12506,7 +12510,7 @@ if OPL then
             end
         )
     
-        function Flux:Notification(desc,buttontitle)
+        function library:Notification(desc,buttontitle)
             for i, v in next, MainFrame:GetChildren() do
                 if v.Name == "NotificationBase" then
                     v:Destroy()
@@ -15564,7 +15568,7 @@ if BOKU then
             end
         )
     
-        function Flux:Notification(desc,buttontitle)
+        function library:Notification(desc,buttontitle)
             for i, v in next, MainFrame:GetChildren() do
                 if v.Name == "NotificationBase" then
                     v:Destroy()
@@ -18475,7 +18479,7 @@ if RO then
             end
         )
     
-        function Flux:Notification(desc,buttontitle)
+        function library:Notification(desc,buttontitle)
             for i, v in next, MainFrame:GetChildren() do
                 if v.Name == "NotificationBase" then
                     v:Destroy()
@@ -20561,9 +20565,9 @@ if RO then
     
         Auto_Farm = vu
         if StageFarm == "" then
-            Flux:Notification("Select State First", "Okay")
+            library:Notification("Select State First", "Okay")
         elseif MonsterFarm == "" then
-            Flux:Notification("Select Monster First", "Okay!")
+            library:Notification("Select Monster First", "Okay!")
         else
         _G.AutoFarm = vu
         _G.naclip = vu
@@ -20574,9 +20578,9 @@ if RO then
     
         AutoFarmType = vu
         if StageFarm == "" then
-            Flux:Notification("Select State First", "Okay")
+            library:Notification("Select State First", "Okay")
         elseif MonsterType == "" then
-            Flux:Notification("Select Monster First", "Okay!")
+            library:Notification("Select Monster First", "Okay!")
         else
         _G.AutoFarmType = vu
         _G.naclip = vu
@@ -20585,7 +20589,7 @@ if RO then
     page1:Toggle('Auto Farm All Mon',false,function(vu)
         Auto_Farm = vu
         if StageFarm == "" then
-            Flux:Notification("Select State First", "Okay")
+            library:Notification("Select State First", "Okay")
         else
         _G.AutoFarmAllMos = vu
         _G.naclip = vu
@@ -22786,7 +22790,7 @@ function TPReturner()
             end
         )
     
-        function Flux:Notification(desc,buttontitle)
+        function library:Notification(desc,buttontitle)
             for i, v in next, MainFrame:GetChildren() do
                 if v.Name == "NotificationBase" then
                     v:Destroy()
