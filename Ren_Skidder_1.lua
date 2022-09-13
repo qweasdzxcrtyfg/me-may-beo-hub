@@ -89,7 +89,60 @@ if BF then
 			end
 		end
 	until game.Players.LocalPlayer.Team ~= nil and game:IsLoaded()
-	function Load()
+    local SaveSettings = {
+        ["Main"] = {
+            ["Auto Farm"] = false,
+            ["Buso"] = true,
+            ["Ken"] = true,
+            ["Fast Tween"] = true,
+            ["Auto New World"] = false,
+            ["Fast Attack"] = true,
+            ["Join Team "] = "Pirate",
+            ["Auto Factory"] = false,
+            ["Auto Third World"] = false,
+            ["Selected Tool Weapon"] = 0,
+        },
+        ["Item"] = {
+            ["Auto Superhuman"] = false,
+            ["Auto Superhuman Full"] = false,
+            ["Auto Buy Sword Legendary"] = false,
+            ["Auto Buy Sword Legendary HOP"] = false,
+            ["Auto Buy enchantment"] = false,
+            ["Auto Electric Claw"] = false,
+            ["Auto Dragon Talon"] = false,
+            ["Auto Death Step"] = false,
+            ["Auto Get All Mastery"] = false,
+        },
+        ["Stats"] = {
+            ["Kaitun"] = false,
+            ["Auto Melee"] = false,
+            ["Auto Defense"] = false,
+            ["Auto Sword"] = false,
+            ["Auto Gun"] = false,
+            ["Auto Devil Fruit"] = false,
+        },
+        ["Auto Farm Misc"] = {
+            ["Auto Farm Boss"] = false,
+            ["Selected Boss To HOP"] = "",
+            ["Auto Farm Boss HOP"] = false,
+            ["Auto Farm Cake Prince"] = false,
+            ["Auto Farm Observation"] = false,
+            ["Auto Pole v1"] = false,
+            ["Auto Pole v1 HOP"] = false,
+            ["Auto true triple katana"] = false,
+            ["Auto Farm Ectoplasm"] = false,
+            ["Auto Farm Elite Hunter"] = false,
+            ["Auto Farm Elite Hunter Hop"] = false,
+        },
+        ["Shop Devil Fruit"] = {
+            ["Auto Random Devil Fruit"] = false,
+            ["Auto Store Fruit"] = false,
+        },
+        ["Settings"] = {
+            ["Auto Save"] = false,
+        }
+    }
+    function Load()
         if readfile and writefile and isfile and isfolder then
             if isfolder("Nguoi Ngu") == false then
                 makefolder("Nguoi Ngu")
@@ -107,14 +160,26 @@ if BF then
             return false
         end
     end
-	Load()
-	if SaveSettings["Settings"]["Auto Save"] then
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/memaybeohub/me-may-beo-hub/main/Ren_Skidder_2.lua"))()
-		return;
-	end
+    function Save()
+        if readfile and writefile and isfile then
+            if isfile("/Nguoi Ngu/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json") == false then
+                Load()
+            else
+                local Decode = game:GetService("HttpService"):JSONDecode(readfile("/Nguoi Ngu/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json"))
+                local Array = {}
+                for i,v in pairs(SaveSettings) do
+                    Array[i] = v
+                end
+                writefile("/Nguoi Ngu/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json", game:GetService("HttpService"):JSONEncode(Array))
+            end
+        else
+            warn("Failed Save")
+            return false
+        end
+    end
+    Load()
+    Save()
 	------------------------------------------ Hop Server Function -------
-	
-	wait(1)
 	
 	if game.CoreGui.RobloxGui:FindFirstChild("Voice Chat Ui") then game.CoreGui.RobloxGui:FindFirstChild("Voice Chat Ui"):Destroy() end
 	local library = {RainbowColorValue = 0, HueSelectionPosition = 0}
@@ -4831,8 +4896,10 @@ if BF then
 			fastWait(.05)
 		end
 	end)
-	AutoFarmTab:Toggle("Auto Farm Level", getgenv().Setting["Auto Farm Level"],function(a)
-		Auto_Farm = a
+	AutoFarmTab:Toggle("Auto Farm Level",SaveSettings["Main"]["Auto Farm"],function(a)
+		SaveSettings["Main"]["Auto Farm"] = a
+        Auto_Farm = SaveSettings["Main"]["Auto Farm"]
+        Save()
 		MainAutoFarmFunction:UpdateFarmMode("AutoFarmLevel")
 		if Auto_Farm then
 			MainAutoFarmFunction:Start()
@@ -4841,14 +4908,17 @@ if BF then
 		end
 	end)
 	FastTween = false
-	AutoFarmTab:Toggle("Very Fast Tween ( Not Recommend For KaiTun )", true,function(a)
-		FastTween = a
+	AutoFarmTab:Toggle("Very Fast Tween ( Not Recommend For KaiTun )", SaveSettings["Main"]["Fast Tween"],function(a)
+		SaveSettings["Main"]["Fast Tween"] = a
+        FastTween = SaveSettings["Main"]["Fast Tween"]
+        Save()
 	end)
-	
 	fastattack = true
-	AutoFarmTab:Toggle("Fast Attack", true,function(a)
-		fastattack = a
-		hidefastattack = a
+	AutoFarmTab:Toggle("Fast Attack",SaveSettings["Main"]["Fast Attack"],function(a)
+        SaveSettings["Main"]["Fast Attack"] = a
+        hidefastattack = SaveSettings["Main"]["Fast Attack"]
+		fastattack = hidefastattack
+        Save()
 	end)
 	if game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("Candies","Check") then
 		AutoFarmTab:Line()
@@ -4884,8 +4954,10 @@ if BF then
 	if OldWorld then
 		AutoFarmTab:Line()
 		-- Auto New World
-		AutoFarmTab:Toggle("Auto New World", getgenv().Setting["Auto New World"],function(vu)
-			AutoNew = vu
+		AutoFarmTab:Toggle("Auto New World", SaveSettings["Main"]["Auto New World"],function(vu)
+			SaveSettings["Main"]["Auto New World"] = vu
+            AutoNew = SaveSettings["Main"]["Auto New World"]
+            Save()
 		end)
 		spawn(function()
 			while wait() do
@@ -5740,8 +5812,10 @@ if BF then
 	AutoFarmTab:Line()
 	SelectToolWeapon = getgenv().Setting["Select Weapon"] or ""
 	AutoFarmTab:Label("Select Weapon",true)
-	local SelectedWeapon = AutoFarmTab:Dropdown("Selected Weapon",Weapon,0,function(a)
-		SelectToolWeapon = a 
+	local SelectedWeapon = AutoFarmTab:Dropdown("Selected Weapon",Weapon,SaveSettings["Main"]["Selected Tool Weapon"],function(a)
+        SaveSettings["Main"]["Selected Tool Weapon"] = a
+		SelectToolWeapon = SaveSettings["Main"]["Selected Tool Weapon"]
+        Save() 
 	end)
 	AutoFarmTab:Button("Refrash", function()
 		Weapon = {}
@@ -5761,11 +5835,15 @@ if BF then
 	AutoFarmTab:Line()
 	AutoFarmTab:Label("Auto Farm Setting",true)
 	AUTOHAKI = true
-	AutoFarmTab:Toggle("Auto Haki", AUTOHAKI,function(Value)
-		AUTOHAKI = Value  
+	AutoFarmTab:Toggle("Auto Buso Haki", SaveSettings["Main"]["Buso"],function(Value)
+		SaveSettings["Main"]["Buso"] = Value
+        AUTOHAKI = SaveSettings["Main"]["Buso"]  
+        Save()
 	end)
-	AutoFarmTab:Toggle("Auto Observation haki", false,function(Value)
-		AUTOHAKIObs = Value  
+	AutoFarmTab:Toggle("Auto Observation(Ken) haki",SaveSettings["Main"]["Ken"],function(Value)
+		SaveSettings["Main"]["Ken"] = Value
+        AUTOHAKIObs = SaveSettings["Main"]["Ken"]  
+        Save()
 	end)
 	AutoRejoin = _G.AutoRejoin or false
 	AutoFarmTab:Toggle("Auto Rejoin", getgenv().Setting["Auto Rejoin"],function(a)
@@ -8742,20 +8820,22 @@ if BF then
 		end
 	end)
 	_G.AutoEliteHunter = _G.AutoEliteHunter or false
-	AutoFarmMiscTab:Toggle("Auto Elite Hunter",_G.AutoEliteHunter,function(a)
+	AutoFarmMiscTab:Toggle("Auto Elite Hunter",SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter"],function(a)
 		if ThreeWorld then
-			_G.AutoEliteHunter = a
-			AutoEliteHunter = _G.AutoEliteHunter
+			SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter"] = a
+			AutoEliteHunter = SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter"]
+            Save()
 		else
 			library:Notification("Use In Thire World")
 		end
 	end)
 	_G.AutoEliteHunterHop = _G.AutoEliteHunterHop or false
-	AutoFarmMiscTab:Toggle("Auto Elite Hunter HOP",_G.AutoEliteHunterHop,function(a)
+	AutoFarmMiscTab:Toggle("Auto Elite Hunter HOP",SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter Hop"],function(a)
 		if ThreeWorld then
-			_G.AutoEliteHunterHop = a
-			AutoEliteHunter = _G.AutoEliteHunterHop
-			AutoEliteHunterHOP = _G.AutoEliteHunterHop
+			SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter Hop"] = a
+			AutoEliteHunter = SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter"]
+			AutoEliteHunterHOP = SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter"]
+            Save()
 		else
 			library:Notification("Use In Thire World")
 		end
@@ -8863,7 +8943,7 @@ if BF then
 							end
 						end
 					else
-						if AutoEliteHunterHOP and game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("EliteHunter") == "I don't have anything for you right now. Come back later." and not game.Players.LocalPlayer.Backpack:FindFirstChild("God Chalice") then
+						if AutoEliteHunterHOP and game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("EliteHunter") == "I don't have anything for you right now. Come back later." and not game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chalice") then
 							local PlaceID = game.PlaceId
 							local AllIDs = {}
 							local foundAnything = ""
@@ -8932,7 +9012,7 @@ if BF then
 						end
 					end
 				else
-					if AutoEliteHunterHOP and game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("EliteHunter") == "I don't have anything for you right now. Come back later." and not game.Players.LocalPlayer.Backpack:FindFirstChild("God Chalice") then
+					if AutoEliteHunterHOP and game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("EliteHunter") == "I don't have anything for you right now. Come back later." and not game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chalice") then
 						local PlaceID = game.PlaceId
 						local AllIDs = {}
 						local foundAnything = ""
@@ -11930,7 +12010,19 @@ if BF then
 	end)
 	
 	----------------------------------------------------------------------------------------------------------------------------
-	local SettingTab = Main:Tab("Setting")
+	
+    local SettingTab = Main:Tab("Setting")
+    SettingTab:Toggle("Auto Save",SaveSettings["Settings"]["Auto Save"],function(v)
+        SaveSettings["Settings"]["Auto Save"] = v 
+        Save()
+        if v then
+            wait(3)
+            local ts = game:GetService("TeleportService")
+		    local p = game:GetService("Players").LocalPlayer
+		    --ts:Teleport(game.PlaceId, p)
+        end
+    end)
+    SettingTab:Line()
 	SettingTab:Button("Rejoin",function()
 		local ts = game:GetService("TeleportService")
 		local p = game:GetService("Players").LocalPlayer
