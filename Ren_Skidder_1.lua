@@ -89,6 +89,29 @@ if BF then
 			end
 		end
 	until game.Players.LocalPlayer.Team ~= nil and game:IsLoaded()
+	function Load()
+        if readfile and writefile and isfile and isfolder then
+            if isfolder("Nguoi Ngu") == false then
+                makefolder("Nguoi Ngu")
+            end
+            if isfile("/Nguoi Ngu/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json") == false then
+                writefile("/Nguoi Ngu/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json", game:GetService("HttpService"):JSONEncode(SaveSettings))
+            else
+                local Decode = game:GetService("HttpService"):JSONDecode(readfile("/Nguoi Ngu/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json"))
+                for i,v in pairs(Decode) do
+                    SaveSettings[i] = v
+                end
+            end
+        else
+            warn("Failed Load")
+            return false
+        end
+    end
+	Load()
+	if SaveSettings["Settings"]["Auto Save"] then
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/memaybeohub/me-may-beo-hub/main/Ren_Skidder_2.lua"))()
+		return;
+	end
 	------------------------------------------ Hop Server Function -------
 	
 	wait(1)
