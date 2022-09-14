@@ -9038,7 +9038,7 @@ if BF then
 							for i,v in pairs(Site.data) do
 								local Possible = true
 								ID = tostring(v.id)
-								if tonumber(4) > tonumber(v.playing) then
+								if tonumber(2) > tonumber(v.playing) then
 									for _,Existing in pairs(AllIDs) do
 										if num ~= 0 then
 											if ID == tostring(Existing) then
@@ -9063,7 +9063,7 @@ if BF then
 											wait()
 											game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
 										end)
-										wait(5)
+										wait(1)
 									end
 								end
 							end
@@ -9076,6 +9076,7 @@ if BF then
 										TPReturner()
 									end
 								end)
+								wait(5)
 							end
 						end
 						Teleport()
