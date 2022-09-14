@@ -4879,7 +4879,7 @@ if BF then
 						BringMob()
 						AttackNoCD()
 					end)
-					wait(0.05)
+					wait(0.09)
 				end
 			end
 		end
