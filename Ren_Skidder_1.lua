@@ -9756,7 +9756,6 @@ if BF then
 							if game.ReplicatedStorage:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") or game.Enemies:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") then
 								AutoFarmCakePrince = true
 							end
-						end
 					elseif not game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chailce") or not game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chailce") then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chailce") or game.Players.LocalPlayer.Character:FindFirstChild("God's Chailce") then
 						end
