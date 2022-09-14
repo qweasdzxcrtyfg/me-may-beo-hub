@@ -4885,7 +4885,7 @@ if BF then
 		end
 	end)
 	
-	local Main = library:Window("Nguoi ngu","Version: 1.05")
+	local Main = library:Window("Nguoi ngu","Version: 1.06")
 	local AutoFarmTab = Main:Tab("Auto Farm")
 	local MainAutoFarmFunction = AutoFarm(Ms,NameQuest,LevelQuest,NameMon,CFrameMon,CFrameQuest,"AutoFarmLevel")
 	spawn(function()
@@ -4913,12 +4913,8 @@ if BF then
         FastTween = SaveSettings["Main"]["Fast Tween"]
         Save()
 	end)
-	fastattack = true
-	AutoFarmTab:Toggle("Fast Attack",SaveSettings["Main"]["Fast Attack"],function(a)
-        SaveSettings["Main"]["Fast Attack"] = a
-        hidefastattack = SaveSettings["Main"]["Fast Attack"]
-		fastattack = hidefastattack
-        Save()
+	fastattack = false
+	AutoFarmTab:Toggle("Fast Attack(Disabled)",SaveSettings["Main"]["Fast Attack"],function(a)
 	end)
 	if game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("Candies","Check") then
 		AutoFarmTab:Line()
@@ -8200,7 +8196,7 @@ if BF then
 			pcall(function()
 				if game.ReplicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or game.ReplicatedStorage:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") or game:GetService("Workspace").Enemies:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") then
 					PortalKill:Refresh("Door Is Opened, So Turn On Auto Farm Cake Prince!")
-				else
+				elseif AutoFarmCakePrince then
 					PortalKill:Refresh("Need Kill Mods : " .. string.match(game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CakePrinceSpawner", true), "%d+") .. " To Open Kill Cake Prince")
 				end
 			end)
@@ -8244,9 +8240,6 @@ if BF then
 									end
 								until not AutoFarmCakePrince or not v.Parent or v.Humanoid.Health <= 0 or game.ReplicatedStorage:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]")
 								Usefastattack = false
-								if hidefastattack then
-									fastattack = true
-								end
 							end
 						end
 					else
@@ -9743,6 +9736,32 @@ if BF then
 						end)
 					end
 				end
+			end
+		end
+	end)
+	Update17_3Tab:Line()
+	Update17_3Tab:Toggle("Auto King Dough",false,function(v)
+		AutoDoughKing = v
+	end)
+	Update17_3Tab:Toggle("Auto King Dough Hop",false,function(v)
+		AutoDoughKingHop = v
+	end)
+	spawn(function()
+		while wait() do
+			if AutoDoughKing then
+				pcall(function()
+					if game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chailce") or game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chailce") then
+						game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CakePrinceSpawner")
+							cacv = tonumber(string.match(game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CakePrinceSpawner", true), "%d+"))
+							if game.ReplicatedStorage:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") or game.Enemies:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") then
+								AutoFarmCakePrince = true
+							end
+						end
+					elseif not game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chailce") or not game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chailce") then
+						if game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chailce") or game.Players.LocalPlayer.Character:FindFirstChild("God's Chailce") then
+						end
+					end
+				end)
 			end
 		end
 	end)
@@ -11279,7 +11298,9 @@ if BF then
 	RaidsTab:Line()
 	RaidsTab:Label("Auto Raids")
 	RaidsSelected = selectraids or ""
-	Raidslist = {}
+	Raidslist = {
+		""
+	}
 	RaidsModule = require(game.ReplicatedStorage.Raids)
 	for i,v in pairs(RaidsModule.raids) do
 		table.insert(Raidslist,v)
