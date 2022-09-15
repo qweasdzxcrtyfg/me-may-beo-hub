@@ -12026,7 +12026,9 @@ if BF then
 		return str:gsub(" Fruit", "")
 	end
 	Devil_Fruit_Sniper_Tab:Toggle("Auto Store Fruits",false,function(a)
-		AutoStoreFruits = a
+		SaveSettings["Shop Devil Fruit"]["Auto Store Fruit"] = a
+		AutoStoreFruits = SaveSettings["Shop Devil Fruit"]["Auto Store Fruit"]
+		Save()
 		if AutoStoreFruits then
 			for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 				if string.find(v.Name,"Fruit") then
