@@ -4880,25 +4880,18 @@ if BF then
 	spawn(function()
 		game:GetService("RunService").Stepped:Connect(function()
 			if Usefastattack then
-				if fastattack then
-					pcall(function()
-						BringMob()
-						AttackNoCD()
-					end)
-				end
+				pcall(function()
+					BringMob()
+				end)
 			end
 		end)
-	end)
-	spawn(function()
 		while wait() do
 			if Usefastattack then
-				if fastattack == false then
-					pcall(function()
-						BringMob()
-						AttackNoCD()
-					end)
-					wait(0.09)
-				end
+				pcall(function()
+					BringMob()
+					AttackNoCD()
+				end)
+				wait(0.05)
 			end
 		end
 	end)
