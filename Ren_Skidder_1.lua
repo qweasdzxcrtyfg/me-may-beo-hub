@@ -80,7 +80,7 @@ if BF then
 			["Fast Tween"] = true,
 			["Auto New World"] = false,
 			["Fast Attack"] = false,
-			["Join Team "] = "Pirate",
+			["Join Team"] = "Pirate",
 			["Auto Factory"] = false,
 			["Auto Third World"] = false,
 			["Selected Tool Weapon"] = 0,
@@ -182,11 +182,11 @@ if BF then
     Save()
 	repeat wait()
 		if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Main"):FindFirstChild("ChooseTeam") then
-			if string.find(getgenv().Setting["Join Team"], "Pirate") then
+			if string.find(SaveSettings["Main"]["Selected Team"], "Pirate") then
 				for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Activated)) do
 					v.Function()
 				end 
-			elseif string.find(getgenv().Setting["Join Team"], "Marine")  then
+			elseif string.find(SaveSettings["Main"]["Selected Team"], "Marine")  then
 				for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.Activated)) do
 					v.Function()
 				end 
@@ -12153,8 +12153,8 @@ if BF then
 		"Pirate",
 		"Marine",
 	}
-	SettingTab:Dropdown("Choose Auto Join Team",TeamJs,SaveSettings["Main"]["Join Team"],function(v)
-		SaveSettings["Main"]["Join Team"] = v
+	SettingTab:Dropdown("Choose Auto Join Team",TeamJs,SaveSettings["Main"]["Selected Team"],function(v)
+		SaveSettings["Main"]["Selected Team"] = v
 		Save()
 	end)
 	SettingTab:Button("Rejoin",function()
