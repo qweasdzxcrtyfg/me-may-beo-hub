@@ -4895,7 +4895,7 @@ if BF then
 						AttackNoCD()
 					end)
 					wait(0.05)
-				else fps <= 10
+				elseif fps <= 10 then
 					pcall(function()
 						AttackNoCD()
 					end)
