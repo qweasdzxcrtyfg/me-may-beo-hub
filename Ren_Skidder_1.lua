@@ -8886,7 +8886,10 @@ if BF then
 	local CheckEliteHunter = AutoFarmMiscTab:Label("Kill " .. game.ReplicatedStorage.Remotes.CommF_:InvokeServer("EliteHunter", "Progress") .. " Elite Enemies",true)
 	spawn(function()
 		while wait() do
-			CheckEliteHunter:Refresh("Kill " .. game.ReplicatedStorage.Remotes.CommF_:InvokeServer("EliteHunter", "Progress") .. " Elite Enemies")
+			pcall(function()
+				CheckEliteHunter:Refresh("Kill " .. game.ReplicatedStorage.Remotes.CommF_:InvokeServer("EliteHunter", "Progress") .. " Elite Enemies")
+			end)
+			wait(60)
 		end
 	end)
 	_G.AutoEliteHunter = _G.AutoEliteHunter or false
