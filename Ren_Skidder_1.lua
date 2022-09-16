@@ -181,6 +181,7 @@ if BF then
     Load()
     Save()
 	repeat wait()
+		print("Settings[Main][Selected Team]"..SaveSettings["Main"]["Selected Team"])
 		if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Main"):FindFirstChild("ChooseTeam") then
 			if string.find(SaveSettings["Main"]["Selected Team"], "Pirate") then
 				for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Activated)) do
