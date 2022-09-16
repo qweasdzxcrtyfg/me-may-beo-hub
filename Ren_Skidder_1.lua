@@ -18,9 +18,6 @@ elseif placeId == 2809202155 then
 end
 if BF then
 	repeat wait() until game:IsLoaded()
-	if isfolder("Dolce-Hub-Here") then
-		game.Players.LocalPlayer:Kick("Exploit Detected\nYou Has Been Kicked.")
-	end
 	if getgenv().Setting then else
 		getgenv().Setting = {
 			["Join Team"] = "Pirate", -- "Pirate","Marine"
