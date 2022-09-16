@@ -4888,11 +4888,19 @@ if BF then
 		end)
 		while wait() do
 			if Usefastattack then
-				pcall(function()
-					BringMob()
-					AttackNoCD()
-				end)
-				wait(0.05)
+				b = string.split(game.Stats.Workspace.Heartbeat:GetValueString(), ".")
+				fps = tonumber(b[1])
+				if fps > 10 then
+					pcall(function()
+						AttackNoCD()
+					end)
+					wait(0.05)
+				else fps <= 10
+					pcall(function()
+						AttackNoCD()
+					end)
+					wait(0.005)
+				end
 			end
 		end
 	end)
