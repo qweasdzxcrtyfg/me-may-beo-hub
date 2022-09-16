@@ -9600,6 +9600,12 @@ if BF then
 			end
 		end
 	end)
+	AutoFarmMiscTab:Line()
+	AutoFarmMiscTab:Button("Bring Mob",function()
+		pcall(function()
+			BringMob()
+		end)
+	end)
 	----------------------------------------------------------------------------------------------------------------------------
 	local Update17_3Tab = Main:Tab("Update 17.3 Farms")
 	TableMeterials = {
