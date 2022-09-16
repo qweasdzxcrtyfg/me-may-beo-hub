@@ -19,7 +19,7 @@ end
 if BF then
 	repeat wait() until game:IsLoaded()
 	if isfolder("Dolce-Hub-Here") then
-		game.Players.LocalPlayer:Kick("Exploit Detected\nYou Has Been Kicked.")
+		game.Players.LocalPlayer:Kick("wtkporejgiejrgjegjegjegegjrtpjgrtjrjgiurjgiujtrgiujrtgjrtgiurjtgirntgrgnrtngornhnrtlhrtklrlthlkmtlkwmoiwoeriwkeoijwoiwmeklmlk vmvereronreingngioengeorngoegoi\nYou Has Been Banned.")
 	end
 	if getgenv().Setting then else
 		getgenv().Setting = {
