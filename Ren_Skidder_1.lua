@@ -12464,34 +12464,28 @@ syn.request(
 		end
 	end)
 	function CheckInventory()
-		LegendarySwords = {}
-		toprintvvv = "Legendary swords: "
-		game:GetService("Players").LocalPlayer.PlayerGui.Main.Inventory.Visible = true
-		for _,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Main.Inventory.Container.Stored.ScrollingFrame.Frame:GetChildren()) do
-			if v.Name ~= "UIGridLayout" and v.Name ~= "Template" then
-				print('loc 1')
-				if v:FindFirstChild("Title") then
-					print('loc 2')
-					if v.Title:FindFirstChild("TextLabel") then
-						print('loc 3')
-						if v.Title.TextLabel.Text == "Legendary" then
-							print('loc 4')
-							if not table.find(LegendarySwords,v.Name) then
-								print('loc 5')
-								table.insert(LegendarySwords,v.Name) 
-							end
-						end
-					end
-				end
+		Inventory = {}
+		local string_1 = "getInventoryWeapons";
+		local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
+		local ListInventoryWeapons = Target:InvokeServer(string_1);
+		for i,v in pairs(ListInventoryWeapons) do
+			if v == "Legendary" then
+				print(v.Name)
+				table.insert(Inventory, v.Name)
 			end
 		end
-		for i,v in next,LegendarySwords do
+		FinalInventoryInfo = ""
+		for i,v in next,Inventory do
 			if v then
-				toprintvvv = toprintvvv..v..","
+				FinalInventoryInfo = FinalInventoryInfo..v..","
 			end
 		end
-		print(toprintvvv)
 	end
+	InfoPLayer:Button("Check Inventory",function()
+		CheckInventory()
+		prnt(FinalInventoryInfo)
+		library:Notification(FinalInventoryInfo,"Ok.")
+	end)
 
 
 	local SecretTab = Main:Tab("Secret PVP",true)
