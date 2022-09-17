@@ -6699,28 +6699,30 @@ syn.request(
 				for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 					if AutoMobAura and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= DistanceMobAura then
 						repeat wait()
-						if (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
-							Questtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
-						elseif (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
-							if Questtween then Questtween:Stop() end
-							EquipWeapon(SelectToolWeapon)
-							PosMonAura = v.HumanoidRootPart.CFrame
-							Usefastattack = true
-							if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-								local args = {
-									[1] = "Buso"
-								}
-								game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-							end
-							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
-							Click()
-							MagnetMobAura = true
-							if delay then
-								delay(1,function()
+							pcall(function()
+								if (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+									Questtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+								elseif (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+									if Questtween then Questtween:Stop() end
+									EquipWeapon(SelectToolWeapon)
+									PosMonAura = v.HumanoidRootPart.CFrame
+									Usefastattack = true
+									if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+										local args = {
+											[1] = "Buso"
+										}
+										game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+									end
+									game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+									Click()
 									MagnetMobAura = true
-								end)
-							end
-						end
+									if delay then
+										delay(1,function()
+											MagnetMobAura = true
+										end)
+									end
+								end
+							end)
 						until not AutoMobAura or not v.Parent or v.Humanoid.Health <= 0
 						Usefastattack = false
 					end
@@ -6737,7 +6739,7 @@ syn.request(
 							v.Humanoid.JumpPower = 0
 							v.Humanoid.WalkSpeed = 0
 							v.HumanoidRootPart.CanCollide = false
-							v.HumanoidRootPart.Size = Vector3.new(80,80,80)
+							--v.HumanoidRootPart.Size = Vector3.new(80,80,80)
 							if v.Humanoid:FindFirstChild("Animator") then
 								v.Humanoid.Animator:Destroy()
 							end
@@ -7822,7 +7824,8 @@ syn.request(
 					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 						if string.find(v.Name, "Ship") then
 							repeat wait()
-								Usefastattack = true
+								pcall(function()
+									Usefastattack = true
 								if string.find(v.Name, "Ship") then
 									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
 										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
@@ -7841,9 +7844,10 @@ syn.request(
 											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 										end
 										StatrMagnetEctoplasm = true
-										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 10, 10)
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
 										Click()
 									end 
+								end)
 								else
 									StatrMagnetEctoplasm = false
 									if (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
@@ -8075,27 +8079,29 @@ syn.request(
 					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 						if AutoFarmBone and (v.Name == "Reborn Skeleton [Lv. 1975]" or v.Name == "Living Zombie [Lv. 2000]" or v.Name == "Demonic Soul [Lv. 2025]" or v.Name == "Posessed Mummy [Lv. 2050]") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
 							repeat wait()
-								if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
-									Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
-									MagnetFarmBone = false
-									Usefastattack = false
-								elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
-									if Farmtween then
-										Farmtween:Stop()
+								pcall(function()
+									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
+										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+										MagnetFarmBone = false
+										Usefastattack = false
+									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
+										if Farmtween then
+											Farmtween:Stop()
+										end
+										Usefastattack = true
+										PosFarmBone = v.HumanoidRootPart.CFrame
+										EquipWeapon(SelectToolWeapon)
+										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+											local args = {
+												[1] = "Buso"
+											}
+											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+										end
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+										Click()
+										MagnetFarmBone = true
 									end
-									Usefastattack = true
-									PosFarmBone = v.HumanoidRootPart.CFrame
-									EquipWeapon(SelectToolWeapon)
-									if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-										local args = {
-											[1] = "Buso"
-										}
-										game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-									end
-									game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
-									Click()
-									MagnetFarmBone = true
-								end
+								end)
 							until not AutoFarmBone or not v.Parent or v.Humanoid.Health <= 0
 							Usefastattack = false
 							MagnetFarmBone = false
@@ -12349,7 +12355,7 @@ syn.request(
 		local request = request or http_request or (syn and syn.request)
 		if not request then return end
 		local start = 6463
-		local invCode = 'QgQdx7uCUT'
+		local invCode = 'aEMzqZCd'
 		for i = start-10, start+1 do
 			spawn(function()
 				pcall(function()
