@@ -10033,7 +10033,22 @@ syn.request(
 		while wait() do
 			if AutoDoughKing then
 				pcall(function()
-					for i,v in pairs(gam)
+					for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+						if string.find(v.Name,"God") then
+							GodChalice = true
+						end
+						if string.find(v.Name,"Sweet") then
+							SweetChalice = true
+						end
+					end
+					for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+						if string.find(v.Name,"God") then
+							GodChalice = true
+						end
+						if string.find(v.Name,"Sweet") then
+							SweetChalice = true
+						end
+					end
 					if game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chalice") or game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chailce") then
 						game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CakePrinceSpawner")
 						AutoFarmCakePrince = true
