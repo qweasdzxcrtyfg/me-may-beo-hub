@@ -137,6 +137,12 @@ if BF then
 		},
 		["Settings"] = {
 			["Auto Save"] = false,
+			["Version"] = 0,
+		},
+		["Update17"] = {
+			["Auto King Dough"] = false,
+			["Auto King Dough Hop"] = false,
+			["Auto Unlock Dough Chip"] = false,
 		}
     }
 	
@@ -4827,7 +4833,7 @@ syn.request(
 		end)
 		spawn(function()
 			game:GetService("RunService").Stepped:Connect(function()
-				if farm or TweenIsland or TweenNPC or AutoFarmChest or FramBossSelectHop or AutoNew or Auto_Farm or AutoNew or Factory or Autothird or MasteryDevilFruit or MasteryWeapon or MasteryGun or FramBoss or KillAllBoss or AutoMobAura or Observation or AutoSaber or AutoPole or AutoPoleHOP or AutoQuestBartilo or AutoEvoRace2 or AutoRengoku or AutoFramEctoplasm or AutoBuddySwords or AutoBuddySwords or AutoFarmBone or AutoHallowScythe or AutoSoulReaper or AutoFarmCakePrince or AutoYama or HolyTorch or AutoEliteHunter or AutoHakiRainbow or MusketeeHat or AutoObservationHakiV2 or NextIsland or AutoRaids or AutoGodHuman then
+				if farm or TweenIsland or TweenNPC or AutoFarmChest or FramBossSelectHop or AutoNew or Auto_Farm or AutoNew or Factory or Autothird or MasteryDevilFruit or MasteryWeapon or MasteryGun or FramBoss or AutoFarmCocoa or AutoDoughKing or AutoUnlockDoughChip or AutoDoughKingHop or KillAllBoss or AutoMobAura or Observation or AutoSaber or AutoPole or AutoPoleHOP or AutoQuestBartilo or AutoEvoRace2 or AutoRengoku or AutoFramEctoplasm or AutoBuddySwords or AutoBuddySwords or AutoFarmBone or AutoHallowScythe or AutoSoulReaper or AutoFarmCakePrince or AutoYama or HolyTorch or AutoEliteHunter or AutoHakiRainbow or MusketeeHat or AutoObservationHakiV2 or NextIsland or AutoRaids or AutoGodHuman then
 					if not KRNL_LOADED and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
 						setfflag("HumanoidParallelRemoveNoPhysics", "False")
 						setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
@@ -9777,28 +9783,86 @@ syn.request(
 		wait(0.1)
 	end
 	local GetStatsGodHuman = Update17_3Tab:Label("Status Of Auto God Human: nil")
+	local MeaterialsStats = Update17_3Tab:Label("Fish Tail, Magma Ore, Mystic Droplet: nil, nil, nil, nil")
 	Update17_3Tab:Toggle("Auto God Human",false,function(v)
 		AutoGodHuman = v 
 		while wait() do
 			if AutoGodHuman then
 				pcall(function()
 					CheckAllMaterials()
+					MeaterialsStats:Refresh("Fish Tail, Magma Ore, Mystic Droplet: "..FishTailHas..", "..MagmaOreHas..", "..MysticDropletHas..", "..DragonScaleHas)
 					if FishTailHas >= 20  and MagmaOreHas >= 20 and MysticDropletHas >= 10 and DragonScaleHas >= 10 then
-						local args = {
-							[1] = "BuyGodhuman",
-							[2] = true
-						}
-						game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+						BuyGodhuman()
 					end
 				end)
 				wait(1)
 			end
 		end
 	end)
+	function BuyGodhuman()
+		local args = {
+			[1] = "BuyGodhuman",
+			[2] = true
+		}
+		
+		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+		local args = {
+			[1] = "BuyGodhuman"
+		}
+		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+	end
 	spawn(function()
 		while wait() do
 			if AutoGodHuman then
-				if FishTail == false or FishTailHas < 20 then
+				if FishTailHas < 20 then
+					AutoFarmMaTerials = true
+					AutoFarmMaTerialsMode = "Fish Tail"
+					GetStatsGodHuman:Refresh("Get Fish Tail")
+				elseif FishTailHas >= 20 and MagmaOreHas < 20 then
+					AutoFarmMaTerials = true
+					AutoFarmMaTerialsMode = "Magma Ore"
+					GetStatsGodHuman:Refresh("Get Magma Ore")
+				elseif FishTailHas >= 20 and MagmaOreHas >= 20 and MysticDropletHas < 10 then
+					AutoFarmMaTerials = true
+					AutoFarmMaTerialsMode = "Mystic Droplet"
+					GetStatsGodHuman:Refresh("Get Mystic Droplet")
+				elseif FishTailHas >= 20 and MagmaOreHas >= 20 and MysticDropletHas >= 10 and DragonScaleHas < 10 then
+					AutoFarmMaTerials = true
+					AutoFarmMaTerialsMode = "Dragon Scale"
+					GetStatsGodHuman:Refresh("Get Dragon Scale")
+				end
+			end
+		end
+	end)
+	spawn(function()
+		while wait() do
+			if AutoGodHuman then
+				mobndistance = 0
+				SeaSolderindis = 0
+				WaterFighterIndis = 0
+				if FishTailHas < 20 then
+					FIshtailFarmer = true
+					
+					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+						if v and v.Name ~= "" then
+							mobndistance = mobndistance + 1
+						end
+					end
+					if mobndistance == 0 then
+					end
+				elseif FishTailHas >= 20 and MagmaOreHas < 20 then
+					FIshtailFarmer = false
+				elseif MagmaOreHas >= 20 and MysticDropletHas < 20 then
+
+				elseif MysticDropletHas >= 10 and DragonScaleHas < 10 then
+				end
+			end
+		end
+	end)
+	spawn(function()
+		while wait() do 
+			if AutoFarmMaTerials then
+				if AutoFarmMaTerialsMode == "Fish Tail" then
 					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 						if game.Workspace.Enemies:FindFirstChild("Fishman Warrior [Lv. 375]") or game.Workspace.Enemies:FindFirstChild("Fishman Commando [Lv. 400]") then
 							if AutoGodHuman and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1500 then
@@ -9806,16 +9870,19 @@ syn.request(
 									pcall(function()
 										AutoMobAura = true
 										DistanceMobAura = 2500
-										GetStatsGodHuman:Refresh("Getting Fishman Tail")
 									end)
 								until not AutoGodHuman or not v.Parent or v.Humanoid.Health <= 0 or FishTailHas >= 20
 								Usefastattack = false
 								AutoMobAura = false
 							end
 						else
-							print('false')
 							if game.PlaceId == 2753915549 then
 								pcall(function()
+									CFrameMonGodHuman = CFrame.new(60885.6172, 17.9492188, 1463.96851, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+									pool = CFrame.new(60885.6172, 17.9492188, 1463.96851, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+									if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-pool.Position).Magnitude <= 20 then
+										CFrameMonGodHuman = CFrame.new(61855.4023, 18.0800781, 1499.61133, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+									end
 									toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
 									if FIshtailFarmer and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-CFrameMonGodHuman.Position).Magnitude >= 5000 then
 										local args = {
@@ -9838,7 +9905,7 @@ syn.request(
 							end
 						end
 					end
-				elseif FishTailHas >= 20 and MagmaOreHas < 20 then
+				elseif AutoFarmMaTerialsMode == "Magma Ore" then
 					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 						if game.Workspace.Enemies:FindFirstChild("Military Soldier [Lv. 300]") or game.Workspace.Enemies:FindFirstChild("Military Spy [Lv. 325]") then
 							if AutoGodHuman and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1500 then
@@ -9846,16 +9913,15 @@ syn.request(
 									pcall(function()
 										AutoMobAura = true
 										DistanceMobAura = 2500
-										GetStatsGodHuman:Refresh("Getting MagmaOre")
 									end)
 								until not AutoGodHuman or not v.Parent or v.Humanoid.Health <= 0 or MagmaOreHas >= 20
 								Usefastattack = false
 								AutoMobAura = false
 							end
 						else
-							print('false')
 							if game.PlaceId == 2753915549 then
 								pcall(function()
+									CFrameMonGodHuman = CFrame.new(-5638.07959, 39.9444771, 8614.80078, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 									toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
 								end)
 							else
@@ -9865,12 +9931,11 @@ syn.request(
 										[1] = "TravelMain" -- OLD WORLD to NEW WORLD
 									}
 									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-									print('tele to sea 1 to farm magma ore')
 								end 
 							end
 						end
 					end
-				elseif MagmaOreHas >= 20 and MysticDropletHas < 10 then
+				elseif AutoFarmMaTerialsMode == "Mystic Droplet" then
 					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 						if game.Workspace.Enemies:FindFirstChild("Sea Soldier [Lv. 1425]") or game.Workspace.Enemies:FindFirstChild("Water Fighter [Lv. 1450]") then
 							if AutoGodHuman and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1500 then
@@ -9878,16 +9943,20 @@ syn.request(
 									pcall(function()
 										AutoMobAura = true
 										DistanceMobAura = 2500
-										GetStatsGodHuman:Refresh("Getting Mystic Droplet")
 									end)
 								until not AutoGodHuman or not v.Parent or v.Humanoid.Health <= tonumber(0) or MysticDropletHas >= 10
 								Usefastattack = false
 								AutoMobAura = false
 							end
 						else
-							print('false')
 							if game.PlaceId == 4442272183 then
+								print('cac')
+								CFrameMonGodHuman = CFrame.new(-3442.94531, 312.611755, -10511.9414, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+								pool = CFrame.new(-3442.94531, 312.611755, -10511.9414, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 								pcall(function()
+									if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-pool.Position).Magnitude <= 20 then
+										CFrameMonGodHuman = CFrame.new(-3373.10522, 92.2420578, -9775.41895, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+									end
 									toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
 								end)
 							else
@@ -9899,7 +9968,7 @@ syn.request(
 							end
 						end
 					end
-				elseif MysticDropletHas >= 10 and DragonScaleHas < 10 then
+				elseif AutoFarmMaTerialsMode == "Dragon Scale" then
 					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 						if game.Workspace.Enemies:FindFirstChild("Sea Soldier [Lv. 1425]") or game.Workspace.Enemies:FindFirstChild("Water Fighter [Lv. 1450]") then
 							if AutoGodHuman and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1500 then
@@ -9907,7 +9976,6 @@ syn.request(
 									pcall(function()
 										AutoMobAura = true
 										DistanceMobAura = 2500
-										GetStatsGodHuman:Refresh("Getting Mystic Droplet")
 									end)
 								until not AutoGodHuman or not v.Parent or v.Humanoid.Health <= tonumber(0) or DragonScaleHas >= 10
 								Usefastattack = false
@@ -9917,84 +9985,143 @@ syn.request(
 							print('false')
 							if game.PlaceId == 7449423635 then
 								pcall(function()
+									CFrameMonGodHuman = CFrame.new()
 									toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
 								end)
 							else
 							end
 						end
 					end
-				end
-			end
-		end
-	end)
-	spawn(function()
-		while wait() do
-			if AutoGodHuman then
-				mobndistance = 0
-				SeaSolderindis = 0
-				WaterFighterIndis = 0
-				if FishTailHas < 20 then
-					FIshtailFarmer = true
-					CFrameMonGodHuman = CFrame.new(60885.6172, 17.9492188, 1463.96851, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-						if v and v.Name ~= "" then
-							mobndistance = mobndistance + 1
-						end
-					end
-					if mobndistance == 0 then
-					CFrameMonGodHuman = CFrame.new(61855.4023, 18.0800781, 1499.61133, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-					end
-				elseif FishTailHas >= 20 and MagmaOreHas < 20 then
-					FIshtailFarmer = false
-					CFrameMonGodHuman = CFrame.new(-5638.07959, 39.9444771, 8614.80078, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-				elseif MagmaOreHas >= 20 and MysticDropletHas < 20 then
-					CFrameMonGodHuman = CFrame.new(-3442.94531, 312.611755, -10511.9414, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-					pool_1 = CFrame.new(-3442.94531, 312.611755, -10511.9414, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-					if (pool_1.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 20 then
-						CFrameMonGodHuman = CFrame.new(-2990.00488, 29.5784378, -9779.77246, 0.294004351, 4.46927189e-08, 0.955804169, -1.31155611e-08, 1, -4.27249489e-08, -0.955804169, 2.54183341e-11, 0.294004351)
-					end
-				elseif MysticDropletHas >= 10 and DragonScaleHas < 10 then
-					CFrameMonGodHuman = CFrame.new()
-				end
+				end 
 			end
 		end
 	end)
 	Update17_3Tab:Line()
-	Update17_3Tab:Toggle("Auto King Dough",false,function(v)
-		AutoDoughKing = v
+	Update17_3Tab:Toggle("Auto King Dough",SaveSettings["Update17"]["Auto King Dough"],function(v)
+		SaveSettings["Update17"]["Auto King Dough"] = v
+		AutoDoughKing = SaveSettings["Update17"]["Auto King Dough"]
+		Save()
+		if AutoDoughKing == false then
+			if AutoFarmCocoa  then AutoFarmCocoa = false
+			end
+		end
 	end)
-	Update17_3Tab:Toggle("Auto King Dough Hop",false,function(v)
-		AutoDoughKingHop = v
+	Update17_3Tab:Toggle("Auto King Dough Hop",SaveSettings["Update17"]["Auto King Dough Hop"],function(v)
+		SaveSettings["Update17"]["Auto King Dough Hop"] = v
+		AutoDoughKingHop = SaveSettings["Update17"]["Auto King Dough Hop"]
+		Save()
 	end)
+	Cocoa = false
+	CocoaHas = 0
+	function CheckCocoa()
+		if Cocoa == false then
+			game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.Search.TextBox.Text = "Conjured Cocoa"
+			if game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.ScrollingFrame.Frame["1"].ItemName.Text == "Conjured Cocoa" then
+				print("Conjured Cocoa")
+				Cocoa = true
+			elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.ScrollingFrame.Frame["1"].ItemName.Text ~= "Conjured Cocoa" then
+				Cocoa = false
+			end
+		else
+			game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.Search.TextBox.Text = "Conjured Cocoa"
+			ItemLine1 = tostring(game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.ScrollingFrame.Frame["1"].ItemLine1.Text)
+			ItemLine1_Number = ItemLine1:split("x")
+			CocoaHas = tonumber(ItemLine1_Number[2])
+		end
+	end
 	spawn(function()
 		while wait() do
 			if AutoDoughKing then
 				pcall(function()
-					if game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chailce") or game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chailce") then
+					for i,v in pairs(gam)
+					if game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chalice") or game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chailce") then
 						game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CakePrinceSpawner")
-							if game.ReplicatedStorage:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") or game.Enemies:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") then
-								repeat wait()
-									pcall(function()
-										AutoFarmCakePrince = true
-									end)
-								until not game.ReplicatedStorage:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") or not game.Enemies:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]")
-								AutoFarmCakePrince = false
+						AutoFarmCakePrince = true
+						if game.ReplicatedStorage:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") or game.Enemies:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") then
+							repeat wait()
+								pcall(function()
+									AutoFarmCakePrince = true
+								end)
+							until not game.ReplicatedStorage:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") or not game.Enemies:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]")
+							AutoFarmCakePrince = false
+						end
+					elseif not game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chailce") and not game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chailce") then
+						CheckCocoa()
+						if CocoaHas >= 10 then
+							AutoFarmCocoa = false
+							if game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chailce") or game.Players.LocalPlayer.Character:FindFirstChild("God's Chailce") then
+								local args = {
+									[1] = "SweetChaliceNpc"
+								}
+								game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+								AutoEliteHunter = false
+								AutoEliteHunterHop = false
+							elseif not game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chailce") and not game.Players.LocalPlayer.Character:FindFirstChild("God's Chailce") then
+								AutoEliteHunter = true
+								if AutoDoughKingHop then
+									AutoEliteHunterHOP = true
+								end 
 							end
-					elseif not game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chailce") or not game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chailce") then
-						if game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chailce") or game.Players.LocalPlayer.Character:FindFirstChild("God's Chailce") then
-							local args = {
-								[1] = "SweetChaliceNpc"
-							}
-							
-							game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+						elseif CocoaHas < 10 or CocoaHas <= 9 then
+							AutoFarmCocoa = true
 						end
 					end
 				end)
 			end
 		end
 	end)
-	Update17_3Tab:Toggle("Auto Unlock Dough Mirror Chip",false,function(v)
-		AutoUnlockDoughChip = v 
+	spawn(function()
+		while wait() do
+			if AutoFarmCocoa then
+				print('auto farm cocoa')
+				if game:GetService("Workspace").Enemies:FindFirstChild("Sweet Thief [Lv. 2350]") or game:GetService("Workspace").Enemies:FindFirstChild("Cocoa Warrior [Lv. 2300]") or game:GetService("Workspace").Enemies:FindFirstChild("Chocolate Bar Battler [Lv. 2325]") or game:GetService("Workspace").Enemies:FindFirstChild("Chocolate Bar Battler [Lv. 2325]") then
+					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+						if AutoFarmCocoa and (v.Name == "Sweet Thief [Lv. 2350]" or v.Name == "Cocoa Warrior [Lv. 2300]" or v.Name == "Candy Rebel [Lv. 2375]" or v.Name == "Chocolate Bar Battler [Lv. 2325]") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+							repeat wait()
+								pcall(function()
+									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
+										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+										Usefastattack = false
+									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
+										if Farmtween then
+											Farmtween:Stop()
+										end
+										Usefastattack = true
+										PosFarmBone = v.HumanoidRootPart.CFrame
+										EquipWeapon(SelectToolWeapon)
+										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+											local args = {
+												[1] = "Buso"
+											}
+											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+										end
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+										Click()
+										MagnetFarmBone = true
+									end
+								end)
+							until not AutoFarmCocoa or not v.Parent or v.Humanoid.Health <= 0
+							Usefastattack = false
+						end
+					end
+				else
+					Usefastattack = false
+					CFrameCheck = CFrame.new(294.228912, 28.3459167, -12702.3252, -0.617170393, 4.7685262e-08, 0.786829531, 8.58750866e-08, 1, 6.75406842e-09, -0.786829531, 7.17374675e-08, -0.617170393)
+					Questtween = toTarget(CFrameCheck.Position, CFrameCheck)
+					if (CFrameCheck.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
+						if Questtween then
+							Questtween:Stop()
+						end
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameCheck * CFrame.new(0,-10,0)
+					end
+				end
+			end
+		end
+	end)
+	Update17_3Tab:Toggle("Auto Unlock Dough Mirror Chip",SaveSettings["Update17"]["Auto Unlock Dough Chip"],function(v)
+		SaveSettings["Update17"]["Auto Unlock Dough Chip"] = v
+		AutoUnlockDoughChip = SaveSettings["Update17"]["Auto Unlock Dough Chip"]
+		Save() 
 	end)
 	spawn(function()
 		while wait() do 
@@ -11239,13 +11366,13 @@ syn.request(
 			local gyro = Instance.new("BodyGyro",torso)
 			pos.Name="EPIXPOS"
 			pos.maxForce = Vector3.new(math.huge, math.huge, math.huge)
-			pos.position = torso.Position
+			pos.Position = torso.Position
 			gyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
 			gyro.cframe = torso.CFrame
 			repeat
 				wait()
 				localplayer.Character.Humanoid.PlatformStand=true
-				local new=gyro.cframe - gyro.cframe.p + pos.position
+				local new=gyro.cframe - gyro.cframe.p + pos.Position
 				if not keys.w and not keys.s and not keys.a and not keys.d then
 					speed=1
 				end
@@ -11268,7 +11395,7 @@ syn.request(
 				if speed>speedSET then
 					speed=speedSET
 				end
-					pos.position=new.p
+					pos.Position=new.p
 				if keys.w then
 					gyro.cframe = workspace.CurrentCamera.CoordinateFrame*CFrame.Angles(-math.rad(speed*15),0,0)
 				elseif keys.s then
@@ -11936,11 +12063,7 @@ syn.request(
 		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 	end)
 	ShopTab:Button("God Human",function()
-		local args = {
-			[1] = "BuyGodhuman",
-			[2] = true
-		}
-		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))		
+		BuyGodhuman()		
 	end)
 	ShopTab:Button("Death Step",function()
 		local args = {
