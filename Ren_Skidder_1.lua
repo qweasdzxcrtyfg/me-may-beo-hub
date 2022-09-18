@@ -3974,7 +3974,7 @@ if BF then
 			end
 			Mc = v.Name 
 			CheckMobCFrame()
-			if v.Name ~= "Ice Admiral [Lv. 700] [Boss]" and v.Name ~= "Don Swan [Lv. 3000] [Boss]" and v.Name ~= "Saber Expert [Lv. 200] [Boss]" and v.Name ~= "Longma [Lv. 2000] [Boss]" and v.Name ~= "Cake Prince [Lv. 2300] [Raid Boss]" and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and (v.HumanoidRootPart.Position-CFrameBring.Position).magnitude <= 350 then
+			if v.Name ~= "Ice Admiral [Lv. 700] [Boss]" and v.Name ~= "Don Swan [Lv. 3000] [Boss]" and v.Name ~= "Saber Expert [Lv. 200] [Boss]" and v.Name ~= "Longma [Lv. 2000] [Boss]" and v.Name ~= "Cake Prince [Lv. 2300] [Raid Boss]" and v.Name ~= "Dough King [Lv. 2300] [Raid Boss]" and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and (v.HumanoidRootPart.Position-CFrameBring.Position).magnitude <= 350 then
 				if (v.HumanoidRootPart.Position-CFrameBring.Position).Magnitude >= 6.5 then
 					if PosMon == nil then
 						PosMon = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
@@ -9768,9 +9768,13 @@ syn.request(
 	end
 	function CheckAllMaterials()
 		CheckFishTail()
+		wait(0.1)
 		CheckMagmaOre()
+		wait(0.1)
 		CheckMysticDroplet()
+		wait(0.1)
 		CheckDragonScale()
+		wait(0.1)
 	end
 	local GetStatsGodHuman = Update17_3Tab:Label("Status Of Auto God Human: nil")
 	Update17_3Tab:Toggle("Auto God Human",false,function(v)
@@ -9779,6 +9783,13 @@ syn.request(
 			if AutoGodHuman then
 				pcall(function()
 					CheckAllMaterials()
+					if FishTailHas >= 20  and MagmaOreHas >= 20 and MysticDropletHas >= 10 and DragonScaleHas >= 10 then
+						local args = {
+							[1] = "BuyGodhuman",
+							[2] = true
+						}
+						game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+					end
 				end)
 				wait(1)
 			end
@@ -9816,12 +9827,14 @@ syn.request(
 									end
 								end)
 							else
-								local args = {
-									[1] = "TravelMain" -- OLD WORLD to NEW WORLD
-								}
-								game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-								print('tele to sea 1 to farm  fish tail')
-								wait(10) 
+								wait(5)
+								if FishTailHas < 20 then
+									local args = {
+										[1] = "TravelMain" -- OLD WORLD to NEW WORLD
+									}
+									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+									print('tele to sea 1 to farm magma ore')
+								end 
 							end
 						end
 					end
@@ -9846,16 +9859,18 @@ syn.request(
 									toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
 								end)
 							else
-								local args = {
-									[1] = "TravelMain" -- OLD WORLD to NEW WORLD
-								}
-								game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-								print('tele to sea 1 to farm magma ore')
-								wait(10) 
+								wait(5)
+								if FishTailHas >= 20 and MagmaOreHas < 20 then
+									local args = {
+										[1] = "TravelMain" -- OLD WORLD to NEW WORLD
+									}
+									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+									print('tele to sea 1 to farm magma ore')
+								end 
 							end
 						end
 					end
-				elseif MagmaOreHas >= 20 and MysticDropletHas < 20 then
+				elseif MagmaOreHas >= 20 and MysticDropletHas < 10 then
 					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 						if game.Workspace.Enemies:FindFirstChild("Sea Soldier [Lv. 1425]") or game.Workspace.Enemies:FindFirstChild("Water Fighter [Lv. 1450]") then
 							if AutoGodHuman and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1500 then
@@ -9865,7 +9880,7 @@ syn.request(
 										DistanceMobAura = 2500
 										GetStatsGodHuman:Refresh("Getting Mystic Droplet")
 									end)
-								until not AutoGodHuman or not v.Parent or v.Humanoid.Health <= tonumber(0) or MysticDropletHas >= 20
+								until not AutoGodHuman or not v.Parent or v.Humanoid.Health <= tonumber(0) or MysticDropletHas >= 10
 								Usefastattack = false
 								AutoMobAura = false
 							end
@@ -9881,6 +9896,30 @@ syn.request(
 								}
 								game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 								wait(10) 
+							end
+						end
+					end
+				elseif MysticDropletHas >= 10 and DragonScaleHas < 10 then
+					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+						if game.Workspace.Enemies:FindFirstChild("Sea Soldier [Lv. 1425]") or game.Workspace.Enemies:FindFirstChild("Water Fighter [Lv. 1450]") then
+							if AutoGodHuman and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1500 then
+								repeat wait()
+									pcall(function()
+										AutoMobAura = true
+										DistanceMobAura = 2500
+										GetStatsGodHuman:Refresh("Getting Mystic Droplet")
+									end)
+								until not AutoGodHuman or not v.Parent or v.Humanoid.Health <= tonumber(0) or DragonScaleHas >= 10
+								Usefastattack = false
+								AutoMobAura = false
+							end
+						else
+							print('false')
+							if game.PlaceId == 7449423635 then
+								pcall(function()
+									toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
+								end)
+							else
 							end
 						end
 					end
@@ -9910,14 +9949,12 @@ syn.request(
 					CFrameMonGodHuman = CFrame.new(-5638.07959, 39.9444771, 8614.80078, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 				elseif MagmaOreHas >= 20 and MysticDropletHas < 20 then
 					CFrameMonGodHuman = CFrame.new(-3442.94531, 312.611755, -10511.9414, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-						if v.Name ~= "" then
-							mobndistance = mobndistance + 1
-						end
-					end
-					if mobndistance == 0 then
+					pool_1 = CFrame.new(-3442.94531, 312.611755, -10511.9414, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+					if (pool_1.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 20 then
 						CFrameMonGodHuman = CFrame.new(-2990.00488, 29.5784378, -9779.77246, 0.294004351, 4.46927189e-08, 0.955804169, -1.31155611e-08, 1, -4.27249489e-08, -0.955804169, 2.54183341e-11, 0.294004351)
 					end
+				elseif MysticDropletHas >= 10 and DragonScaleHas < 10 then
+					CFrameMonGodHuman = CFrame.new()
 				end
 			end
 		end
@@ -9935,15 +9972,44 @@ syn.request(
 				pcall(function()
 					if game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chailce") or game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chailce") then
 						game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CakePrinceSpawner")
-							cacv = tonumber(string.match(game.ReplicatedStorage.Remotes.CommF_:InvokeServer("CakePrinceSpawner", true), "%d+"))
 							if game.ReplicatedStorage:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") or game.Enemies:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") then
-								AutoFarmCakePrince = true
+								repeat wait()
+									pcall(function()
+										AutoFarmCakePrince = true
+									end)
+								until not game.ReplicatedStorage:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]") or not game.Enemies:FindFirstChild("Dough King [Lv. 2300] [Raid Boss]")
+								AutoFarmCakePrince = false
 							end
 					elseif not game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chailce") or not game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chailce") then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chailce") or game.Players.LocalPlayer.Character:FindFirstChild("God's Chailce") then
+							local args = {
+								[1] = "SweetChaliceNpc"
+							}
+							
+							game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 						end
 					end
 				end)
+			end
+		end
+	end)
+	Update17_3Tab:Toggle("Auto Unlock Dough Mirror Chip",false,function(v)
+		AutoUnlockDoughChip = v 
+	end)
+	spawn(function()
+		while wait() do 
+			if AutoUnlockDoughChip then
+				if game.Players.LocalPlayer.Backpack:FindFirstChild("Red Key") or game.Players.LocalPlayer.Character:FindFirstChild("Red Key") then
+					if AutoFarmCakePrince then AutoFarmCakePrince = false end
+					if AutoDoughKing then AutoDoughKing = false end
+					QuestCFrame = CFrame.new(-2682.15991, 64.3663712, -12851.1514, 0.142310098, -1.0289471e-07, 0.989822149, 2.6505667e-08, 1, 1.00141918e-07, -0.989822149, 1.19846906e-08, 0.142310098)
+					Questtween = toTarget(QuestCFrame.Position,QuestCFrame)
+					if (QuestCFrame.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
+						if Questtween then Questtween:Stop() end
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = QuestCFrame
+						EquipWeapon("Red Key")
+					end
+				end
 			end
 		end
 	end)
