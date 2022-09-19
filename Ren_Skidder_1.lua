@@ -4961,14 +4961,14 @@ syn.request(
 				elseif TickCheck > 14 then
 					TickCheck = 0
 				end
-				print(TickCheck.." Tick")
+				print(TickCheck)
 				if TickCheck <= 10 then
 					MethodFastAttack = "Run_Stepped"
-					print(MethodFastAttack)
 				elseif TickCheck > 10 then
 					MethodFastAttack = "WhileAndWait"
-					wait(2.5)
+					wait(1.75)
 				end
+				print(MethodFastAttack)
 			end
 		end
 	end)
@@ -11730,10 +11730,14 @@ syn.request(
 	}
 	RaidsModule = require(game.ReplicatedStorage.Raids)
 	for i,v in pairs(RaidsModule.raids) do
-		table.insert(Raidslist,v)
+		if v.Name ~= "" then
+			table.insert(Raidslist,v)
+		end
 	end
 	for i,v in pairs(RaidsModule.advancedRaids) do
-		table.insert(Raidslist,v)
+		if v.Name ~= "" then
+			table.insert(Raidslist,v)
+		end
 	end
 	RaidsTab:Dropdown("Select Raids",Raidslist,0,function(A)
 		RaidsSelected = A
