@@ -4957,7 +4957,7 @@ syn.request(
 		while wait() do
 			if Usefastattack then
 				if TickCheck <= 14 then
-					TickCheck = TickCheck + 1
+					TickCheck = TickCheck + 1.5
 				elseif TickCheck > 14 then
 					TickCheck = 0
 				end
