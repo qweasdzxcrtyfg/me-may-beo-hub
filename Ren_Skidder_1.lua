@@ -8431,25 +8431,27 @@ syn.request(
 						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
 							if 0 and (v.Name == "Cookie Crafter [Lv. 2200]" or v.Name == "Cake Guard [Lv. 2225]" or v.Name == "Baking Staff [Lv. 2250]" or v.Name == "Head Baker [Lv. 2275]") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
 								repeat wait()
-									if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
-										Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
-										MagnetFarmCakePrince = false
-										Usefastattack = false
-									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
-										if Farmtween then Farmtween:Stop() end
-										Usefastattack = true
-										PosFarmCakePrince = v.HumanoidRootPart.CFrame
-										EquipWeapon(SelectToolWeapon)
-										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-											local args = {
-												[1] = "Buso"
-											}
-											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+									pcall(function()
+										if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
+											Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+											MagnetFarmCakePrince = false
+											Usefastattack = false
+										elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
+											if Farmtween then Farmtween:Stop() end
+											Usefastattack = true
+											PosFarmCakePrince = v.HumanoidRootPart.CFrame
+											EquipWeapon(SelectToolWeapon)
+											if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+												local args = {
+													[1] = "Buso"
+												}
+												game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+											end
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+											Click()
+											MagnetFarmCakePrince = true
 										end
-										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
-										Click()
-										MagnetFarmCakePrince = true
-									end
+									end)
 								until not AutoFarmCakePrince or not v.Parent or v.Humanoid.Health <= 0
 								Usefastattack = false
 								MagnetFarmBone = false
@@ -9017,7 +9019,7 @@ syn.request(
 	AutoFarmMiscTab:Toggle("Auto Elite Hunter HOP",SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter Hop"],function(a)
 		if ThreeWorld then
 			SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter Hop"] = a
-			AutoEliteHunter = SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter"]
+			AutoEliteHunter = SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter Hop"]
 			AutoEliteHunterHOP = SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter"]
             Save()
 		else
@@ -10021,8 +10023,9 @@ syn.request(
 		AutoDoughKing = SaveSettings["Update17"]["Auto King Dough"]
 		Save()
 		if AutoDoughKing == false then
-			if AutoFarmCocoa  then AutoFarmCocoa = false
-			end
+			if AutoFarmCocoa  then AutoFarmCocoa = false end
+			if SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter"] == false and AutoEliteHunter then AutoEliteHunter = false end
+			if SaveSettings["Auto Farm Misc"]["Auto Farm Elite Hunter Hop"] == false and AutoEliteHunterHop then AutoEliteHunterHop = false end
 		end
 	end)
 	Update17_3Tab:Toggle("Auto King Dough Hop",SaveSettings["Update17"]["Auto King Dough Hop"],function(v)
