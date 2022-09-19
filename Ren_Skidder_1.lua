@@ -4924,6 +4924,29 @@ syn.request(
 	CameraShakerR:Stop()
 	TickCheck = 0
 	spawn(function()
+		while wait() do
+			if Usefastattack then
+				if MethodFastAttack == "WhileAndWait" then
+					pcall(function()
+						AttackNoCD()
+					end)
+					wait(0.075555555)
+				end 
+			end
+		end
+	end)
+	spawn(function()
+		game:GetService("RunService").Stepped:Connect(function()
+			if Usefastattack then
+				if MethodFastAttack == "Run_Stepped" then
+					pcall(function()
+						AttackNoCD()
+					end)
+				end
+			end
+		end)
+	end)
+	spawn(function()
 		game:GetService("RunService").Stepped:Connect(function()
 			if Usefastattack then
 				pcall(function()
@@ -4933,18 +4956,18 @@ syn.request(
 		end)
 		while wait() do
 			if Usefastattack then
-				b = string.split(game.Stats.Workspace.Heartbeat:GetValueString(), ".")
-				fps = tonumber(b[1])
-				if fps > 10 then
-					pcall(function()
-						AttackNoCD()
-					end)
-					wait(0.05)
-				elseif fps <= 10 then
-					pcall(function()
-						AttackNoCD()
-					end)
-					wait()
+				if TickCheck <= 14 then
+					TickCheck = TickCheck + 1
+				elseif TickCheck > 14 then
+					TickCheck = 0
+				end
+				print(TickCheck.." Tick")
+				if TickCheck <= 10 then
+					MethodFastAttack = "Run_Stepped"
+					print(MethodFastAttack)
+				elseif TickCheck > 10 then
+					MethodFastAttack = "WhileAndWait"
+					wait(2.5)
 				end
 			end
 		end
@@ -4977,9 +5000,6 @@ syn.request(
 		SaveSettings["Main"]["Fast Tween"] = a
         FastTween = SaveSettings["Main"]["Fast Tween"]
         Save()
-	end)
-	fastattack = false
-	AutoFarmTab:Toggle("Fast Attack(Disabled)",SaveSettings["Main"]["Fast Attack"],function(a)
 	end)
 	if game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("Candies","Check") then
 		AutoFarmTab:Line()
@@ -8373,7 +8393,6 @@ syn.request(
 							if AutoFarmCakePrince and v.Name == "Cake Prince [Lv. 2300] [Raid Boss]" or v.Name == "Dough King [Lv. 2300] [Raid Boss]" and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
 								repeat wait()
 									pcall(function()
-										fastattack = false
 										if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
 											Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
 											Usefastattack = false
