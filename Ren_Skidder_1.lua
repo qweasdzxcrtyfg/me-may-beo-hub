@@ -4956,19 +4956,17 @@ syn.request(
 		end)
 		while wait() do
 			if Usefastattack then
-				if TickCheck <= 14 then
+				if TickCheck <= 17 then
 					TickCheck = TickCheck + 1.5
-				elseif TickCheck > 14 then
+				elseif TickCheck > 17 then
 					TickCheck = 0
 				end
-				print(TickCheck)
-				if TickCheck <= 10 then
+				if TickCheck <= 11.5 then
 					MethodFastAttack = "Run_Stepped"
-				elseif TickCheck > 10 then
+				elseif TickCheck > 11.5 then
 					MethodFastAttack = "WhileAndWait"
-					wait(1.75)
+					wait(2.25)
 				end
-				print(MethodFastAttack)
 			end
 		end
 	end)
@@ -8409,7 +8407,7 @@ syn.request(
 												}
 												game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 											end
-											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,30,30)
 											Click()
 										end
 									end)
