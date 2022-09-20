@@ -185,6 +185,7 @@ if BF then
 	if SaveSettings["Settings"]["Version"] ~= Version then
 		SaveSettings["Settings"]["Version"] = Version
 		delfolder("Nguoi Ngu")
+	end
     Save()
 	repeat wait()
 		print("Settings[Main][Selected Team]"..SaveSettings["Main"]["Selected Team"])
