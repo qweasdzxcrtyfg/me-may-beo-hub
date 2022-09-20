@@ -1,4 +1,4 @@
-print('Yes Sam Kak MakMak ')
+print('Skid lam cho')
 local placeId = game.PlaceId
 if placeId == 2753915549 or placeId == 4442272183 or placeId == 7449423635 then
     BF = true
@@ -182,6 +182,9 @@ if BF then
         end
     end
     Load()
+	if SaveSettings["Settings"]["Version"] ~= Version then
+		SaveSettings["Settings"]["Version"] = Version
+		delfolder("Nguoi Ngu")
     Save()
 	repeat wait()
 		print("Settings[Main][Selected Team]"..SaveSettings["Main"]["Selected Team"])
