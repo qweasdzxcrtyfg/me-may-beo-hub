@@ -1,4 +1,5 @@
 print('Skid lam cho')
+Version = 1.1
 local placeId = game.PlaceId
 if placeId == 2753915549 or placeId == 4442272183 or placeId == 7449423635 then
     BF = true
@@ -143,6 +144,7 @@ if BF then
 			["Auto King Dough"] = false,
 			["Auto King Dough Hop"] = false,
 			["Auto Unlock Dough Chip"] = false,
+			["Auto God Human"] = false,
 		}
     }
 	
@@ -182,7 +184,10 @@ if BF then
         end
     end
     Load()
-	if SaveSettings["Settings"]["Version"] ~= Version then
+	if SaveSettings["Settings"]["Version"] == nil then
+		print("Reloading You Settings")
+	end
+	if SaveSettings["Settings"]["Version"] == nil or SaveSettings["Settings"]["Version"] > Version or SaveSettings["Settings"]["Version"] < Version  then
 		SaveSettings["Settings"]["Version"] = Version
 		delfolder("Nguoi Ngu")
 	end
@@ -3999,9 +4004,6 @@ if BF then
 							if v.Humanoid:FindFirstChild("Animator") then
 								v.Humanoid.Animator:Destroy()
 							end
-							if v.Humanoid.Health > 0 then
-								--v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-							end
 							sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius",  math.huge)
 							v.Humanoid:ChangeState(11)
 						end
@@ -4012,9 +4014,6 @@ if BF then
 						v.HumanoidRootPart.CanCollide = false
 						if v.Humanoid:FindFirstChild("Animator") then
 							v.Humanoid.Animator:Destroy()
-						end
-						if v.Humanoid.Health > 0 then
-							v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 						end
 						sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius",  math.huge)
 						v.Humanoid:ChangeState(11)
@@ -4572,12 +4571,14 @@ syn.request(
 														HealthMin = v.Humanoid.MaxHealth*Persen/100
 														PosMon = v.HumanoidRootPart.CFrame
 														if v.Humanoid.Health <= HealthMin and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+															Usefastattack = false
 															EquipWeapon(game.Players.LocalPlayer.Data.DevilFruit.Value)
 															game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 40, 1)
 															DevilFruitMastery = game:GetService("Players").LocalPlayer.Character[game.Players.LocalPlayer.Data.DevilFruit.Value].Level.Value
 															PositionSkillMasteryDevilFruit = v.HumanoidRootPart.Position
 															UseSkillMasteryDevilFruit = true
 															if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Dragon-Dragon") then
+																Usefastattack = false
 																if SkillZ and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 and DevilFruitMastery >= 1 then
 																	game:service('VirtualInputManager'):SendKeyEvent(true, "Z", false, game)
 																	wait(.1)
@@ -4631,6 +4632,7 @@ syn.request(
 														else
 															UseSkillMasteryDevilFruit = false
 															EquipWeapon(SelectToolWeapon)
+															Usefastattack = true
 															Click()
 															if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
 																local args = {
@@ -4647,6 +4649,7 @@ syn.request(
 													if not string.find(game.Players.LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) then
 														game.ReplicatedStorage:WaitForChild("Remotes").CommF_:InvokeServer("AbandonQuest");
 													end
+													Usefastattack = false
 													StartMagnetAutoFarmLevel= false
 													Modstween = toTarget(CFrameMon.Position,CFrameMon)
 													if OldWorld and (Ms == "Fishman Commando [Lv. 400]" or Ms == "Fishman Warrior [Lv. 375]") and (CFrameQuest.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude > 50000 then
@@ -4872,7 +4875,6 @@ syn.request(
 								v.Humanoid.JumpPower = 0
 								v.Humanoid.WalkSpeed = 0
 								v.HumanoidRootPart.CanCollide = false
-								v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 								if v.Humanoid:FindFirstChild("Animator") then
 									v.Humanoid.Animator:Destroy()
 								end
@@ -4884,7 +4886,6 @@ syn.request(
 							v.Humanoid.JumpPower = 0
 							v.Humanoid.WalkSpeed = 0
 							v.HumanoidRootPart.CanCollide = false
-							v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 							if v.Humanoid:FindFirstChild("Animator") then
 								v.Humanoid.Animator:Destroy()
 							end
@@ -4975,7 +4976,7 @@ syn.request(
 		end
 	end)
 	
-	local Main = library:Window("Nguoi ngu","Version: 1.06")
+	local Main = library:Window("Nguoi ngu","Version: "..SaveSettings["Settings"]["Version"])
 	local AutoFarmTab = Main:Tab("Auto Farm")
 	local MainAutoFarmFunction = AutoFarm(Ms,NameQuest,LevelQuest,NameMon,CFrameMon,CFrameQuest,"AutoFarmLevel")
 	spawn(function()
@@ -6798,7 +6799,6 @@ syn.request(
 							v.Humanoid.JumpPower = 0
 							v.Humanoid.WalkSpeed = 0
 							v.HumanoidRootPart.CanCollide = false
-							--v.HumanoidRootPart.Size = Vector3.new(80,80,80)
 							if v.Humanoid:FindFirstChild("Animator") then
 								v.Humanoid.Animator:Destroy()
 							end
@@ -9735,7 +9735,6 @@ syn.request(
 		if FishTail == false then
 			game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.Search.TextBox.Text = "Fish Tail"
 			if game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.ScrollingFrame.Frame["1"].ItemName.Text == "Fish Tail" then
-				print("Founed MagmaOre")
 				FishTail = true
 			elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.ScrollingFrame.Frame["1"].ItemName.Text ~= "Fish Tail" then
 				FishTail = false
@@ -9751,12 +9750,11 @@ syn.request(
 		if MagmaOre == false then
 			game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.Search.TextBox.Text = "Magma Ore"
 			if game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.ScrollingFrame.Frame["1"].ItemName.Text == "Magma Ore" then
-				print("Founed MagmaOre")
 				MagmaOre = true
 			elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.ScrollingFrame.Frame["1"].ItemName.Text ~= "Magma Ore" then
 				MagmaOre = false
 			end
-		else
+		elseif MagmaOre == true and MagmaOreHas < 20 then
 			game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.Search.TextBox.Text = "Magma Ore"
 			ItemLine1 = tostring(game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.ScrollingFrame.Frame["1"].ItemLine1.Text)
 			ItemLine1_Number = ItemLine1:split("x")
@@ -9767,7 +9765,6 @@ syn.request(
 		if DragonScale == false then
 			game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.Search.TextBox.Text = "Dragon Scale"
 			if game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.ScrollingFrame.Frame["1"].ItemName.Text == "Dragon Scale" then
-				print("Founed MagmaOre")
 				DragonScale = true
 			elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.ScrollingFrame.Frame["1"].ItemName.Text ~= "Dragon Scale" then
 				DragonScale = false
@@ -9783,7 +9780,6 @@ syn.request(
 		if MysticDroplet == false then
 			game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.Search.TextBox.Text = "Mystic Droplet"
 			if game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.ScrollingFrame.Frame["1"].ItemName.Text == "Mystic Droplet" then
-				print("Founed MagmaOre")
 				MysticDroplet = true
 			elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.InventoryContainer.Right.Content.ScrollingFrame.Frame["1"].ItemName.Text ~= "Mystic Droplet" then
 				MysticDroplet = false
@@ -9807,11 +9803,14 @@ syn.request(
 	end
 	local GetStatsGodHuman = Update17_3Tab:Label("Status Of Auto God Human: nil")
 	local MeaterialsStats = Update17_3Tab:Label("Fish Tail, Magma Ore, Mystic Droplet: nil, nil, nil, nil")
-	Update17_3Tab:Toggle("Auto God Human",false,function(v)
-		AutoGodHuman = v 
+	Update17_3Tab:Toggle("Auto God Human",SaveSettings["Update17"]["Auto God Human"],function(v)
+		SaveSettings["Update17"]["Auto God Human"] = v
+		AutoGodHuman = SaveSettings["Update17"]["Auto God Human"]
+		AutoFarmMaTerials = v
 		while wait() do
 			if AutoGodHuman then
 				pcall(function()
+					CheckAllMaterials()
 					CheckAllMaterials()
 					MeaterialsStats:Refresh("Fish Tail, Magma Ore, Mystic Droplet: "..FishTailHas..", "..MagmaOreHas..", "..MysticDropletHas..", "..DragonScaleHas)
 					if FishTailHas >= 20  and MagmaOreHas >= 20 and MysticDropletHas >= 10 and DragonScaleHas >= 10 then
@@ -9845,7 +9844,7 @@ syn.request(
 					AutoFarmMaTerials = true
 					AutoFarmMaTerialsMode = "Magma Ore"
 					GetStatsGodHuman:Refresh("Get Magma Ore")
-				elseif FishTailHas >= 20 and MagmaOreHas >= 20 and MysticDropletHas < 10 then
+				elseif FishTailHas >= 20 and MagmaOreHas >= 20 and (MysticDropletHas < 10 or MysticDropletHas <= 9) then
 					AutoFarmMaTerials = true
 					AutoFarmMaTerialsMode = "Mystic Droplet"
 					GetStatsGodHuman:Refresh("Get Mystic Droplet")
@@ -9853,167 +9852,261 @@ syn.request(
 					AutoFarmMaTerials = true
 					AutoFarmMaTerialsMode = "Dragon Scale"
 					GetStatsGodHuman:Refresh("Get Dragon Scale")
+				elseif FishTailHas >= 20 and MagmaOreHas >= 20 and MysticDropletHas >= 10 and DragonScaleHas >= 10 then
+					AutoFarmMaTerials = false
+					AutoFarmMaTerialsMode = ""
 				end
 			end
 		end
 	end)
-	spawn(function()
-		while wait() do
-			if AutoGodHuman then
-				mobndistance = 0
-				SeaSolderindis = 0
-				WaterFighterIndis = 0
-				if FishTailHas < 20 then
-					FIshtailFarmer = true
+	function CheckCFrameGodHuman()
+		if AutoFarmMaTerialsMode == "Fish Tail" then
+			if game.PlaceId == 2753915549 then
+				pool = CFrame.new(60885.6172, 17.9492188, 1463.96851, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+				pool2 = CFrame.new(61855.4023, 18.0800781, 1499.61133, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+				if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-pool.Position).Magnitude <= 500 then
+					CFrameMonGodHuman = CFrame.new(61855.4023, 18.0800781, 1499.61133, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+					wait(5)
+				else
+					CFrameMonGodHuman = CFrame.new(60885.6172, 17.9492188, 1463.96851, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+					wait(5)
+				end
+				if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-pool.Position).Magnitude > 5000 then
+					local args = {
+						[1] = "requestEntrance",
+						[2] = Vector3.new(61163.8515625, 11.6796875, 1819.7841796875)
+					}
 					
-					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-						if v and v.Name ~= "" then
-							mobndistance = mobndistance + 1
-						end
-					end
-					if mobndistance == 0 then
-					end
-				elseif FishTailHas >= 20 and MagmaOreHas < 20 then
-					FIshtailFarmer = false
-				elseif MagmaOreHas >= 20 and MysticDropletHas < 20 then
-
-				elseif MysticDropletHas >= 10 and DragonScaleHas < 10 then
+					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+				end	
+			else
+				wait(5)
+				if AutoFarmMaTerialsMode == "Fish Tail" then
+					local args = {
+						[1] = "TravelMain" -- OLD WORLD to NEW WORLD
+					}
+					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+					wait(30)
 				end
 			end
+		elseif AutoFarmMaTerialsMode == "Magma Ore" then
+			if game.PlaceId == 2753915549 then
+				CFrameMonGodHuman = CFrame.new(-5638.07959, 39.9444771, 8614.80078, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+				UndwaterCity = CFrame.new(60885.6172, 17.9492188, 1463.96851, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+				pool2 = CFrame.new(61855.4023, 18.0800781, 1499.61133, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+				if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-UndwaterCity.Position).Magnitude <= 5000 then
+					local args = {
+						[1] = "requestEntrance",
+						[2] = Vector3.new(3864.6884765625, 6.736950397491455, -1926.214111328125)
+					}
+					
+					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+				end
+			else
+				wait(5)
+				if AutoFarmMaTerialsMode == "Magma Ore" then
+					local args = {
+						[1] = "TravelMain" -- OLD WORLD to NEW WORLD
+					}
+					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+					print("Teleporting to Sea 1")
+					wait(30)
+				end
+			end
+
+		elseif AutoFarmMaTerialsMode == "Mystic Droplet" then
+			if game.PlaceId == 4442272183 then
+				CFrameMonGodHuman = CFrame.new(-3442.94531, 312.611755, -10511.9414, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+				Pool1 = CFrame.new(-3442.94531, 312.611755, -10511.9414, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+				Pool2 = CFrame.new(-3373.10522, 92.2420578, -9775.41895, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+				if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Pool1.Position).Magnitude <= 100 then
+					CFrameMonGodHuman = CFrame.new(-3373.10522, 92.2420578, -9775.41895, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+					wait(5)
+				elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Pool2.Position).Magnitude <= 100 then
+					CFrameMonGodHuman = CFrame.new(-3442.94531, 312.611755, -10511.9414, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+					wait(5)
+				end
+			else
+				wait(5)
+				if AutoFarmMaTerialsMode == "Mystic Droplet" then
+					local args = {
+						[1] = "TravelDressrosa" -- NEW WORLD to OLD WORLD
+					}
+					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+					print("Teleporting to Sea 2")
+					wait(30)
+				end
+			end
+		elseif AutoFarmMaTerialsMode == "Dragon Scale" then
+			if game.PlaceId == 7449423635 then
+				CFrameMonGodHuman = CFrame.new(6241.9951171875, 51.522083282471, -1243.9771728516)
+				Pool1 = CFrame.new(6241.9951171875, 51.522083282471, -1243.9771728516)
+				Pool2 = CFrame.new(6488.9155273438, 383.38375854492, -110.66246032715)
+				if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Pool1.Position).Magnitude <= 250 then
+					CFrameMonGodHuman = Pool2
+					wait(5)
+				elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Pool2.Position).Magnitude <= 250 then
+					CFrameMonGodHuman = Pool1
+					wait(5)
+				end 
+			else
+				wait(5)
+				if AutoFarmMaTerialsMode == "Dragon Scale" then
+					local args = {
+						[1] = "TravelZou" -- OLD WORLD to NEW WORLD
+					}
+					print('Teleporting to Sea 3')
+					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+					wait(30)
+				end
+			end
+		end
+	end
+	spawn(function()
+		while wait() do
+			pcall(function()
+				CheckCFrameGodHuman()
+			end)
 		end
 	end)
 	spawn(function()
 		while wait() do 
 			if AutoFarmMaTerials then
 				if AutoFarmMaTerialsMode == "Fish Tail" then
-					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-						if game.Workspace.Enemies:FindFirstChild("Fishman Warrior [Lv. 375]") or game.Workspace.Enemies:FindFirstChild("Fishman Commando [Lv. 400]") then
-							if AutoGodHuman and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1500 then
+					if game.Workspace.Enemies:FindFirstChild("Fishman Warrior [Lv. 375]") or game.Workspace.Enemies:FindFirstChild("Fishman Commando [Lv. 400]") then
+						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+							if AutoFarmMaTerials and (v.Name == "Fishman Warrior [Lv. 375]" or v.Name == "Fishman Commando [Lv. 400]") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 5000 then
 								repeat wait()
 									pcall(function()
-										AutoMobAura = true
-										DistanceMobAura = 2500
+										if (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+											Questtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+										elseif (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+											if Questtween then Questtween:Stop() end
+											EquipWeapon(SelectToolWeapon)
+											Usefastattack = true
+											if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+												local args = {
+													[1] = "Buso"
+												}
+												game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+											end
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+											Click()
+										end
 									end)
-								until not AutoGodHuman or not v.Parent or v.Humanoid.Health <= 0 or FishTailHas >= 20
+								until not AutoFarmMaTerials or not v.Parent or v.Humanoid.Health <= 0 or not v 
 								Usefastattack = false
-								AutoMobAura = false
-							end
-						else
-							if game.PlaceId == 2753915549 then
-								pcall(function()
-									CFrameMonGodHuman = CFrame.new(60885.6172, 17.9492188, 1463.96851, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-									pool = CFrame.new(60885.6172, 17.9492188, 1463.96851, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-									if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-pool.Position).Magnitude <= 20 then
-										CFrameMonGodHuman = CFrame.new(61855.4023, 18.0800781, 1499.61133, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-									end
-									toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
-									if FIshtailFarmer and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-CFrameMonGodHuman.Position).Magnitude >= 5000 then
-										local args = {
-											[1] = "requestEntrance",
-											[2] = Vector3.new(3864.6884765625, 6.736950397491455, -1926.214111328125)
-										}
-										
-										game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-									end
-								end)
-							else
-								wait(5)
-								if FishTailHas < 20 then
-									local args = {
-										[1] = "TravelMain" -- OLD WORLD to NEW WORLD
-									}
-									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-									print('tele to sea 1 to farm magma ore')
-								end 
 							end
 						end
+					else
+						pcall(function()
+							toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
+						end)
 					end
 				elseif AutoFarmMaTerialsMode == "Magma Ore" then
-					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-						if game.Workspace.Enemies:FindFirstChild("Military Soldier [Lv. 300]") or game.Workspace.Enemies:FindFirstChild("Military Spy [Lv. 325]") then
-							if AutoGodHuman and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1500 then
+					if game.Workspace.Enemies:FindFirstChild("Military Soldier [Lv. 300]") or game.Workspace.Enemies:FindFirstChild("Military Spy [Lv. 325]") then
+						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+							if AutoFarmMaTerials and (v.Name == "Military Soldier [Lv. 300]" or v.Name == "Military Spy [Lv. 325]") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 5000 then
 								repeat wait()
 									pcall(function()
-										AutoMobAura = true
-										DistanceMobAura = 2500
+										if (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+											Questtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+										elseif (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+											if Questtween then Questtween:Stop() end
+											EquipWeapon(SelectToolWeapon)
+											Usefastattack = true
+											if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+												local args = {
+													[1] = "Buso"
+												}
+												game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+											end
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+											Click()
+											MagnetMobAura = true
+											if delay then
+												delay(1,function()
+													MagnetMobAura = true
+												end)
+											end
+										end
 									end)
-								until not AutoGodHuman or not v.Parent or v.Humanoid.Health <= 0 or MagmaOreHas >= 20
+								until not AutoFarmMaTerials or not v.Parent or v.Humanoid.Health <= 0
 								Usefastattack = false
-								AutoMobAura = false
-							end
-						else
-							if game.PlaceId == 2753915549 then
-								pcall(function()
-									CFrameMonGodHuman = CFrame.new(-5638.07959, 39.9444771, 8614.80078, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-									toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
-								end)
-							else
-								wait(5)
-								if FishTailHas >= 20 and MagmaOreHas < 20 then
-									local args = {
-										[1] = "TravelMain" -- OLD WORLD to NEW WORLD
-									}
-									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-								end 
 							end
 						end
+					else
+						pcall(function()
+							toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
+						end)
 					end
 				elseif AutoFarmMaTerialsMode == "Mystic Droplet" then
-					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-						if game.Workspace.Enemies:FindFirstChild("Sea Soldier [Lv. 1425]") or game.Workspace.Enemies:FindFirstChild("Water Fighter [Lv. 1450]") then
-							if AutoGodHuman and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1500 then
+					if game.Workspace.Enemies:FindFirstChild("Sea Soldier [Lv. 1425]") or game.Workspace.Enemies:FindFirstChild("Water Fighter [Lv. 1450]") then
+						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+							if AutoFarmMaTerials and (v.Name == "Sea Soldier [Lv. 1425]" or v.Name == "Water Fighter [Lv. 1450]") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 5000 then
 								repeat wait()
 									pcall(function()
-										AutoMobAura = true
-										DistanceMobAura = 2500
+										if (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+											Questtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+										elseif (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+											if Questtween then Questtween:Stop() end
+											EquipWeapon(SelectToolWeapon)
+											Usefastattack = true
+											if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+												local args = {
+													[1] = "Buso"
+												}
+												game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+											end
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+											Click()
+											MagnetMobAura = true
+											if delay then
+												delay(1,function()
+													MagnetMobAura = true
+												end)
+											end
+										end
 									end)
-								until not AutoGodHuman or not v.Parent or v.Humanoid.Health <= tonumber(0) or MysticDropletHas >= 10
+								until not AutoFarmMaTerials or not v.Parent or v.Humanoid.Health <= 0
 								Usefastattack = false
-								AutoMobAura = false
-							end
-						else
-							if game.PlaceId == 4442272183 then
-								print('cac')
-								CFrameMonGodHuman = CFrame.new(-3442.94531, 312.611755, -10511.9414, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-								pool = CFrame.new(-3442.94531, 312.611755, -10511.9414, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-								pcall(function()
-									if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-pool.Position).Magnitude <= 20 then
-										CFrameMonGodHuman = CFrame.new(-3373.10522, 92.2420578, -9775.41895, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-									end
-									toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
-								end)
-							else
-								local args = {
-									[1] = "TravelDressrosa" -- NEW WORLD to OLD WORLD
-								}
-								game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-								wait(10) 
 							end
 						end
+					else
+						pcall(function()
+							toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
+						end)
 					end
 				elseif AutoFarmMaTerialsMode == "Dragon Scale" then
-					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-						if game.Workspace.Enemies:FindFirstChild("Sea Soldier [Lv. 1425]") or game.Workspace.Enemies:FindFirstChild("Water Fighter [Lv. 1450]") then
-							if AutoGodHuman and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1500 then
+					if game.Workspace.Enemies:FindFirstChild("Dragon Crew Warrior [Lv. 1575]") or game.Workspace.Enemies:FindFirstChild("Dragon Crew Archer [Lv. 1600]") then
+						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+							if AutoFarmMaTerials and (v.Name == "Dragon Crew Warrior [Lv. 1575]" or v.Name == "Dragon Crew Archer [Lv. 1600]") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 5000 then
 								repeat wait()
 									pcall(function()
-										AutoMobAura = true
-										DistanceMobAura = 2500
+										if (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 350 then
+											Questtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+										elseif (v.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+											if Questtween then Questtween:Stop() end
+											EquipWeapon(SelectToolWeapon)
+											Usefastattack = true
+											if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+												local args = {
+													[1] = "Buso"
+												}
+												game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+											end
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0)
+											Click()
+										end
 									end)
-								until not AutoGodHuman or not v.Parent or v.Humanoid.Health <= tonumber(0) or DragonScaleHas >= 10
+								until not AutoFarmMaTerials or not v.Parent or v.Humanoid.Health <= 0 or not v 
 								Usefastattack = false
-								AutoMobAura = false
-							end
-						else
-							print('false')
-							if game.PlaceId == 7449423635 then
-								pcall(function()
-									CFrameMonGodHuman = CFrame.new()
-									toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
-								end)
-							else
 							end
 						end
+					else
+						pcall(function()
+							toTarget(CFrameMonGodHuman.Position,CFrameMonGodHuman)
+						end)
 					end
 				end 
 			end
