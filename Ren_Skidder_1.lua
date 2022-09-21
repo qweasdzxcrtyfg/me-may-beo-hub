@@ -9812,7 +9812,7 @@ syn.request(
 				pcall(function()
 					CheckAllMaterials()
 					CheckAllMaterials()
-					MeaterialsStats:Refresh("Fish Tail, Magma Ore, Mystic Droplet: "..FishTailHas..", "..MagmaOreHas..", "..MysticDropletHas..", "..DragonScaleHas)
+					MeaterialsStats:Refresh("Fish Tail,Magma Ore,Mystic Droplet,Dragon Scale: "..FishTailHas..", "..MagmaOreHas..", "..MysticDropletHas..", "..DragonScaleHas)
 					if FishTailHas >= 20  and MagmaOreHas >= 20 and MysticDropletHas >= 10 and DragonScaleHas >= 10 then
 						BuyGodhuman()
 					end
