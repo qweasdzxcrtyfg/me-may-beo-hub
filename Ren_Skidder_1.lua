@@ -1,5 +1,5 @@
 print('Skid lam cho')
-Version = 1.1
+Version = 1.12
 local placeId = game.PlaceId
 if placeId == 2753915549 or placeId == 4442272183 or placeId == 7449423635 then
     BF = true
@@ -189,7 +189,7 @@ if BF then
 	end
 	if SaveSettings["Settings"]["Version"] == nil or SaveSettings["Settings"]["Version"] > Version or SaveSettings["Settings"]["Version"] < Version  then
 		SaveSettings["Settings"]["Version"] = Version
-		delfolder("Nguoi Ngu")
+		delfile("/Nguoi Ngu/BLoxFruit-" .. game.Players.LocalPlayer.Name .. ".json")
 	end
     Save()
 	repeat wait()
@@ -9793,19 +9793,16 @@ syn.request(
 	end
 	function CheckAllMaterials()
 		CheckFishTail()
-		wait(0.1)
 		CheckMagmaOre()
-		wait(0.1)
 		CheckMysticDroplet()
-		wait(0.1)
 		CheckDragonScale()
-		wait(0.1)
 	end
 	local GetStatsGodHuman = Update17_3Tab:Label("Status Of Auto God Human: nil")
 	local MeaterialsStats = Update17_3Tab:Label("Fish Tail, Magma Ore, Mystic Droplet: nil, nil, nil, nil")
 	Update17_3Tab:Toggle("Auto God Human",SaveSettings["Update17"]["Auto God Human"],function(v)
 		SaveSettings["Update17"]["Auto God Human"] = v
 		AutoGodHuman = SaveSettings["Update17"]["Auto God Human"]
+		Save()
 		AutoFarmMaTerials = v
 		while wait() do
 			if AutoGodHuman then
@@ -9813,7 +9810,7 @@ syn.request(
 					CheckAllMaterials()
 					CheckAllMaterials()
 					MeaterialsStats:Refresh("Fish Tail,Magma Ore,Mystic Droplet,Dragon Scale: "..FishTailHas..", "..MagmaOreHas..", "..MysticDropletHas..", "..DragonScaleHas)
-					if FishTailHas >= 20  and MagmaOreHas >= 20 and MysticDropletHas >= 10 and DragonScaleHas >= 10 then
+					if FishTailHas >= 20  and MagmaOreHas >= 20 and MysticDropletHas >= 10 and DragonScaleHas >= 10 and PlayerFragMent >= 5000 and PlayerBeli >= 5000000 then
 						BuyGodhuman()
 					end
 				end)
