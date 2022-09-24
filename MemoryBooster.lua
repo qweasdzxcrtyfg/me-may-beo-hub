@@ -52,11 +52,12 @@ for _,v in pairs(workspace:GetDescendants()) do
     end
 end
 local UserInputService = game:GetService("UserInputService")
-RunService:Set3dRenderingEnabled(false)
 local RunService = game:GetService("RunService")
+RunService:Set3dRenderingEnabled(false)
+setfpscap(15)
 local WindowFocusReleasedFunction = function()
     RunService:Set3dRenderingEnabled(false)
-    setfpscap(10)
+    setfpscap(15)
 end
 local WindowFocusedFunction = function()
     RunService:Set3dRenderingEnabled(true)
