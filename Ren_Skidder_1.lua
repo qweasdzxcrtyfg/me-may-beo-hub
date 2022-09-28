@@ -4972,6 +4972,8 @@ syn.request(
 					MethodFastAttack = "WhileAndWait"
 					wait(2.25)
 				end
+			else
+				TickCheck = 0
 			end
 		end
 	end)
@@ -12460,67 +12462,53 @@ syn.request(
 		Target:InvokeServer(string_1, string_2);
 	end)
 	
-	local function RemoveSpaces(str)
-		return str:gsub(" Fruit", "")
+	
+	function StoreFruits()
+		NameFruit = ""
+		local function RemoveSpaces(str)
+			return str:gsub(" Fruit", "")
+		end
+		function nofruittext(text)
+			a = text:split("-")
+			return a[1]
+		end
+		for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+			if string.find(v.Name,"Fruit") then
+				local FruitName = RemoveSpaces(v.Name)
+				if v.Name == "Bird: Falcon Fruit" then
+					NameFruit = "Bird-Bird: Falcon"
+				elseif v.Name == "Bird: Phoenix Fruit" then
+					NameFruit = "Bird-Bird: Phoenix"
+				elseif v.Name == "Human: Buddha Fruit" then
+					NameFruit = "Human-Human: Buddha"
+				else
+					NameFruit = FruitName.."-"..FruitName
+				end
+			end
+		end
+		local args = {
+			[1] = "StoreFruit",
+			[2] = NameFruit,
+			[3] = game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(nofruittext(NameFruit).." Fruit")
+		}
+		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 	end
 	Devil_Fruit_Sniper_Tab:Toggle("Auto Store Fruits",false,function(a)
 		SaveSettings["Shop Devil Fruit"]["Auto Store Fruit"] = a
 		AutoStoreFruits = SaveSettings["Shop Devil Fruit"]["Auto Store Fruit"]
 		Save()
 		if AutoStoreFruits then
-			for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-				if string.find(v.Name,"Fruit") then
-					local FruitName = RemoveSpaces(v.Name)
-					if v.Name == "Bird: Falcon Fruit" then
-						NameFruit = "Bird-Bird: Falcon"
-					elseif v.Name == "Bird: Phoenix Fruit" then
-						NameFruit = "Bird-Bird: Phoenix"
-					elseif v.Name == "Human: Buddha Fruit" then
-						NameFruit = "Human-Human: Buddha"
-					else
-						NameFruit = FruitName.."-"..FruitName
-					end
-				end
-			end
-			
-			local string_1 = "StoreFruit";
-			local string_2 = NameFruit;
-			local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
-			Target:InvokeServer(string_1, string_2);
+			pcall(function()
+				StoreFruits()
+			end)
 		end
 	end)
 	spawn(function()
 		while wait() do
 			if AutoStoreFruits then wait()
-				for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-					if string.find(v.Name,"Fruit") then
-						local FruitName = RemoveSpaces(v.Name)
-						if v.Name == "Bird: Falcon Fruit" then
-							NameFruit = "Bird-Bird: Falcon"
-						elseif v.Name == "Bird: Phoenix Fruit" then
-							NameFruit = "Bird-Bird: Phoenix"
-						elseif v.Name == "Human: Buddha Fruit" then
-							NameFruit = "Human-Human: Buddha"
-						else
-							NameFruit = FruitName.."-"..FruitName
-						end
-	
-						local string_1 = "getInventoryFruits";
-						local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
-						for i1,v1 in pairs(Target:InvokeServer(string_1)) do
-							if v1.Name == NameFruit then
-								HaveFruitInStore = true
-							end
-						end
-						if not Have then
-							local string_1 = "StoreFruit";
-							local string_2 = NameFruit;
-							local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
-							Target:InvokeServer(string_1, string_2);
-						end
-						HaveFruitInStore = false
-					end
-				end
+				pcall(function()
+					StoreFruits()
+				end)
 			end
 		end
 	end)
