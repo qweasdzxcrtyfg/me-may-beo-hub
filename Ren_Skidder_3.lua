@@ -4947,7 +4947,28 @@ syn.request(
 		game:GetService("RunService").Stepped:Connect(function()
 			if Usefastattack then
 				pcall(function()
-					BringMob()
+					function MobInRender() 
+						cac = 0
+						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+							if v:IsA("Model") then
+								cac = cac + 1
+							end
+						end
+						return cac;
+					end
+					function MobInLeg()
+						coun111t = 0
+						leg = game.Players.LocalPlayer.Character.HumanoidRootPart * CFrame.new(0,-30,0)
+						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+							if (v.HumanoidRootPart.Position-leg.Position).Magnitude <= 4 then
+								coun111t = coun111t + 1
+							end
+						end
+						return coun111t;
+					end
+					if MobInLeg() <= MobInRender()/5 then 
+						BringMob()
+					end
 				end)
 			end
 		end)
@@ -7902,7 +7923,10 @@ syn.request(
 										end 
 									else
 										StatrMagnetEctoplasm = false
-										if (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
+										if (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 5000 then
+											if Farmtween then Farmtween:Stop() end
+											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(923.21252441406, 126.9760055542, 32852.83203125))
+										elseif (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
 											Farmtween = toTarget(CFrame.new(920.14447, 129.581833, 33442.168).Position,CFrame.new(920.14447, 129.581833, 33442.168))
 										elseif (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
 											if Farmtween then
@@ -7915,7 +7939,10 @@ syn.request(
 							until AutoFramEctoplasm == false or not v.Parent or v.Humanoid.Health <= 0
 							Usefastattack = false
 							StatrMagnetEctoplasm = false
-							if (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
+							if (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 5000 then
+								if Farmtween then Farmtween:Stop() end
+								game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(923.21252441406, 126.9760055542, 32852.83203125))
+							elseif (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 and (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 5000 then
 								Farmtween = toTarget(CFrame.new(920.14447, 129.581833, 33442.168).Position,CFrame.new(920.14447, 129.581833, 33442.168))
 							elseif (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
 								if Farmtween then
