@@ -2861,7 +2861,7 @@ if BF then
 				NameMon = "Monkey"
 				CFrameQuest = CFrame.new(-1598.08911, 35.5501175, 153.377838, 0, 0, 1, 0, 1, -0, -1, 0, 0)
 				CFrameMon = CFrame.new(-1402.74609, 98.5633316, 90.6417007, 0.836947978, 0, 0.547282517, -0, 1, -0, -0.547282517, 0, 0.836947978)
-			elseif MyLevel == 15 or MyLevel <= 29 then -- Gorilla
+			elseif MyLevel == 15 or MyLevel <= 19 then -- Gorilla
 				Nonquest = false
 				Ms = "Gorilla [Lv. 20]"
 				NameQuest = "JungleQuest"
@@ -2869,7 +2869,7 @@ if BF then
 				NameMon = "Gorilla"
 				CFrameQuest = CFrame.new(-1598.08911, 35.5501175, 153.377838, 0, 0, 1, 0, 1, -0, -1, 0, 0)
 				CFrameMon = CFrame.new(-1267.89001, 66.2034225, -531.818115, -0.813996196, -5.25169774e-08, -0.580869019, -5.58769671e-08, 1, -1.21082593e-08, 0.580869019, 2.26011476e-08, -0.813996196)
-			elseif MyLevel == 30 or MyLevel <= 59 then -- Galley Captain
+			elseif MyLevel == 20 or MyLevel <= 59 then -- Galley Captain
 				Nonquest = true
 				Ms = "Shanda [Lv. 475]"
 				NameQuest = "SkyExp1Quest"
@@ -2931,6 +2931,7 @@ if BF then
 				LevelQuest = 1
 				NameQuest = "PrisonerQuest"
 				NameMon = "Prisoner"
+				NoSmartBring = true
 				CFrameQuest = CFrame.new(5308.93115, 1.65517521, 475.120514, -0.0894274712, -5.00292918e-09, -0.995993316, 1.60817859e-09, 1, -5.16744869e-09, 0.995993316, -2.06384709e-09, -0.0894274712)
 				CFrameMon = CFrame.new(5433.39307, 88.678093, 514.986877, 0.879988372, 0, -0.474995494, 0, 1, 0, 0.474995494, 0, 0.879988372)
 			elseif MyLevel == 210 or MyLevel <= 249 then
@@ -2939,10 +2940,12 @@ if BF then
 				LevelQuest = 2
 				NameQuest = "PrisonerQuest"
 				NameMon = "Dangerous Prisoner"
+				NoSmartBring = false
 				CFrameQuest = CFrame.new(5308.93115, 1.65517521, 475.120514, -0.0894274712, -5.00292918e-09, -0.995993316, 1.60817859e-09, 1, -5.16744869e-09, 0.995993316, -2.06384709e-09, -0.0894274712)
 				CFrameMon = CFrame.new(5433.39307, 88.678093, 514.986877, 0.879988372, 0, -0.474995494, 0, 1, 0, 0.474995494, 0, 0.879988372)
 			elseif MyLevel == 250 or MyLevel <= 274 then -- Toga Warrior
 				Nonquest = false
+				NoSmartBring = true
 				Ms = "Toga Warrior [Lv. 250]"
 				NameQuest = "ColosseumQuest"
 				LevelQuest = 1
@@ -3987,7 +3990,6 @@ if BF then
 				if v.Name ==name then 
 					if not tong then tong = v.HumanoidRootPart.Position else tong = tong+v.HumanoidRootPart.Position end
 					c=c+1
-					v.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
 				end
 			end
 			tong=tong/c
@@ -4000,6 +4002,19 @@ if BF then
 			end
 		end
 		for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+			for _,f in pairs(v:GetChildren()) do
+				if v:IsA("BasePart") then
+					v.Velocity = Vector3.new(0,0,0)
+					v.CanCollide = 0
+				end
+			end
+			v.Humanoid.WalkSpeed = 0
+			v.Humanoid.JumpPower = 0
+			if v.Humanoid:FindFirstChild("Animator") then
+				v.Humanoid.Animator:Destroy()
+			end
+			sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius",  math.huge)
+			v.Humanoid:ChangeState(11)
 			for k,f in pairs(totalpos) do
 				if k and v.Name == k then
 					a = {
@@ -4007,8 +4022,13 @@ if BF then
 						[2] = f.Y,
 						[3] = f.Z
 					}
-					if (v.HumanoidRootPart.Position-CFrame.new(a[1],a[2],a[3]).Position).Magnitude > 3 and (v.HumanoidRootPart.Position-CFrame.new(a[1],a[2],a[3]).Position).Magnitude <= 350 then
-						v.HumanoidRootPart.CFrame = CFrame.new(a[1],a[2],a[3])
+					if (v.HumanoidRootPart.Position-CFrame.new(a[1],a[2],a[3]).Position).Magnitude > 3 and (v.HumanoidRootPart.Position-CFrame.new(a[1],a[2],a[3]).Position).Magnitude <= 349 then
+						if NoSmartBring then
+							v.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-30,0)
+						else
+							v.HumanoidRootPart.CFrame = CFrame.new(a[1],a[2],a[3])
+							v.HumanoidRootPart.CanCollide = false
+						end
 					end
 				end
 			end
@@ -4301,7 +4321,57 @@ syn.request(
 		function AutoFarmfunc:Stop()
 			farm = false
 		end
-	
+		function NoMob()
+			cac = {}
+			i = 0
+			Stop = false
+			nomobfunc = {}
+			function nomobfunc:Stop()
+				if Stop == false then
+					Stop = true
+					print("stopped")
+				end
+			end
+			for i,v in pairs(game:GetService("Workspace")["_WorldOrigin"].EnemySpawns:GetChildren()) do
+				if string.find(Ms,v.Name) then
+					if not cac[v.Name..i] then 
+						cac[v.Name..i] = v.CFrame
+					end
+				end
+			end
+			for i,v in next, cac do
+				if Stop == false and not game.Workspace.Enemies:FindFirstChild(Ms) then
+					repeat wait()
+						pcall(function()
+							if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Position).Magnitude <= 250000 then
+								pool = toTarget(v.Position,v * CFrame.new(0,-15,0))
+							else
+								if pool then pool:Stop() end
+								if OldWorld and (Ms == "Fishman Commando [Lv. 400]" or Ms == "Fishman Warrior [Lv. 375]") and (CFrameQuest.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude > 50000 then
+									if Modstween then Modstween:Stop() end wait(.5)
+									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(61163.8515625, 11.6796875, 1819.7841796875))
+								elseif OldWorld and not (Ms == "Fishman Commando [Lv. 400]" or Ms == "Fishman Warrior [Lv. 375]") and (CFrameQuest.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude > 50000 then
+									if Modstween then Modstween:Stop() end wait(.5)
+									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(3864.8515625, 6.6796875, -1926.7841796875))
+								elseif NewWorld and string.find(Ms, "Ship") and (CFrameQuest.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude > 30000 then
+									if Modstween then Modstween:Stop() end wait(.5)
+									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(923.21252441406, 126.9760055542, 32852.83203125))
+								elseif NewWorld and not string.find(Ms, "Ship") and (CFrameQuest.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude > 30000 then
+									if Modstween then Modstween:Stop() end wait(.5)
+									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-6508.5581054688, 89.034996032715, -132.83953857422))
+								elseif (CFrameMon.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
+									if Modstween then Modstween:Stop() end wait(.5)
+								end
+							end
+						end)
+					until (v.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 300
+					if pool then pool:Stop() end
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v * CFrame.new(0,-15,0)
+					wait(.5)
+				end
+			end
+			return nomobfunc;
+		end
 		spawn(function()
 			while true do
 				if farm then
@@ -4342,6 +4412,7 @@ syn.request(
 								Target:InvokeServer(string_1);
 							end
 							if game:GetService("Workspace").Enemies:FindFirstChild(Ms) then
+								if nomobbing then nomobbing:Stop() end
 								for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
 									if farm and v.Name == Ms and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
 										if string.find(game.Players.LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) or Nonquest == true then
@@ -4366,7 +4437,7 @@ syn.request(
 																vim:SendKeyEvent(true, "V", false, game)
 																vim:SendKeyEvent(false, "V", false, game)
 															end
-															game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 1)
+															game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, -20, 1)
 															Click()
 														end
 													end
@@ -4403,7 +4474,7 @@ syn.request(
 									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-6508.5581054688, 89.034996032715, -132.83953857422))
 								elseif (CFrameMon.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 350 then
 									if Modstween then Modstween:Stop() end wait(.5)
-									game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameMon
+									nomobbing = NoMob()
 								end
 							end
 						end
@@ -4944,34 +5015,18 @@ syn.request(
 		end)
 	end)
 	spawn(function()
-		game:GetService("RunService").Stepped:Connect(function()
+		while wait() do
 			if Usefastattack then
 				pcall(function()
-					function MobInRender() 
-						cac = 0
-						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-							if v:IsA("Model") then
-								cac = cac + 1
-							end
-						end
-						return cac;
-					end
-					function MobInLeg()
-						coun111t = 0
-						leg = game.Players.LocalPlayer.Character.HumanoidRootPart * CFrame.new(0,-30,0)
-						for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-							if (v.HumanoidRootPart.Position-leg.Position).Magnitude <= 4 then
-								coun111t = coun111t + 1
-							end
-						end
-						return coun111t;
-					end
-					if MobInLeg() <= MobInRender()/5 then 
-						BringMob()
-					end
+					BringMob()
+					Bringmob()
+					Bringmob()
+					wait(3)
 				end)
 			end
-		end)
+		end
+	end)
+	spawn(function()
 		while wait() do
 			if Usefastattack then
 				if TickCheck <= 17 then
@@ -7953,14 +8008,17 @@ syn.request(
 						end
 					end
 				else
-					if (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
+					if (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 5000 then
+						if Farmtween then Farmtween:Stop() end
+						game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(923.21252441406, 126.9760055542, 32852.83203125))
+					elseif (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 and (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 5000 then
 						Farmtween = toTarget(CFrame.new(920.14447, 129.581833, 33442.168).Position,CFrame.new(920.14447, 129.581833, 33442.168))
 					elseif (CFrame.new(920.14447, 129.581833, 33442.168).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
 						if Farmtween then
 							Farmtween:Stop()
 						end
 						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(920.14447, 129.581833, 33442.168, -0.999913812, 0, -0.0131403487, 0, 1, 0, 0.0131403487, 0, -0.999913812)
-					end 
+					end
 				end
 			end
 		end
