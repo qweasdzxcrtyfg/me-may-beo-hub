@@ -71,7 +71,7 @@ function Hop:Start()
             end
         end
     end
-    TelePort()
+    Teleport()
 end
 function Hop:Stop()
     CanHop = false
