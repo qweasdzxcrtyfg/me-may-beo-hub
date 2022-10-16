@@ -256,7 +256,7 @@ function playercount()
 end
 local timeInfo = os.date("*t")
 if MyAccount then
-    local NormalStats = "Lastest Check: "timeInfo.hour .. ":" .. timeInfo.min..":"..timeInfo.sec"\n-----Normal Stats-----\nLevel: "..game.Players.LocalPlayer.Data.Level.Value.."\nBeli: "..game.Players.LocalPlayer.Data.Beli.Value.."\bFragment: "..game:GetService("Players").LocalPlayer.Data.Fragments.Value.."\nRace: "..CheckRace().."\nWorld At: "..CheckWorld()
+    local NormalStats = "Lastest Check: "..timeInfo.hour .. ":" .. timeInfo.min..":"..timeInfo.sec.."\n-----Normal Stats-----\nLevel: "..game.Players.LocalPlayer.Data.Level.Value.."\nBeli: "..game.Players.LocalPlayer.Data.Beli.Value.."\bFragment: "..game:GetService("Players").LocalPlayer.Data.Fragments.Value.."\nRace: "..CheckRace().."\nWorld At: "..CheckWorld()
     local Melee = "\n-----Melee-----".."\n"..CheckAlreadyMelees()
     local DevilFruit = "\n"..CheckDevilFruit()
     local Sword = "\n-----Sword-----\n"..CheckInventory()
