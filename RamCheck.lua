@@ -237,10 +237,10 @@ function CheckRace()
         [2] = "1"
     }
     pcall(function()
-        if tonumber(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(cac5555))) == -2 then
-            RaceEvolued = "V2"
-        elseif tonumber(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(cac5555))) ~= -2 and V3 == true then
+        if tonumber(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(cac5555))) == -2 and V3 == true then
             RaceEvolued = "V3"
+        elseif tonumber(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(cac5555))) == -2 then
+            RaceEvolued = "V2"
         end
     end)
     toreturn = game:GetService("Players").LocalPlayer.Data.Race.Value.." "..RaceEvolued
