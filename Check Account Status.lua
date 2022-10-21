@@ -202,12 +202,14 @@ function CheckAccountIsAutoShudown()
     return a;
 end
 getgenv().CustomMessage = "Nigger"
+getgenv().DiscordUserId = 0
 function dontexeucte:SetCustomMessage(Message) getgenv().CustomMessage = Message end
 function dontexeucte:SetUrl(Url2) getgenv().URLLEVELMAX = Url2 end
+function dontexeucte:SetId(Id) getgenv().DiscordUserId = Id end
 function dontexeucte:Send()
     if getgenv().URLLEVELMAX == "" then return; end
     local HttpService = game:GetService("HttpService")
-    local Data =  {   
+    local Data =  {
         ["content"] = getgenv().CustomMessage.."<@"..getgenv().DiscordUserId..">",
         ["embeds"]= {
             {            
