@@ -201,6 +201,41 @@ function CheckAccountIsAutoShudown()
     end
     return a;
 end
+function CheckRace()
+    RaceEvolued = "V1"
+    V3 = false
+    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v.Name == "Agility" or v.Name == "Heightened Senses" or v.Name == "Water Body" or v.Name == "Heavenly Blood" or v.Name == "Energy Core" or v.Name == "Last Resort" then
+            V3 = true
+        end
+    end
+    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v.Name == "Agility" or v.Name == "Heightened Senses" or v.Name == "Water Body" or v.Name == "Heavenly Blood" or v.Name == "Energy Core" or v.Name == "Last Resort" then
+            V3 = true
+        end
+    end
+    local cac5555 = {
+        [1] = "Alchemist",
+        [2] = "1"
+    }
+    pcall(function()
+        if tonumber(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(cac5555))) == -2 and V3 == true then
+            RaceEvolued = "V3"
+        elseif tonumber(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(cac5555))) == -2 then
+            RaceEvolued = "V2"
+        end
+    end)
+    toreturn = game:GetService("Players").LocalPlayer.Data.Race.Value.." "..RaceEvolued
+    return toreturn;
+end
+function playercount()
+    count = 0 
+    for i,v in pairs(game.Players.LocalPlayer:GetChildren()) do
+        if v then
+            count = count+1
+        end
+    end
+end
 getgenv().CustomMessage = "Nigger"
 getgenv().DiscordUserId = 0
 function dontexeucte:SetCustomMessage(Message) getgenv().CustomMessage = Message end
@@ -224,7 +259,7 @@ function dontexeucte:Send()
                     },
                     {
                         ["name"]= "Normal Stats:",
-                        ["value"]= "```Level: "..game:GetService("Players").LocalPlayer.Data.Level.Value.."\nBeli: "..game:GetService("Players").LocalPlayer.Data.Beli.Value.."\nFragment: "..game:GetService("Players").LocalPlayer.Data.Fragments.Value.."\nRace: "..game:GetService("Players").LocalPlayer.Data.Race.Value.."\nWorld In: "..CheckWorld().."```",
+                        ["value"]= "```Level: "..game:GetService("Players").LocalPlayer.Data.Level.Value.."\nBeli: "..game:GetService("Players").LocalPlayer.Data.Beli.Value.."\nFragment: "..game:GetService("Players").LocalPlayer.Data.Fragments.Value.."\nRace: "..CheckRace().."\nWorld In: "..CheckWorld().."```",
                         ["inline"]= true
                     },
                     {
