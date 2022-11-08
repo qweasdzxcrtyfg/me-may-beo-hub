@@ -262,12 +262,13 @@ function shortcheck()
             "DragonTalon",
             "Superhuman",
             "Godhuman",
-            "EletricClaw",
+            "ElectricClaw",
             "SharkmanKarate",
             "DeathStep",
         }
         for i,v in pairs(meleetable) do
             if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buy"..v,true) == 1 then
+                print(v)
                 meleecoss = meleecoss + 1
             end
         end
