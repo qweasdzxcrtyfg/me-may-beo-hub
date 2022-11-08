@@ -253,10 +253,75 @@ function playercount()
             count = count+1
         end
     end
+    return count;
 end
-local timeInfo = os.date("*t")
+function shortcheck()
+    function MeleeCount()
+        meleecoss = 0
+        meleetable = {
+            "DragonTalon",
+            "Superhuman",
+            "Godhuman",
+            "EletricClaw",
+            "SharkmanKarate",
+            "DeathStep",
+        }
+        for i,v in pairs(meleetable) do
+            if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buy"..v,true) == 1 then
+                meleecoss = meleecoss + 1
+            end
+        end
+        return meleecoss;
+    end
+    function CheckItem(Itememe)
+        concncncncnc = false
+        for i,v in pairs(game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("getInventory")) do
+            if v.Name == Itememe then
+                concncncncnc = true
+            end
+        end
+        return concncncncnc;
+    end
+    function iscdk()
+        cdk = ""
+        if CheckItem("Cursed Dual Katana") then
+            cdk = "-CDK"
+        end
+        return cdk;
+    end
+    function issg()
+        sg = ""
+        if CheckItem("Soul Guitar") then
+            sg="-SG"
+        end
+        return sg;
+    end
+    function isttk()
+        ttk = ""
+        if CheckItem("TTK") then
+            ttk = "-TTK"
+        end
+        return ttk;
+    end
+    function ishs()
+        hs = ""
+        if CheckItem("Hallow Scythe") then
+            hs="-HS"
+        end
+        return hs;
+    end
+    print(tostring(MeleeCount()))
+    print(tostring(iscdk()))
+    print(tostring(issg()))
+    print(tostring(ishs()))
+    print(tostring(isttk()))
+    getmad = game.Players.LocalPlayer.Data.Level.Value.."-"..tostring(MeleeCount())..tostring(iscdk())..tostring(issg())..tostring(ishs())..tostring(isttk())
+    return getmad;
+end
+local timeInfo = os.date("!*t")
+local ngay = timeInfo.day.."/"..timeInfo.month.."/"..timeInfo.year.." "..timeInfo.hour..":"..timeInfo.min..":"..timeInfo.sec
 if MyAccount then
-    local NormalStats = "Lastest Check: "..timeInfo.hour .. ":" .. timeInfo.min..":"..timeInfo.sec.."\n-----Normal Stats-----\nLevel: "..game.Players.LocalPlayer.Data.Level.Value.."\nBeli: "..game.Players.LocalPlayer.Data.Beli.Value.."\bFragment: "..game:GetService("Players").LocalPlayer.Data.Fragments.Value.."\nRace: "..CheckRace().."\nWorld At: "..CheckWorld()
+    local NormalStats = "Lastest Check: "..ngay.."\n-----Normal Stats-----\nLevel: "..game.Players.LocalPlayer.Data.Level.Value.."\nBeli: "..game.Players.LocalPlayer.Data.Beli.Value.."\bFragment: "..game:GetService("Players").LocalPlayer.Data.Fragments.Value.."\nRace: "..CheckRace().."\nWorld At: "..CheckWorld()
     local Melee = "\n-----Melee-----".."\n"..CheckAlreadyMelees()
     local DevilFruit = "\n"..CheckDevilFruit()
     local Sword = "\n-----Sword-----\n"..CheckInventory()
@@ -264,5 +329,6 @@ if MyAccount then
     local ServerStats = playercount()
     local description = NormalStats..tostring(Melee)..tostring(DevilFruit)..tostring(Sword)..tostring(FruitStored)
     local description2 = CheckDevilFruit()
+    MyAccount:SetAlias(shortcheck())
     MyAccount:SetDescription(description.."\nCredit to fb.com/jeffv12345")
 end
