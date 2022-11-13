@@ -12900,7 +12900,7 @@ if BF then
 				end
 				if TickCheck >= 6 then
 					MethodFastAttack = "WhileAndWait"
-					wait(2.5)
+					wait(5.5)
 				elseif TickCheck <= 5 then
 					MethodFastAttack = "Run_Stepped"
 				end
