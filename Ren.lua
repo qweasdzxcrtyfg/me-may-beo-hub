@@ -4077,34 +4077,34 @@ if BF then
                 end
             end
             bladehit = cac
-            if #bladehit > 0 then
-                local u8 = debug.getupvalue(AC.attack, 5)
-                local u9 = debug.getupvalue(AC.attack, 6)
-                local u7 = debug.getupvalue(AC.attack, 4)
-                local u10 = debug.getupvalue(AC.attack, 7)
-                local u12 = (u8 * 798405 + u7 * 727595) % u9
-                local u13 = u7 * 798405
-                (function()
-                    u12 = (u12 * u9 + u13) % 1099511627776
-                    u8 = math.floor(u12 / u9)
-                    u7 = u12 - u8 * u9
-                end)()
-                u10 = u10 + 1
-                debug.setupvalue(AC.attack, 5, u8)
-                debug.setupvalue(AC.attack, 6, u9)
-                debug.setupvalue(AC.attack, 4, u7)
-                debug.setupvalue(AC.attack, 7, u10)
-                pcall(function()
-                    if plr.Character:FindFirstChildOfClass("Tool") and AC.blades and AC.blades[1] then
-                        AC.animator.anims.basic[1]:Play(0.000001,0.000001,0.000001)
-                        game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetCurrentBlade()))
-                        game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
-                        game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
+			pcall(function()
+				if #bladehit > 0 then
+					local u8 = debug.getupvalue(AC.attack, 5)
+					local u9 = debug.getupvalue(AC.attack, 6)
+					local u7 = debug.getupvalue(AC.attack, 4)
+					local u10 = debug.getupvalue(AC.attack, 7)
+					local u12 = (u8 * 798405 + u7 * 727595) % u9
+					local u13 = u7 * 798405
+					(function()
+						u12 = (u12 * u9 + u13) % 1099511627776
+						u8 = math.floor(u12 / u9)
+						u7 = u12 - u8 * u9
+					end)()
+					u10 = u10 + 1
+					debug.setupvalue(AC.attack, 5, u8)
+					debug.setupvalue(AC.attack, 6, u9)
+					debug.setupvalue(AC.attack, 4, u7)
+					debug.setupvalue(AC.attack, 7, u10)
+					if plr.Character:FindFirstChildOfClass("Tool") and AC.blades and AC.blades[1] then
+						AC.animator.anims.basic[1]:Play(0.000001,0.000001,0.000001)
+						game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetCurrentBlade()))
+						game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
+						game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
 						print(delay)
 						wait(delay)
-                    end
-                end)
-            end
+					end
+				end
+			end)
         end
 	end
 	function Click()
@@ -7051,14 +7051,16 @@ if BF then
 	end)
 	spawn(function()
 		while wait() do wait(40)
-			pcall(function()
-				if Observation and not game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
+			if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ScreenGui") then
+				pcall(function()
+					if Observation and not game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
 					ObservationVirtualUser:CaptureController()
 					ObservationVirtualUser:SetKeyDown('0x65')
 					wait(2)
 					ObservationVirtualUser:SetKeyUp('0x65')
-				end
-			end)
+					end
+				end)
+			end
 		end
 	end)
 	AutoFarmMiscTab:Line()
