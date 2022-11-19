@@ -5947,7 +5947,7 @@ if BF then
 				end
 			end
 			if AUTOHAKIObs then 
-				if game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui") and game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
+				if game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui") and game.Players.LocalPlayer.PlayerGui:FindFirstChild("ScreenGui") and game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
 				else wait(1)
 					game:service('VirtualUser'):CaptureController()
 					game:service('VirtualUser'):SetKeyDown('0x65')
