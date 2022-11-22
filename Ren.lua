@@ -3830,7 +3830,7 @@ if BF then
 		["Desert Officer [Lv. 70]"] = true,
 		["Snow Bandit [Lv. 90]"] = true,
 		["Snowman [Lv. 100]"] = true,
-		["Chief Petty Officer [Lv. 120]"] = true,
+		["Chief Petty Officer [Lv. 120]"] = false,
 		["Sky Bandit [Lv. 150]"] = true,
 		["Dark Master [Lv. 175]"] = true,
 		["Prisoner [Lv. 190]"] = false,
@@ -4213,6 +4213,7 @@ if BF then
 			farm = false
 		end
 		function NoMob()
+			CheckQuest()
 			cac = {}
 			i = 0
 			Stop = false
@@ -4223,10 +4224,28 @@ if BF then
 					print("stopped")
 				end
 			end
+			function GetNearestEnemyRegion()
+				infdis = math.huge
+				choose = false
+				for i,v in pairs(game:GetService("Workspace")["_WorldOrigin"].EnemyRegions:GetChildren()) do
+					if (v.Position-CFrameQuest.Position).Magnitude <= infdis then
+						infdis = (v.Position-CFrameQuest.Position).Magnitude
+					end
+				end
+				for i,v in pairs(game:GetService("Workspace")["_WorldOrigin"].EnemyRegions:GetChildren()) do
+					if (v.Position-CFrameQuest.Position).Magnitude <= infdis then
+						choose = v
+					end
+				end
+				print(choose.Name)
+				return choose;
+			end
 			for i,v in pairs(game:GetService("Workspace")["_WorldOrigin"].EnemySpawns:GetChildren()) do
 				if string.find(Ms,v.Name) or v.Name == Ms then
-					if not cac[v.Name..i] then 
-						cac[v.Name..i] = v.CFrame
+					if (v.Position-GetNearestEnemyRegion().Position).Magnitude <= 750 then
+						if not cac[v.Name..i] then 
+							cac[v.Name..i] = v.CFrame
+						end
 					end
 				end
 			end
@@ -4255,10 +4274,10 @@ if BF then
 								end
 							end
 						end)
-					until (v.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 300
+					until (v.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 300 or Stop == true or game.Workspace.Enemies:FindFirstChild(Ms)
 					if pool then pool:Stop() end
 					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v * CFrame.new(0,10,0)
-					wait(.5)
+					wait()
 				end
 			end
 			return nomobfunc;
@@ -12430,13 +12449,13 @@ if BF then
 								HaveFruitInStore = true
 							end
 						end
-						if not Have then
+						if not HaveFruitInStore then
 							local string_1 = "StoreFruit";
 							local string_2 = NameFruit;
 							local Target = game:GetService("ReplicatedStorage").Remotes["CommF_"];
 							Target:InvokeServer(string_1, string_2);
 						end
-						HaveFruitInStore = false
+						HaveFruitInStore = true
 					end
 				end
 			end
