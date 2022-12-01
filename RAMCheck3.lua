@@ -234,7 +234,7 @@ function GetMastery(ung)
             newkes[ung] = newkes[ung]..tostring(v["Name"]).." "..tostring(v["Mastery"])..", "
         end
     end
-    return newkes[ung];
+    return "\nMastery: "..newkes[ung];
 end
 function isinventoryontop()
     cailonto = ""
