@@ -217,7 +217,7 @@ function CheckRace()
             RaceEvolued = "V2"
         end
     end)
-    toreturn = game:GetService("Players").LocalPlayer.Data.Race.Value.." "..RaceEvolued
+    toreturn = "Race: "..game:GetService("Players").LocalPlayer.Data.Race.Value.." "..RaceEvolued
     return toreturn;
 end
 function PlayerCount()
@@ -251,8 +251,9 @@ if RAMPANEL then
     while wait() do
         print("Getting account...")
         RAMPANEL:SetAlias("Level: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount()..btwisshortinformation())
-        print(InventoryOnTop)
         RAMPANEL:SetDescription(isinventoryontop())
+        print("Level: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount()..btwisshortinformation())
+        print(isinventoryontop())
         wait(30)
     end
 end
