@@ -1,3 +1,8 @@
+getgenv().ChooseTeam = "Pirate"
+getgenv().FruitInventoryRarity = 3 -->= 3
+getgenv().InventoryRarity = 4 -->= 4
+getgenv().AliasInformation = true
+getgenv().InventoryOnTop = true
 repeat wait() until game:IsLoaded()
 repeat wait() until game.Players
 repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
@@ -243,9 +248,12 @@ end
 local RAMAccount = loadstring(game:HttpGet'https://raw.githubusercontent.com/ic3w0lf22/Roblox-Account-Manager/master/RAMAccount.lua')()
 local RAMPANEL = RAMAccount.new(game:GetService'Players'.LocalPlayer.Name)
 if RAMPANEL then 
-    print("Getting account...")
-    RAMPANEL:SetAlias("Level: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount()..btwisshortinformation())
-    print(InventoryOnTop)
-    RAMPANEL:SetDescription(isinventoryontop())
+    while wait() do
+        print("Getting account...")
+        RAMPANEL:SetAlias("Level: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount()..btwisshortinformation())
+        print(InventoryOnTop)
+        RAMPANEL:SetDescription(isinventoryontop())
+        wait(30)
+    end
 end
 --("Level: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount().."Inventory: "..GetListWeapon(getgenv().InventoryRarity).."\nInventory Fruit: "..getInventoryFruits(getgenv().FruitInventoryRarity).."\n"..CheckDevilFruit())
