@@ -1,8 +1,3 @@
-getgenv().ChooseTeam = "Pirate"
-getgenv().FruitInventoryRarity = 3 -->= 3
-getgenv().InventoryRarity = 4 -->= 4
-getgenv().AliasInformation = true
-getgenv().InventoryOnTop = true
 repeat wait() until game:IsLoaded()
 repeat wait() until game.Players
 repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
@@ -239,9 +234,9 @@ end
 function isinventoryontop()
     cailonto = ""
     if getgenv().InventoryOnTop then
-        cailonto = "Inventory: "..GetListWeapon(getgenv().InventoryRarity)..GetMastery(getgenv().InventoryRarity).."\nInventory Fruit: "..getInventoryFruits(getgenv().FruitInventoryRarity).."\nLevel: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount().."\nBeli: "..formatNumber(game.Players.LocalPlayer.Data.Beli.Value).."\nFragment: "..formatNumber(game.Players.LocalPlayer.Data.Fragments.Value).."\nWorld: "..CheckWorld().."\nPlayers: "..PlayerCount().."\n"..CheckDevilFruit()
+        cailonto = "Inventory: "..GetListWeapon(getgenv().InventoryRarity)..GetMastery(getgenv().InventoryRarity).."\nInventory Fruit: "..getInventoryFruits(getgenv().FruitInventoryRarity).."\nLevel: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount().."\nBeli: "..formatNumber(game.Players.LocalPlayer.Data.Beli.Value).."\nFragment: "..formatNumber(game.Players.LocalPlayer.Data.Fragments.Value).."\n"..CheckRace().."\nWorld: "..CheckWorld().."\nPlayers: "..PlayerCount().."\n"..CheckDevilFruit()
     else
-        cailonto = "Level: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount().."\nBeli: "..formatNumber(game.Players.LocalPlayer.Data.Beli.Value).."\nFragment: "..formatNumber(game.Players.LocalPlayer.Data.Fragments.Value).."\nWorld: "..CheckWorld().."\nPlayers: "..PlayerCount().."\n"..CheckDevilFruit().."\nInventory: "..GetListWeapon(getgenv().InventoryRarity).."\nInventory Fruit: "..GetMastery(getgenv().InventoryRarity)..getInventoryFruits(getgenv().FruitInventoryRarity)
+        cailonto = "Level: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount().."\nBeli: "..formatNumber(game.Players.LocalPlayer.Data.Beli.Value).."\nFragment: "..formatNumber(game.Players.LocalPlayer.Data.Fragments.Value).."\n"..CheckRace().."\nWorld: "..CheckWorld().."\nPlayers: "..PlayerCount().."\n"..CheckDevilFruit().."\nInventory: "..GetListWeapon(getgenv().InventoryRarity).."\nInventory Fruit: "..GetMastery(getgenv().InventoryRarity)..getInventoryFruits(getgenv().FruitInventoryRarity)
     end
     return cailonto;
 end
