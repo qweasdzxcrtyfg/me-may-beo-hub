@@ -226,12 +226,22 @@ end
 function formatNumber(v)
     return tostring(v):reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
 end
+function GetMastery(ung)
+    newkes = {}
+    newkes[ung] = ""
+    for k,v in pairs(game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("getInventory")) do
+        if v["Rarity"] >= ung and (v["Type"] == "Sword" or v["Type"] == "Gun") then
+            newkes[ung] = newkes[ung]..tostring(v["Name"]).." "..tostring(v["Mastery"])..", "
+        end
+    end
+    return newkes[ung];
+end
 function isinventoryontop()
     cailonto = ""
     if getgenv().InventoryOnTop then
-        cailonto = "Inventory: "..GetListWeapon(getgenv().InventoryRarity).."\nInventory Fruit: "..getInventoryFruits(getgenv().FruitInventoryRarity).."\nLevel: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount().."\nBeli: "..formatNumber(game.Players.LocalPlayer.Data.Beli.Value).."\nFragment: "..formatNumber(game.Players.LocalPlayer.Data.Fragments.Value).."\nWorld: "..CheckWorld().."\nPlayers: "..PlayerCount().."\n"..CheckDevilFruit()
+        cailonto = "Inventory: "..GetListWeapon(getgenv().InventoryRarity)..GetMastery(ung)(getgenv().InventoryRarity).."\nInventory Fruit: "..getInventoryFruits(getgenv().FruitInventoryRarity).."\nLevel: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount().."\nBeli: "..formatNumber(game.Players.LocalPlayer.Data.Beli.Value).."\nFragment: "..formatNumber(game.Players.LocalPlayer.Data.Fragments.Value).."\nWorld: "..CheckWorld().."\nPlayers: "..PlayerCount().."\n"..CheckDevilFruit()
     else
-        cailonto = "Level: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount().."\nBeli: "..formatNumber(game.Players.LocalPlayer.Data.Beli.Value).."\nFragment: "..formatNumber(game.Players.LocalPlayer.Data.Fragments.Value).."\nWorld: "..CheckWorld().."\nPlayers: "..PlayerCount().."\n"..CheckDevilFruit().."\nInventory: "..GetListWeapon(getgenv().InventoryRarity).."\nInventory Fruit: "..getInventoryFruits(getgenv().FruitInventoryRarity)
+        cailonto = "Level: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount().."\nBeli: "..formatNumber(game.Players.LocalPlayer.Data.Beli.Value).."\nFragment: "..formatNumber(game.Players.LocalPlayer.Data.Fragments.Value).."\nWorld: "..CheckWorld().."\nPlayers: "..PlayerCount().."\n"..CheckDevilFruit().."\nInventory: "..GetListWeapon(getgenv().InventoryRarity).."\nInventory Fruit: "..GetMastery(ung)(getgenv().InventoryRarity)..getInventoryFruits(getgenv().FruitInventoryRarity)
     end
     return cailonto;
 end
