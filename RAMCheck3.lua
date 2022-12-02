@@ -258,3 +258,4 @@ if RAMPANEL then
     end
 end
 --("Level: "..game.Players.LocalPlayer.Data.Level.Value.." | "..MeleeCount().."Inventory: "..GetListWeapon(getgenv().InventoryRarity).."\nInventory Fruit: "..getInventoryFruits(getgenv().FruitInventoryRarity).."\n"..CheckDevilFruit())
+return true;
