@@ -6,6 +6,7 @@ function Notify(title,text,Ti2me)
         Content = text,
         Time = Ti2me
     })
+    print(title,text,Ti2me)
 end
 repeat wait() until game:IsLoaded()
 repeat wait() until game.Players
